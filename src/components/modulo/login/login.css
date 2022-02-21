@@ -1,0 +1,43 @@
+.login-modulo{
+    border-radius: 5px;
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    box-shadow: 0px 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+
+}
+
+.feide-wrapper img {
+    width:50px;
+    height: auto;
+    margin: 4px;
+    border:solid 2px lightgray;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.feide-wrapper{
+    border: solid 2px lightgray;
+    border-radius: 5px;
+    height: auto;
+    width: 90%;
+}
+
+.login-arrow{
+    display: inline;
+    float:right;
+    padding-right: 20px;
+    color: lightgray;
+}
+.feide-login{
+    display: flex;
+    align-items: center;
+}
+.arrow-wrapper{
+    width: 100%;
+    flex-grow:1;
+}
