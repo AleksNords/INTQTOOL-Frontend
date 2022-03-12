@@ -3,3 +3,8 @@
     height:50px;
     background-color: #00509e;
 }
+
+.navbar h3 {
+    text-align: center;
+    cursor: pointer;
+}

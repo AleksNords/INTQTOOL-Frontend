@@ -3,25 +3,54 @@ import './index.css';
 import App from './App';
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-import {createStore, applyMiddleware, compose} from "redux";
-import dataReducer from "./store/reducer/dataReducer";
-import thunk from "redux-thunk";
+import {applyMiddleware, compose, createStore} from "redux";
 import {BrowserRouter} from 'react-router-dom';
-
-const reduxStore = createStore(
-    dataReducer,
-    compose(applyMiddleware(thunk))
-);
+import reducer from "./store/reducer";
+import { getConfiguredCache } from "money-clip";
+import getPersistMiddleware from "redux-persist-middleware";
 
 const rootElement = document.getElementById('root');
-ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={reduxStore}>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </Provider>
-    </React.StrictMode>,
-    rootElement
-);
+const cache = getConfiguredCache();
+
+const userActionMap = {
+    "SET_USER":["userReducer"]
+};
+
+const loginStatusActionMap = {
+    "SET_LOGGED":["isLoggedReducer"]
+};
+
+const persistUser = getPersistMiddleware({
+    cacheFn: cache.set,
+    logger:console.info,
+    actionMap: userActionMap
+});
+
+const persistLoginStatus = getPersistMiddleware({
+    cacheFn: cache.set,
+    logger:console.info,
+    actionMap: loginStatusActionMap
+});
+
+cache.getAll().then((data)=>{
+    const store = createStore(
+        reducer,
+        data,
+        compose(applyMiddleware(persistUser,persistLoginStatus),
+            window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+
+    ReactDOM.render(
+        <React.StrictMode>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App/>
+                </BrowserRouter>
+            </Provider>
+        </React.StrictMode>,
+        rootElement
+    );
+});
+
 
