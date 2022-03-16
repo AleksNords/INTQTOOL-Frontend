@@ -1,6 +1,10 @@
+html{
+    font-size: 62.5%;
+}
 body{
     margin:0;
-    background-color: #353544;
+    background-color: white;
+    font-family: 'Trebuchet MS';
 }
 
 .App{
@@ -13,6 +17,7 @@ body{
 .center-content{
     flex-grow:1;
     min-width: 100vw;
+
     display: flex;
     align-items: center;
     justify-content: center;

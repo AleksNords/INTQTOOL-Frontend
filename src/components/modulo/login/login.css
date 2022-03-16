@@ -1,74 +1,71 @@
-.login-modulo{
-    border-radius: 5px;
-    width: 500px;
-    height: 300px;
-    background-color: white;
-    box-shadow: 0px 5px 15px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
 
-}
-
-.login-wrapper img {
-    width:50px;
-    height: auto;
-    margin: 4px;
-    border:solid 2px lightgray;
-    padding: 2px;
-    border-radius: 5px;
+body{
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .login-wrapper{
-    border: solid 2px lightgray;
-    border-radius: 5px;
-    height: auto;
-    width: 90%;
-    cursor:pointer;
+    z-index: 1;
+    width: 33rem;
+    height:44rem;
+    background-color: white;
+    border-radius:10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.login-arrow{
-    display: inline;
-    float:right;
-    padding-right: 20px;
-    color: lightgray;
-}
-.feide-login{
-    display: flex;
-    align-items: center;
-}
-.arrow-wrapper{
-    width: 100%;
+.login-fields{
+    align-self: center;
+    display:flex;
     flex-grow:1;
-}
-
-.guest-login{
-    background-color: white;
-    border-radius: 5px;
-    width: 500px;
-    height: 300px;
-    background-color: white;
-    box-shadow: 0px 5px 15px;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100%;
-}
-
-.guest-login-fields Label{
-    float: left;
-}
-.guest-login-fields{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
     justify-content: center;
+    width:25rem;
+    height: 6rem;
+}
+.login-fields label{
+    float:left;
+    width:100%;
+    margin-top: 3rem;
+    font-weight:600;
+    font-size:1.4rem;
+}
+.login-form-field{
+    width:25rem;
+    height:3rem;
+
+    border-radius: 5px;
 }
 
-.login-submit-btn{
-    margin: 15px 20px;
-    height: 40px;
+.login-form-submitButton{
+    border-radius: 5px;
+    background-color: #1C5BA5;
+    color: white;
+    font-family: "Trebuchet MS";
+    width: 16.5rem;
+    height: 3.7rem;
+    border:0;
+    align-self: center;
+    cursor: pointer;
+}
+.login-submit-wrapper{
+    display: flex;
+    flex-grow:1;
+    flex-direction: column;
+    color: white;
+    font-family: "Trebuchet MS";
+    align-self: center;
+    justify-content: flex-end;
+    /*border:2px solid black;*/
+}
+.login-submit-wrapper p{
+    color:black;
+    font-size: 1rem;
+    text-align: center;
+}
+.login-submit-wrapper p a{
+    color:#1C5BA5;
+    text-decoration: underline;
+
 }
