@@ -15,6 +15,21 @@ export default function Login() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
 
+    function getCookie(cookie){
+        let name = cookie +'=';
+        let cookies = decodeURIComponent(document.cookie).split(";");
+        for(let i=0;i<cookies.length;i++){
+            let c = cookies[i];
+            while (c.charAt(0) == ' '){
+                c = c.substring(1);
+            }
+            if(c.indexOf(name)==0){
+                return c.substring(name.length,c.length)
+            }
+        }
+        return"";
+    }
+
 
     function submitLogin() {
         var details = {
@@ -30,25 +45,30 @@ export default function Login() {
         }
         formBody = formBody.join("&");
         axios({
-            method:'post',
-            url:"http://localhost:8080/login",
-            maxRedirects:0,
-            headers:{"Authorization":"none",
-            "Accept":"*/*",
-            "Content-Type":"application/x-www-form-urlencoded"},
-            data:formBody
+            method: 'post',
+            url: "http://localhost:8080/login",
+            headers: {
+                "Authorization": "none",
+                "Accept": "*/*",
+                "Access-Control-Allow-Origin":"*",
+                'Access-Control-Allow-Credentials': true,
+                "Access-Control-Allow-headers":"*",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            withCredentials:true,
+            data: formBody
 
-        }).then(function(response){
+        }).then(function (response) {
             console.log(response);
             console.log(response.status);
-            if(response.status === 200){
+            if (response.status === 200) {
                 dispatch(setLoginStatus({
                     isLogged: true,
-                    sessionToken: document.cookie
+                    sessionToken: getCookie("JSESSIONID")
                 }))
                 navigate("/");
             }
-        }).catch(function(response){
+        }).catch(function (response) {
             console.log(response.statusCode);
             console.log(response);
         });
@@ -59,9 +79,10 @@ export default function Login() {
         <div className="login-wrapper">
             <div className={"login-fields"}>
                 <label>Username</label>
-                <input type={"text"} className={"login-form-field"} onChange={elem=>setUsername(elem.target.value)}/>
+                <input type={"text"} className={"login-form-field"} onChange={elem => setUsername(elem.target.value)}/>
                 <label>Password</label>
-                <input type={"password"} className={"login-form-field"} onChange={elem=>setPassword(elem.target.value)}/>
+                <input type={"password"} className={"login-form-field"}
+                       onChange={elem => setPassword(elem.target.value)}/>
             </div>
             <div className={"login-submit-wrapper"}>
                 <input type={"button"} value={"Login"} className={"login-form-submitButton"} onClick={submitLogin}/>
