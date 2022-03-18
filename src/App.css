@@ -17,8 +17,5 @@ body{
 .center-content{
     flex-grow:1;
     min-width: 100vw;
-
     display: flex;
-    align-items: center;
-    justify-content: center;
 }

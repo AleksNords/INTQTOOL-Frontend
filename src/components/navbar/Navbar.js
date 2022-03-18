@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setUser, signOut} from "../../store/action/userAction";
 import {setLoginStatus} from "../../store/action/isLoggedAction";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export default function Navbar(){
     const navigate = useNavigate();
@@ -13,15 +14,24 @@ export default function Navbar(){
     const user = useSelector(state => state.userReducer);
 
     function logout(){
-        let logginApproved = true;
-        if(logginApproved) {
-            dispatch(setUser({}))
+        axios("http://localhost:8080/logout",{
+            method:'get',
+            withCredentials:true
+        }).then((response)=>{
+            if(response.status === 200) {
+                dispatch(setUser({}))
+                dispatch(setLoginStatus({
+                    isLogged: false,
+                    sessionToken: ""}))
+                navigate("/");
+
+            }
+        }).catch((response)=>{
             dispatch(setLoginStatus({
                 isLogged: false,
                 sessionToken: ""}))
-            navigate("/");
+        })
 
-        }
     }
     return(
         <div className="navbar">

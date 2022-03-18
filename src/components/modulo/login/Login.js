@@ -15,19 +15,19 @@ export default function Login() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
 
-    function getCookie(cookie){
-        let name = cookie +'=';
+    function getCookie(cookie) {
+        let name = cookie + '=';
         let cookies = decodeURIComponent(document.cookie).split(";");
-        for(let i=0;i<cookies.length;i++){
+        for (let i = 0; i < cookies.length; i++) {
             let c = cookies[i];
-            while (c.charAt(0) == ' '){
+            while (c.charAt(0) == ' ') {
                 c = c.substring(1);
             }
-            if(c.indexOf(name)==0){
-                return c.substring(name.length,c.length)
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length)
             }
         }
-        return"";
+        return "";
     }
 
 
@@ -50,12 +50,12 @@ export default function Login() {
             headers: {
                 "Authorization": "none",
                 "Accept": "*/*",
-                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Origin": "*",
                 'Access-Control-Allow-Credentials': true,
-                "Access-Control-Allow-headers":"*",
+                "Access-Control-Allow-headers": "*",
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            withCredentials:true,
+            withCredentials: true,
             data: formBody
 
         }).then(function (response) {
@@ -75,20 +75,22 @@ export default function Login() {
     }
 
     return (
+        <div className={"position-wrapper"}>
+            <div className="login-wrapper">
+                <div className={"login-fields"}>
+                    <label>Username</label>
+                    <input type={"text"} className={"login-form-field"}
+                           onChange={elem => setUsername(elem.target.value)}/>
+                    <label>Password</label>
+                    <input type={"password"} className={"login-form-field"}
+                           onChange={elem => setPassword(elem.target.value)}/>
+                </div>
+                <div className={"login-submit-wrapper"}>
+                    <input type={"button"} value={"Login"} className={"login-form-submitButton"} onClick={submitLogin}/>
+                    <p>Dont have an account? <a>Sign up here!</a></p>
+                </div>
 
-        <div className="login-wrapper">
-            <div className={"login-fields"}>
-                <label>Username</label>
-                <input type={"text"} className={"login-form-field"} onChange={elem => setUsername(elem.target.value)}/>
-                <label>Password</label>
-                <input type={"password"} className={"login-form-field"}
-                       onChange={elem => setPassword(elem.target.value)}/>
             </div>
-            <div className={"login-submit-wrapper"}>
-                <input type={"button"} value={"Login"} className={"login-form-submitButton"} onClick={submitLogin}/>
-                <p>Dont have an account? <a>Sign up here!</a></p>
-            </div>
-
         </div>
     )
 }
