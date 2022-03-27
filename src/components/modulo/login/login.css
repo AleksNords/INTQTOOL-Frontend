@@ -64,11 +64,7 @@ body{
     font-size: 1rem;
     text-align: center;
 }
-.login-submit-wrapper p a{
-    color:#1C5BA5;
-    text-decoration: underline;
 
-}
 
 .position-wrapper{
     min-height: 100%;
@@ -77,4 +73,10 @@ body{
     justify-content: center;
     align-items: center;
 
+}
+
+.sign-up-link{
+    cursor: pointer;
+    color:#1C5BA5;
+    text-decoration: underline;
 }

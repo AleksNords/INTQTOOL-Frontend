@@ -74,6 +74,10 @@ export default function Login() {
         });
     }
 
+    function goToSignUp(){
+        navigate("/signup");
+    }
+
     return (
         <div className={"position-wrapper"}>
             <div className="login-wrapper">
@@ -87,7 +91,7 @@ export default function Login() {
                 </div>
                 <div className={"login-submit-wrapper"}>
                     <input type={"button"} value={"Login"} className={"login-form-submitButton"} onClick={submitLogin}/>
-                    <p>Dont have an account? <a>Sign up here!</a></p>
+                    <p>Dont have an account? <a onClick={goToSignUp} className={"sign-up-link"}>Sign up here!</a></p>
                 </div>
 
             </div>

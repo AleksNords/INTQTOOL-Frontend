@@ -5,6 +5,7 @@ import Login from "./components/modulo/login/Login";
 import {Route,Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Home from "./components/home/Home";
+import SignUp from "./components/modulo/signup/SignUp";
 
 
 
@@ -23,7 +24,11 @@ function App() {
 
             <div className="center-content">
                 {(isLogged.isLogged === false) ? (
-                    <Login/>
+
+                    <Routes>
+                        <Route exact path={"/"} element={<Login/>}/>
+                        <Route exact path={"/signup"} element={<SignUp/>}/>
+                    </Routes>
                 ) : (isLogged.isLogged === true) ? (
                     <Routes>
                         <Route exact path={"/"} element={<Home/>}/>

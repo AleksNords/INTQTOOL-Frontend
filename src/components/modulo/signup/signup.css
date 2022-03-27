@@ -1,0 +1,76 @@
+
+.position-wrapper{
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-wrapper{
+    height: 60rem;
+    width: 80rem;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.sign-up-position-wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-up-form{
+    margin: 5rem;
+    display:grid;
+    grid-template-columns: [first] auto [end] auto;
+
+}
+
+.sign-up-item{
+    padding: 3rem 5rem;
+}
+
+.sign-up-warning{
+    align-self: center;
+    width:25rem;
+    height:3rem;
+    background-color: #feb1b1;
+    border: 2px solid #ff4f4f;
+    color: #ff4f4f;
+    margin: 3rem 5rem;
+    border-radius: 5px;
+}
+
+
+.sign-up-submit-wrapper{
+    display: flex;
+    flex-grow:1;
+    flex-direction: column;
+    color: white;
+    font-family: "Roboto";
+    float: right;
+    padding-right: 2rem;
+
+}
+
+.sign-up-form-submitButton{
+    border-radius: 5px;
+    background-color: #1C5BA5;
+    color: white;
+    font-family: "Roboto";
+    width: 16.5rem;
+    height: 3.7rem;
+    border:0;
+    align-self: center;
+    cursor: pointer;
+}
+
+.sign-up-form-field{
+    width:25rem;
+    height:3rem;
+
+    border-radius: 5px;
+    font-size:5rem;
+}
