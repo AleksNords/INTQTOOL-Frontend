@@ -1,40 +1,27 @@
 import React from 'react';
 import './home.css';
-import axios from "axios";
-import {setLoginStatus} from "../../store/action/isLoggedAction";
-import {useDispatch, useSelector} from "react-redux";
+import QuizCard from "../quizCard/QuizCard";
 
-export default function Home(){
-    const dispatch = useDispatch();
-    const isLogged = useSelector(state => state.isLoggedReducer);
-    const [resData,setResData] = React.useState("");
+export default function Home() {
 
 
-    function requestUsers(){
-        axios({
-            method: 'get',
-            url: "http://localhost:8080/user/all",
-            withCredentials:true,
-            headers: {
-                "Accept": "*/*"
-            }
 
-        }).then(function (response) {
-            console.log(response);
-            console.log(response.status);
-            if (response.status === 200) {
-                setResData(response.data);
-            }
-        }).catch(function (response) {
-            console.log(response.statusCode);
-            console.log(response);
-        });
-    }
-    return(
+
+    return (
         <div className={"home"}>
-            <h1>Hello</h1>
-            <button onClick={requestUsers}>Get all users</button>
-            <p>{resData}</p>
+            <div className={"quiz-type-navigator"}>
+                <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
+                <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1></div>
+            <div className={"quizcard-container"}>
+                <QuizCard title={"Multithreading and Concurrency"}
+                          progression={10}/>
+                <QuizCard title={"Multithreading and Concurrency"}
+                          progression={40}/>
+                <QuizCard title={"Multithreading and Concurrency"}
+                          progression={90}/>
+                <QuizCard title={"Multithreading and Concurrency"}
+                          progression={35}/>
+            </div>
         </div>
     )
 }
