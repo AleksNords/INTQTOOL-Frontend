@@ -3,9 +3,46 @@
     height:5rem;
     background-color: #00509e;
     box-shadow: black;
+    font-family: Roboto, serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
 }
 
-.navbar h3 {
-    text-align: center;
-    cursor: pointer;
+.navLinks {
+    display: flex;
+    flex-direction: row;
+    margin-left: 2rem;
 }
+
+.personalLinks {
+    display: flex;
+    flex-direction: row;
+}
+
+.personalLinks span{
+    margin: 0 0.5rem 0 1rem;
+}
+
+.navbar span {
+    display: flex;
+    align-items: center;
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.vertical-divider {
+    color: white;
+    margin: 1rem;
+    height: 3rem;
+}
+
+.ntnu-logo {
+    height: 60%;
+    margin-left: 1rem;
+}
+
+svg {padding-right: 0.5rem}
