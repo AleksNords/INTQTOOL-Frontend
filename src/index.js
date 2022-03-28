@@ -37,7 +37,7 @@ cache.getAll().then((data) => {
     const store = createStore(
         reducer,
         data,
-        compose(
+        compose(applyMiddleware(persistUser,persistLoginStatus),
             window.__REDUX_DEVTOOLS_EXTENSION__ &&
             window.__REDUX_DEVTOOLS_EXTENSION__()));
 
