@@ -7,9 +7,10 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_USER':
+            console.log(action.payload);
             let newState ={
                 ...state,
-                user: action.payload
+                user: action.payload.user
             };
             return newState;
         case 'REMOVE_USER':

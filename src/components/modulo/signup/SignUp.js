@@ -20,7 +20,7 @@ function SignUp() {
             if(password === passwordConf){
                 setWarning(false);
                 let newUser = {
-                    "userName":username,
+                    "username":username,
                     "firstName": firstName,
                     "lastName": lastName,
                     "email":email,

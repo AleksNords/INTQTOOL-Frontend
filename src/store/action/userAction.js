@@ -4,3 +4,8 @@ export function setUser(payload) {
         payload: payload
     }
 }
+export function removeUser() {
+    return {
+        type: 'REMOVE_USER'
+    }
+}

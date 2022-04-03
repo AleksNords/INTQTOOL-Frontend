@@ -1,6 +1,6 @@
 const initialState = {
     isLogged: false,
-    sessionToken: ""
+    jwtToken: ""
 }
 const isLoggedReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -8,7 +8,7 @@ const isLoggedReducer = (state = initialState, action) => {
             let newState = {
                 ...state,
                 isLogged: action.payload.isLogged,
-                sessionToken: action.payload.sessionToken
+                jwtToken: action.payload.jwtToken
             };
             return newState;
 

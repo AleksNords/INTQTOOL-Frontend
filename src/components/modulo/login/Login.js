@@ -37,26 +37,18 @@ export default function Login() {
             'password': password
         };
 
-        let formBody = [];
-        for (let property in details) {
-            let encodedKey = encodeURIComponent(property);
-            let encodedValue = encodeURIComponent(details[property]);
-            formBody.push(encodedKey + "=" + encodedValue);
-        }
-        formBody = formBody.join("&");
         axios({
             method: 'post',
-            url: "http://localhost:8080/login",
+            url: "http://localhost:8080/authenticate",
             headers: {
-                "Authorization": "none",
                 "Accept": "*/*",
                 "Access-Control-Allow-Origin": "*",
                 'Access-Control-Allow-Credentials': true,
                 "Access-Control-Allow-headers": "*",
-                "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type": "application/json"
             },
             withCredentials: true,
-            data: formBody
+            data: details
 
         }).then(function (response) {
             console.log(response);
@@ -64,14 +56,32 @@ export default function Login() {
             if (response.status === 200) {
                 dispatch(setLoginStatus({
                     isLogged: true,
-                    sessionToken: getCookie("JSESSIONID")
+                    jwtToken: response.data.jwt
                 }))
+                getUserInfo(response.data.jwt);
                 navigate("/");
             }
         }).catch(function (response) {
             console.log(response.statusCode);
             console.log(response);
         });
+    }
+
+    function getUserInfo(token){
+        axios({
+            method:"get",
+            url:"http://localhost:8080/user/myuser",
+            headers:{
+                "Authorization": "Bearer "+token
+            }
+        })
+            .then(function (response){
+                if(response.status===200){
+                    dispatch(setUser({
+                        user:response.data
+                    }))
+                }
+            });
     }
 
     function goToSignUp(){
