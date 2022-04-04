@@ -3,7 +3,7 @@ import './navbar.css';
 import {useDispatch, useSelector} from "react-redux";
 import {removeUser} from "../../store/action/userAction";
 import {setLoginStatus} from "../../store/action/isLoggedAction";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import HomeIcon from '@mui/icons-material/Home';
 import CreateIcon from '@mui/icons-material/Create';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -25,16 +25,16 @@ export default function Navbar() {
             jwtToken: ""
         }))
         dispatch(removeUser())
-
+        navigate("/");
     }
 
     return (
         <div className="navbar">
             {isLogged.isLogged === true ? (<ThemeProvider>
                 <div className="navLinks">
-                    <span><HomeIcon sx={{fontSize: 40}}/>Home</span>
+                    <span onClick={()=>navigate("/")}><HomeIcon sx={{fontSize: 40}} onClick={()=>navigate("/")}/>Home</span>
                     <Divider orientation="vertical" flexItem className={"vertical-divider"}/>
-                    <span><CreateIcon sx={{fontSize: 40}}/>My Courses</span>
+                    <span onClick={()=>navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}} />My Courses</span>
                     <Divider orientation="vertical" flexItem className={"vertical-divider"}/>
                     <span><SettingsIcon sx={{fontSize: 40}}/>Settings</span>
                 </div>
@@ -43,7 +43,7 @@ export default function Navbar() {
                     <span>{user.user.firstName}</span>
                     <AccountCircleIcon sx={{fontSize: 40}} onClick={logout}/>
                 </div>
-            </ThemeProvider>) : <img className="ntnu-logo" src="./ntnu_logo_hvit.png"/>}
+            </ThemeProvider>) : <img className="ntnu-logo" src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
         </div>
     )
 }

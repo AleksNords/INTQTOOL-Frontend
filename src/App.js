@@ -6,6 +6,8 @@ import {Route,Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Home from "./components/home/Home";
 import SignUp from "./components/modulo/signup/SignUp";
+import Quiz from "./components/quiz/Quiz";
+import Courses from "./components/courses/Courses";
 
 
 
@@ -27,11 +29,14 @@ function App() {
 
                     <Routes>
                         <Route exact path={"/"} element={<Login/>}/>
-                        <Route exact path={"/signup"} element={<SignUp/>}/>
+                        <Route path={"/signup"} element={<SignUp/>}/>
+
                     </Routes>
                 ) : (isLogged.isLogged === true) ? (
                     <Routes>
                         <Route exact path={"/"} element={<Home/>}/>
+                        <Route path={"/quiz/:id"} element={<Quiz/>}/>
+                        <Route path={"/mycourses"} element={<Courses/>}/>
                     </Routes>
 
                 ) : null}

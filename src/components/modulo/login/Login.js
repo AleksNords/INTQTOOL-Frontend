@@ -15,21 +15,6 @@ export default function Login() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
 
-    function getCookie(cookie) {
-        let name = cookie + '=';
-        let cookies = decodeURIComponent(document.cookie).split(";");
-        for (let i = 0; i < cookies.length; i++) {
-            let c = cookies[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length)
-            }
-        }
-        return "";
-    }
-
 
     function submitLogin() {
         var details = {

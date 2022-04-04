@@ -44,6 +44,7 @@
 .ntnu-logo {
     height: 60%;
     margin-left: 1rem;
+    cursor: pointer;
 }
 
 svg {padding-right: 0.5rem}

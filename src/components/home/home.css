@@ -9,13 +9,21 @@
 
 
 .quizcard-container{
-    width:168rem;
+    width:90%;
     display:flex;
     flex-wrap: wrap;
 }
 
+.no-quiz-container{
+    width:90%;
+    min-height: 90%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .quiz-type-navigator{
-    width:168rem;
+    width:90%;
     display: flex;
     flex-direction:row;
     cursor: pointer;
@@ -34,4 +42,9 @@
 
 .quiz-type-navigator-title-enabled{
     text-decoration: underline;
+}
+
+.no-quizzes-prompt{
+    opacity: 70%;
+    font-size: 5rem;
 }

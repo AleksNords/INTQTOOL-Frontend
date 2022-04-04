@@ -2,8 +2,11 @@ import "./signup.css";
 import React from 'react';
 import axios from "axios";
 import {TextField} from "@mui/material";
+import {useNavigate} from "react-router";
 
 function SignUp() {
+
+    const navigate = useNavigate();
 
     const [username,setUsername] = React.useState("");
     const [firstName,setFirstName] = React.useState("");
@@ -24,13 +27,17 @@ function SignUp() {
                     "firstName": firstName,
                     "lastName": lastName,
                     "email":email,
-                    "passHash": password
+                    "password": password,
+                    "courses":[]
                 }
 
                 axios("http://localhost:8080/user/add",{
                     method: "post",
-                    withCredentials:true,
-                    body:newUser
+                    data:newUser
+                }).then(function (response){
+                    if(response.status === 200){
+                        navigate("/");
+                    }
                 });
             } else{
                 setWarningText("Passwords does not match");
