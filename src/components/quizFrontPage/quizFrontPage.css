@@ -1,0 +1,41 @@
+.quiz-frontpage{
+    min-width: 100%;
+    min-height:80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quiz-frontpage-header-img{
+    height: auto;
+    width: 50vw;
+}
+
+.quiz-frontpage-header{
+
+}
+
+.quiz-frontpage-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.quiz-frontpage-top-content{
+
+}
+
+.start-quiz-button{
+    border-radius: 5px;
+    background-color: #1C5BA5;
+    color: white;
+    font-family: "Trebuchet MS";
+    width: 16.5rem;
+    height: 3.7rem;
+    border:0;
+    align-self: center;
+    cursor: pointer;
+}

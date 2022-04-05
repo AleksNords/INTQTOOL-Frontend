@@ -7,6 +7,7 @@ import Course from "../course/Course";
 function Courses() {
 
     const [courses, setCourses] = useState([]);
+    const [joinCode, setJoinCode] = useState("");
     const isLogged = useSelector(state => state.isLoggedReducer);
 
     useEffect(() => {
@@ -22,9 +23,20 @@ function Courses() {
         })
     }, []);
 
+    function joinCourse(){
+        axios({
+            method:"get",
+            url:"http://localhost:8080/user/joincourse/"+joinCode,
+            headers: {
+                "Authorization": "Bearer " + isLogged.jwtToken
+            }
+
+        });
+    }
+
 
     return (<div className={"courses"}>
-        <div className={"course-title-wrapper"}><h1 className={"course-title"}>Your courses</h1> <div className={"join-course-wrapper"}><input type={"text"} placeholder={"Course join code"}/><button>Join course</button></div></div>
+        <div className={"course-title-wrapper"}><h1 className={"course-title"}>Your courses</h1> <div className={"join-course-wrapper"}><input type={"text"} placeholder={"Course join code"} onChange={(elem)=>setJoinCode(elem.target.value)}/><button onClick={joinCourse}>Join course</button></div></div>
 
         {
             (courses.length >= 1) ? (
