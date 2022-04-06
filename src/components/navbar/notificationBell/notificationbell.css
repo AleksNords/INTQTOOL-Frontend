@@ -1,0 +1,26 @@
+.notificationBell {
+    position: relative;
+}
+
+.bell {
+    cursor: pointer;
+}
+
+.notificationBubble {
+    position: absolute;
+    background-color: red;
+    height: 1.3rem;
+    width: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    top: 4px;
+    right: 5px;
+    border: solid 2px #00509e;
+}
+
+#notificationAmount {
+    font-size: 1rem;
+    font-weight: bold;
+}
