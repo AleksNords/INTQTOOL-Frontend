@@ -10,6 +10,12 @@
     border-radius: 1.5%;
     min-width: 30rem;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), inset 0px -5px 15px rgba(0, 0, 0, 0.5);
+    animation: dropdown ease-in-out 0.3s;
+}
+
+@keyframes dropdown {
+    0% {height: 0}
+    100% {height: 60vh}
 }
 
 .notification-header {

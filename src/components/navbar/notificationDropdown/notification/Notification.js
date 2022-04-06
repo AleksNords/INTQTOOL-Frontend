@@ -37,7 +37,6 @@ export default function Notification({id,message,type,deleteNotificationFunction
             <span className="notification-time">2m</span>
                 <IconButton onClick={()=>deleteNotificationFunction(id)} className="notification-delete-wrapper"><CancelIcon id="delete-icon" sx={{fontSize: 25}}/></IconButton>
             </div>
-
         </div>
     )
 }

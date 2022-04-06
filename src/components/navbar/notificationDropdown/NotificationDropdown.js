@@ -6,31 +6,33 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Notification from './notification/Notification'
 import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../../../store/action/userAction";
+import {useNavigate} from "react-router";
 import axios from "axios";
-import isLoggedReducer from "../../../store/reducer/isLoggedReducer";
 
-export default function NotificationDropDown() {
+export default function NotificationDropDown({clearParentNotifications}) {
 
     const user = useSelector(state => state.userReducer.user);
+    const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
     const [notifications, setNotifications] = useState(user.notifications);
 
     function clearNotifications() {
         if (notifications.length >= 1) {
+            clearParentNotifications();
             let temp = user;
             temp.notifications = [];
             dispatch(setUser({
                 user:temp
             }))
             setNotifications([])
-            axios({
+            /*axios({
                 method: "get",
                 url: "http://localhost:8080/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
-            })
+            })*/
         }
     }
 
@@ -42,13 +44,13 @@ export default function NotificationDropDown() {
         }))
         setNotifications(temp.notifications);
 
-        axios({
+        /*axios({
             method: "get",
             url: "http://localhost:8080/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
-        })
+        })*/
     }
 
     //TODO: slide animation on removing notification
@@ -63,7 +65,7 @@ export default function NotificationDropDown() {
             {(notifications.length >= 1) ? (notifications.map((notification)=> {
                 notification = JSON.parse(notification);
                 return (<div><Notification key={notification.id} deleteNotificationFunction={deleteNotification} id={notification.id} message={notification.message} type={notification.type}/><Divider color="#ffffff"/></div>)})) : null}
-            <a className="all-notifications">See all</a>
+            <a onClick={()=>navigate("/notifications")} className="all-notifications">See all</a>
         </div>
     )
 }
