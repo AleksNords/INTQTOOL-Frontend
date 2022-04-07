@@ -1,9 +1,9 @@
 import React from "react";
 import './login.css';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setUser} from "../../../store/action/userAction";
 import {setLoginStatus} from "../../../store/action/isLoggedAction";
-import {useNavigate, useLocation} from "react-router-dom";
+import {useNavigate} from "react-router";
 import axios from "axios";
 
 export default function Login() {
@@ -11,9 +11,6 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-
-    const isLogged = useSelector(state => state.isLoggedReducer);
-    const user = useSelector(state => state.userReducer);
 
 
     function submitLogin() {
@@ -36,8 +33,6 @@ export default function Login() {
             data: details
 
         }).then(function (response) {
-            console.log(response);
-            console.log(response.status);
             if (response.status === 200) {
                 dispatch(setLoginStatus({
                     isLogged: true,
@@ -47,29 +42,29 @@ export default function Login() {
                 navigate("/");
             }
         }).catch(function (response) {
-            console.log(response.statusCode);
+            console.log(response.status);
             console.log(response);
         });
     }
 
-    function getUserInfo(token){
+    function getUserInfo(token) {
         axios({
-            method:"get",
-            url:"http://localhost:8080/user/myuser",
-            headers:{
-                "Authorization": "Bearer "+token
+            method: "get",
+            url: "http://localhost:8080/user/myuser",
+            headers: {
+                "Authorization": "Bearer " + token
             }
         })
-            .then(function (response){
-                if(response.status===200){
+            .then(function (response) {
+                if (response.status === 200) {
                     dispatch(setUser({
-                        user:response.data
+                        user: response.data
                     }))
                 }
             });
     }
 
-    function goToSignUp(){
+    function goToSignUp() {
         navigate("/signup");
     }
 
