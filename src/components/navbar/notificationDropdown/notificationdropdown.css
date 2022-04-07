@@ -10,12 +10,6 @@
     border-radius: 1.5%;
     min-width: 30rem;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), inset 0px -5px 15px rgba(0, 0, 0, 0.5);
-    animation: dropdown ease-in-out 0.3s;
-}
-
-@keyframes dropdown {
-    0% {height: 0}
-    100% {height: 60vh}
 }
 
 .notification-header {
@@ -54,4 +48,32 @@
     font-weight: 500;
     bottom: 2%;
     right: 3%;
+    cursor: pointer;
+}
+
+.no-notifications {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dark-bell {
+    margin-top: 13vh;
+
+    color: #0C3667;
+    transform: rotate(40deg);
+}
+
+.no-notifications span {
+    margin: unset;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+#no-notifications-subtext {
+    color: #AAADC2;
+    font-size: 1.6rem;
+    font-weight: 400;
 }

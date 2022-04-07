@@ -47,7 +47,7 @@ export default function Navbar() {
                 <div className="personalLinks">
                     <div><NotificationBell/></div>
                     <span>{user.user.firstName}</span>
-                    <AccountCircleIcon sx={{fontSize: 40}} onClick={logout}/>
+                    <AccountCircleIcon sx={{fontSize: 45}} onClick={logout}/>
                 </div>
             </ThemeProvider>) : <img className="ntnu-logo" src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
         </div>

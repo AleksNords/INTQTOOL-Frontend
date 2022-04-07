@@ -1,9 +1,17 @@
 .notificationBell {
     position: relative;
+    height: 100%;
 }
 
 .bell {
     cursor: pointer;
+    padding: unset;
+    height: 100%;
+}
+
+.inverted-bell {
+    background-color: white;
+    color: #00509e;
 }
 
 .notificationBubble {

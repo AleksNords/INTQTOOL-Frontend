@@ -7,6 +7,7 @@ import Notification from './notification/Notification'
 import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../../../store/action/userAction";
 import {useNavigate} from "react-router";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
 
 export default function NotificationDropDown({clearParentNotifications}) {
@@ -59,12 +60,17 @@ export default function NotificationDropDown({clearParentNotifications}) {
         <div className="notifications">
             <div className="notification-header">
                 <span
-                    className="amount-text">{(notifications.length === 0) ? "No notifications" : (notifications.length === 1) ? "1 Notification" : notifications.length + " Notifications"}</span>
+                    className="amount-text">{(notifications.length === 0) ? "No notifications" : (notifications.length === 1) ? "1 Notification" : notifications.length + " notifications"}</span>
                 <Button sx={{fontSize: 14}} className="clear-button" variant="outlined" startIcon={<DeleteIcon />} onClick={clearNotifications}>Clear</Button></div>
             <Divider color="#ffffff"/>
             {(notifications.length >= 1) ? (notifications.map((notification)=> {
                 notification = JSON.parse(notification);
-                return (<div><Notification key={notification.id} deleteNotificationFunction={deleteNotification} id={notification.id} message={notification.message} type={notification.type}/><Divider color="#ffffff"/></div>)})) : null}
+                return (<div><Notification key={notification.id} deleteNotificationFunction={deleteNotification} id={notification.id} message={notification.message} type={notification.type}/><Divider color="#ffffff"/></div>)}))
+                : <div className="no-notifications">
+                    <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
+                    <span>Nothing to see here</span>
+                    <span id="no-notifications-subtext">Your notifications will appear here</span>
+            </div>}
             <a onClick={()=>navigate("/notifications")} className="all-notifications">See all</a>
         </div>
     )
