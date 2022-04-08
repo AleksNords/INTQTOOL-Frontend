@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../../../store/action/userAction";
 import {useNavigate} from "react-router";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import axios from "axios";
+import axios from 'axios';
 
 export default function NotificationDropDown({clearParentNotifications}) {
 

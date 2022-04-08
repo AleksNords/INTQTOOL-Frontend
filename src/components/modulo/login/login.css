@@ -6,35 +6,35 @@ body{
 .login-wrapper{
     z-index: 1;
     width: 33rem;
-    height:44rem;
+    height: 44rem;
     background-color: white;
-    border-radius:10px;
-    display:flex;
+    border-radius: 10px;
+    display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .login-fields{
     align-self: center;
-    display:flex;
+    display: flex;
     flex-grow:1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width:25rem;
+    width: 25rem;
     height: 6rem;
 }
 .login-fields label{
-    float:left;
-    width:100%;
+    float: left;
+    width: 100%;
     margin-top: 3rem;
-    font-weight:600;
-    font-size:1.4rem;
+    font-weight: 600;
+    font-size: 1.4rem;
 }
+
 .login-form-field{
     width:25rem;
     height:3rem;
-
     border-radius: 5px;
 }
 

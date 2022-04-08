@@ -1,7 +1,7 @@
 import "./signup.css";
 import React from 'react';
 import axios from "axios";
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {useNavigate} from "react-router";
 
 function SignUp() {
@@ -62,7 +62,7 @@ function SignUp() {
                             <TextField
                                 label={"Username"}
                                 variant={"outlined"}
-                                className={"login-form-field"}
+                                className={"sign-up-form-field"}
                                 onChange={elem => setUsername(elem.target.value)}/>
                         </div>
                         {(warning === true) ? <div className={"sign-up-warning"}>
@@ -104,7 +104,7 @@ function SignUp() {
                     </div>
                 </div>
                 <div className={"sign-up-submit-wrapper"}>
-                    <input type={"button"} value={"Create account"} className={"sign-up-form-submitButton"} onClick={submitAccount}/>
+                    <Button sx={{fontSize: 14}} variant="contained" className={"sign-up-form-submitButton"} onClick={submitAccount} >Create account</Button>
                 </div>
             </div>
 
