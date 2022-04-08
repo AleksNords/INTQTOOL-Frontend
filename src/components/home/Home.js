@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import './home.css';
 import QuizCard from "../quizCard/QuizCard";
 import axios from "axios";
@@ -8,8 +8,8 @@ import NewQuiz from "../modulo/newQuiz/NewQuiz";
 import AddIcon from '@mui/icons-material/Add';
 
 export default function Home() {
-    const dispatch = useDispatch();
 
+    const [showNewQuizModulo, setShowNewQuizModulo] = React.useState(false);
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
     const [quizzes,setQuizzes] =useState([]);
@@ -30,12 +30,11 @@ export default function Home() {
 
     return (
         <div className={"home"}>
-            <NewQuiz/>
-            <div className="shadow-filter"/>
+            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuiz setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
             <div className={"quiz-type-navigator"}>
                 <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
                 <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1>
-                <Button className="new-quiz" sx={{fontSize: 16}} variant={"contained"}  startIcon={<AddIcon/>}>New Quiz</Button>
+                <Button className="new-quiz" onClick={()=>setShowNewQuizModulo(true)} sx={{fontSize: 16}} variant={"contained"}  startIcon={<AddIcon/>}>New Quiz</Button>
             </div>
 
                 {quizzes.length >= 1 ?

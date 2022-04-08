@@ -48,6 +48,13 @@
     font-size: 5rem;
 }
 
+.new-quiz-wrapper {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
 .new-quiz {
     position: absolute;
     align-self: center;
@@ -61,10 +68,8 @@
 }
 
 .shadow-filter {
-    z-index: 1;
     background-color: #5B5B5B;
     opacity: 60%;
-    position: fixed;
     height: 100%;
     width: 100%;
 }
