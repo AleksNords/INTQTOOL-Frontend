@@ -1,0 +1,20 @@
+.question-banner-container{
+    min-width: 100%;
+    display:flex;
+    flex-direction: row;
+    background-color: lightgray;
+    flex-shrink: 1;
+
+}
+
+.question-banner-item{
+    text-align: center;
+    border: 2px solid black;
+    flex: auto;
+    cursor: pointer;
+}
+
+.question-banner-current-item{
+    background-color: #0665bf;
+    color: white;
+}

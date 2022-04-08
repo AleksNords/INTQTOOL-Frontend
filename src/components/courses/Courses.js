@@ -8,11 +8,9 @@ function Courses() {
 
     const [courses, setCourses] = useState([]);
     const isLogged = useSelector(state => state.isLoggedReducer);
-
     const user = useSelector(state => state.userReducer.user);
     const roles = user.roles;
 
-    console.log(roles);
 
     useEffect(() => {
         axios({
@@ -26,6 +24,17 @@ function Courses() {
             console.log(response.data);
         })
     }, []);
+
+    function joinCourse(){
+        axios({
+            method:"get",
+            url:"http://localhost:8080/user/joincourse/"+joinCode,
+            headers: {
+                "Authorization": "Bearer " + isLogged.jwtToken
+            }
+
+        });
+    }
 
 
     return (<div className={"courses"}>
