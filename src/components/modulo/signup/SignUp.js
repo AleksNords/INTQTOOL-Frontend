@@ -35,9 +35,10 @@ function SignUp() {
                     method: "post",
                     data:newUser
                 }).then(function (response){
-                    if(response.status === 200){
+                    if(response.status === 201){
                         navigate("/");
                     }
+
                 });
             } else{
                 setWarningText("Passwords does not match");
