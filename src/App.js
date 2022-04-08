@@ -9,6 +9,7 @@ import SignUp from "./components/modulo/signup/SignUp";
 import Quiz from "./components/quiz/Quiz";
 import Courses from "./components/courses/Courses";
 import Notifications from "./components/notifications/Notifications";
+import NewQuiz from "./components/newQuiz/NewQuiz";
 
 function App() {
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
                         <Route path={"/quiz/:id"} element={<Quiz/>}/>
                         <Route path={"/mycourses"} element={<Courses/>}/>
                         <Route path={"/notifications"} element={<Notifications/>}/>
+                        <Route path={"/quiz/new"} element={<NewQuiz/>}/>
                     </Routes>
 
                 ) : null}

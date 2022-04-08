@@ -4,7 +4,7 @@ import QuizCard from "../quizCard/QuizCard";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {Button} from "@mui/material";
-import NewQuiz from "../modulo/newQuiz/NewQuiz";
+import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
 import AddIcon from '@mui/icons-material/Add';
 
 export default function Home() {
@@ -30,7 +30,7 @@ export default function Home() {
 
     return (
         <div className={"home"}>
-            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuiz setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
+            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
             <div className={"quiz-type-navigator"}>
                 <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
                 <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1>
