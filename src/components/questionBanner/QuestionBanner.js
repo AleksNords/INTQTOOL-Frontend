@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './questionbanner.css';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
-export default function QuestionBanner({quizLength,currentQuestion,setCurrentQuestion}){
-    let questionsDivs =[];
+export default function QuestionBanner({quizLength,currentQuestion,setCurrentQuestion, isNewQuizBanner, addQuestion}){
+
+    let questionsDivs = [];
 
     for (let i=0;i<quizLength;i++){
         if(i === currentQuestion){
@@ -26,6 +28,7 @@ export default function QuestionBanner({quizLength,currentQuestion,setCurrentQue
                 questionsDivs.map((questionDiv)=>questionDiv)
 
             }
+            {isNewQuizBanner ? <div onClick={()=> addQuestion()} className={"question-banner-plus-item"}><AddRoundedIcon className="plus-icon" sx={{fontSize: 50}}/></div> : null}
         </div>
     )
 }
