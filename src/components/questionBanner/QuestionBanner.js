@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './questionbanner.css';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
