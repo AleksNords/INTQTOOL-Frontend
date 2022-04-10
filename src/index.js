@@ -3,12 +3,13 @@ import './index.css';
 import App from './App';
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-import {applyMiddleware, compose, createStore} from "redux";
+import {applyMiddleware,createStore} from "redux";
 import {BrowserRouter} from 'react-router-dom';
 import reducer from "./store/reducer";
 import {getConfiguredCache} from "money-clip";
 import getPersistMiddleware from "redux-persist-middleware";
 import {StyledEngineProvider} from '@mui/material/styles';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const rootElement = document.getElementById('root');
 const cache = getConfiguredCache();
@@ -37,9 +38,9 @@ cache.getAll().then((data) => {
     const store = createStore(
         reducer,
         data,
-        compose(applyMiddleware(persistUser,persistLoginStatus),
-            window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__()));
+        composeWithDevTools(applyMiddleware(persistUser,persistLoginStatus)));
+
+
 
 
     ReactDOM.render(

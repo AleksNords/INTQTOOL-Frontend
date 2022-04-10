@@ -1,0 +1,21 @@
+.question-wrapper{
+    height:80vh;
+    width:60vw;
+}
+
+.alternative-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.question-text-header{
+    margin:15vh 0;
+}
+
+.longanswer-textfield{
+    border-radius: 0.5rem;
+    height: 40vh;
+    width:100%;
+    resize: none;
+}

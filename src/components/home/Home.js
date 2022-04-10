@@ -2,13 +2,11 @@ import React, {useEffect, useState} from 'react';
 import './home.css';
 import QuizCard from "../quizCard/QuizCard";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 export default function Home() {
-    const dispatch = useDispatch();
 
     const isLogged = useSelector(state => state.isLoggedReducer);
-    const user = useSelector(state => state.userReducer);
     const [quizzes,setQuizzes] =useState([]);
 
     useEffect(()=>{

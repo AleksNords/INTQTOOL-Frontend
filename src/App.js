@@ -1,9 +1,9 @@
 import './App.css';
-import React, {useEffect} from 'react';
+import React from 'react';
 import Navbar from "./components/navbar/Navbar";
 import Login from "./components/modulo/login/Login";
 import {Route,Routes} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Home from "./components/home/Home";
 import SignUp from "./components/modulo/signup/SignUp";
 import Quiz from "./components/quiz/Quiz";
@@ -14,7 +14,6 @@ import Courses from "./components/courses/Courses";
 
 
 function App() {
-    const dispatch = useDispatch();
 
     const isLogged = useSelector(state => state.isLoggedReducer);
 

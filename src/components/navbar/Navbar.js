@@ -43,7 +43,7 @@ export default function Navbar() {
                     <span>{user.user.firstName}</span>
                     <AccountCircleIcon sx={{fontSize: 40}} onClick={logout}/>
                 </div>
-            </ThemeProvider>) : <img className="ntnu-logo" src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
+            </ThemeProvider>) : <img className="ntnu-logo" alt={"NTNU logo"} src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
         </div>
     )
 }
