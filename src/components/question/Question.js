@@ -1,9 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './question.css';
-import {FormControlLabel, RadioGroup, useRadioGroup} from "@mui/material";
+import {FormControlLabel, RadioGroup} from "@mui/material";
 import Radio from "@mui/material/Radio";
 
-export default function Question({question, currentQuestion,setAnswer,currAns}) {
+export default function Question({question, currentQuestion,setAnswer,currAns,quizId}) {
+    let answer = {
+        "answer":"",
+        "questionId":question.id,
+        "quizId":quizId,
+        "type":question.type,
+        "status":"in-progress"
+    }
+    if(currAns !== undefined){
+        answer= currAns;
+    }
 
 
     return (
@@ -11,12 +21,7 @@ export default function Question({question, currentQuestion,setAnswer,currAns}) 
             <h1 className={"question-text-header"}>{question.question}</h1>
             {
                 (question.type === "multiple_choice" && question.alternatives !== undefined) ? (
-                        <RadioGroup name={"question-"+question.id} onChange={(elem)=>setAnswer({
-                            "question":question.question,
-                            "answer":elem.target.value,
-                            "questionId":question.id,
-                            "type":question.type
-                        })} defaultValue={(currAns !== undefined) ? currAns.answer : null}>
+                        <RadioGroup name={"question-"+question.id} onChange={(elem)=>{ answer.answer = elem.target.value;setAnswer(answer)}} defaultValue={answer.answer}>
 
                                 {
                                     question.alternatives.map((alternative) => {
@@ -35,13 +40,8 @@ export default function Question({question, currentQuestion,setAnswer,currAns}) 
                     (question.type === "long_answer") ? (
                             <textarea
                                 className={"longanswer-textfield"}
-                                placeholder={"Ditt svar her..."} onChange={(elem)=>setAnswer({
-                                "question":question.question,
-                                "answer":elem.target.value,
-                                "questionId":question.id,
-                                "type":question.type
-                            })} value={(currAns !== undefined) ? currAns.answer : null}>
-
+                                placeholder={"Ditt svar her..."} onChange={(elem)=>{ answer.answer = elem.target.value;setAnswer(answer)}}>
+                                {(currAns !== undefined) ? currAns.answer : null}
                             </textarea>
                         )
                         : null
