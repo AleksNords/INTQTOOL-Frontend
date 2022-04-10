@@ -36,7 +36,7 @@
 }
 
 .quiz-type-navigator-title-disabled{
-    opacity: 50%;
+    opacity: 0.5;
 
 }
 
@@ -45,6 +45,6 @@
 }
 
 .no-quizzes-prompt{
-    opacity: 70%;
+    opacity: 0.7;
     font-size: 5rem;
 }

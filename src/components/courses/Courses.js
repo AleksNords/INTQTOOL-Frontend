@@ -13,7 +13,7 @@ function Courses() {
     useEffect(() => {
         axios({
             method: "get",
-            url: "http://localhost:8080/user/courses",
+            url: "http://10.212.26.200:8080/user/courses",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -25,7 +25,7 @@ function Courses() {
     function joinCourse(){
         axios({
             method:"get",
-            url:"http://localhost:8080/user/joincourse/"+joinCode,
+            url:"http://10.212.26.200:8080/user/joincourse/"+joinCode,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

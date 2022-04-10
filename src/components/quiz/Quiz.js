@@ -28,7 +28,7 @@ export default function Quiz() {
 
         axios({
             method: "get",
-            url: "http://localhost:8080/quiz/" + id,
+            url: "http://10.212.26.200:8080/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -41,7 +41,7 @@ export default function Quiz() {
 
         axios({
             method: "get",
-            url: "http://localhost:8080/user/quizanswers/" + id,
+            url: "http://10.212.26.200:8080/user/quizanswers/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -72,7 +72,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: "http://localhost:8080/user/saveanswer",
+            url: "http://10.212.26.200:8080/user/saveanswer",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -101,7 +101,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: "http://localhost:8080/user/submitanswer",
+            url: "http://10.212.26.200:8080/user/submitanswer",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },

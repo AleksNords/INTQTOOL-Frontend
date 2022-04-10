@@ -21,7 +21,7 @@ export default function Login() {
 
         axios({
             method: 'post',
-            url: "http://localhost:8080/authenticate",
+            url: "http://10.212.26.200:8080/authenticate",
             headers: {
                 "Accept": "*/*",
                 "Access-Control-Allow-Origin": "*",
@@ -49,7 +49,7 @@ export default function Login() {
     function getUserInfo(token) {
         axios({
             method: "get",
-            url: "http://localhost:8080/user/myuser",
+            url: "http://10.212.26.200:8080/user/myuser",
             headers: {
                 "Authorization": "Bearer " + token
             }

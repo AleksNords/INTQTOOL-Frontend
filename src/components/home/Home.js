@@ -12,7 +12,7 @@ export default function Home() {
     useEffect(()=>{
         axios({
             method:"get",
-            url:"http://localhost:8080/user/quizzes",
+            url:"http://10.212.26.200:8080/user/quizzes",
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
             }

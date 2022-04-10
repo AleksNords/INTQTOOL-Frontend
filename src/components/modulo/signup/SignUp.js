@@ -30,7 +30,7 @@ function SignUp() {
                     "password": password
                 }
 
-                axios("http://localhost:8080/user/add",{
+                axios("http://10.212.26.200:8080/user/add",{
                     method: "post",
                     data:newUser
                 }).then(function (response){
