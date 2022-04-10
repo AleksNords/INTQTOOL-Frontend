@@ -19,7 +19,6 @@ function Courses() {
             }
         }).then(function (response) {
             setCourses(response.data);
-            console.log(response.data);
         })
     }, []);
 
@@ -31,6 +30,8 @@ function Courses() {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
 
+        }).then(function(response){
+            setCourses(response.data);
         });
     }
 
@@ -43,7 +44,6 @@ function Courses() {
                 <div className={"course-list"}>
                     {courses.map((course)=> {
                         course = JSON.parse(course);
-                        console.log(course);
                         return (<Course id={course.id} name={course.name} description={course.description} activeQuizAmnt={course.activeQuizAmnt} joinCode={course.joinCode}/>)
                     })}
                 </div>

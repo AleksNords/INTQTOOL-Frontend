@@ -27,8 +27,7 @@ function SignUp() {
                     "firstName": firstName,
                     "lastName": lastName,
                     "email":email,
-                    "password": password,
-                    "courses":[]
+                    "password": password
                 }
 
                 axios("http://localhost:8080/user/add",{
