@@ -70,6 +70,7 @@ export default function Home() {
                         :
                     (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active quizzes</h1></div>)}
 
+
         </div>
     )
 }
