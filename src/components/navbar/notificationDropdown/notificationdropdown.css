@@ -1,0 +1,86 @@
+.notifications {
+    cursor: unset;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #154e90;
+    width: 25vw;
+    height: 60vh;
+    z-index: 1;
+    border-radius: 1.5%;
+    min-width: 30rem;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), inset 0px -5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.notification-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.amount-text {
+    position: relative;
+    top: 1.5vh;
+    left: 0.5vw;
+    padding-bottom: 3vh;
+}
+
+.clear-button {
+    color: white;
+    margin-right: 1rem;
+
+}
+
+.clear-button span {
+    margin: 0;
+}
+
+.clear-button:hover {
+    background-color: #266abe;
+}
+
+.all-notifications {
+    position: absolute;
+    font-size: 2.5rem;
+    font-weight: 500;
+    bottom: 2%;
+    right: 3%;
+    cursor: pointer;
+}
+
+.all-notifications:hover {
+    text-decoration: underline;
+}
+
+.no-notifications {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.dark-bell {
+    margin-top: 13vh;
+
+    color: #0C3667;
+    transform: rotate(40deg);
+}
+
+.no-notifications span {
+    margin: unset;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+#no-notifications-subtext {
+    color: #AAADC2;
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.notification-icon {
+    color: #266abe;
+}

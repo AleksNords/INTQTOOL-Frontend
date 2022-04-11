@@ -1,0 +1,27 @@
+.multiple-choice-module {
+    display: flex;
+    flex-direction: column;
+}
+
+.question-choice {
+    font-size: 4rem;
+    font-weight: bolder;
+}
+
+.question-choice-textfield {
+    width: 25vw;
+}
+
+.MuiInputBase-root {
+    font-size: 1.5rem;
+}
+
+.MuiFormControlLabel-root {
+    margin-right: 0;
+}
+
+.add-new-choice-button {
+    margin-left: 3.3rem;
+    width: 25vw;
+    height: 54px;
+}

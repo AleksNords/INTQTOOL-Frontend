@@ -1,0 +1,62 @@
+.top-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.remove-question-button {
+    height: 100%;
+    align-self: center;
+    margin-right: 2%;
+}
+
+.new-question {
+    width: 100%;
+    height: 100%;
+}
+
+.question-number {
+    font-size: 4rem;
+    margin: 2vh 0 1% 5%;
+}
+
+.main-question-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 70vh;
+}
+
+.main-question-content {
+    width: 50%;
+    height: 100%;
+    margin-left: 5%;
+}
+
+.question-textfield {
+    width: 60%;
+}
+
+.question-textfield label {
+    font-size: 1.8rem;
+    background-color: white;
+    padding-right: 6px;
+    font-weight: bold;
+}
+
+.MuiFormControlLabel-label	 {
+    font-size: 1.5rem;
+}
+
+.MuiInputBase-root {
+    font-size: 1.5rem;
+}
+
+.new-quiz-submit-button-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}

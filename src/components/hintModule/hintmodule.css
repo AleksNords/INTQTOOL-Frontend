@@ -1,0 +1,24 @@
+.hint-module {
+    width: 45%;
+}
+
+.hint-wrapper {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1%;
+}
+
+.hint-textfield {
+    width: 70%;
+}
+
+.add-new-hint-button {
+    width: 70%;
+    font-size: 2rem;
+    color: #646464;
+}
+
+.hint-icon {
+    align-self: center;
+    height: 54px;
+}

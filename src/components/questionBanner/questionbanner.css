@@ -4,12 +4,16 @@
     flex-direction: row;
     background-color: lightgray;
     flex-shrink: 1;
-
 }
 
 .question-banner-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    border: 2px solid black;
+    border-right: 2px solid black;
+    border-top: 1px solid black;
+    border-bottom: 2px solid black;
     flex: auto;
     cursor: pointer;
 }
@@ -17,4 +21,20 @@
 .question-banner-current-item{
     background-color: #0665bf;
     color: white;
+}
+
+.question-banner-plus-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top: 1px solid black;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+    width: 8rem;
+    background-color: white;
+}
+
+.plus-icon {
+    color: #42c767;
 }

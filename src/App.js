@@ -1,23 +1,19 @@
 import './App.css';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Navbar from "./components/navbar/Navbar";
 import Login from "./components/modulo/login/Login";
 import {Route,Routes} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Home from "./components/home/Home";
 import SignUp from "./components/modulo/signup/SignUp";
 import Quiz from "./components/quiz/Quiz";
 import Courses from "./components/courses/Courses";
-
-
-
-
+import Notifications from "./components/notifications/Notifications";
+import NewQuiz from "./components/newQuiz/NewQuiz";
 
 function App() {
-
+    const dispatch = useDispatch();
     const isLogged = useSelector(state => state.isLoggedReducer);
-
-
 
     return (
         <div className="App">
@@ -36,6 +32,8 @@ function App() {
                         <Route exact path={"/"} element={<Home/>}/>
                         <Route path={"/quiz/:id"} element={<Quiz/>}/>
                         <Route path={"/mycourses"} element={<Courses/>}/>
+                        <Route path={"/notifications"} element={<Notifications/>}/>
+                        <Route path={"/quizeditor/:id"} element={<NewQuiz/>}/>
                     </Routes>
 
                 ) : null}
