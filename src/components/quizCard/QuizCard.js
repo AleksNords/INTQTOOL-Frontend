@@ -7,9 +7,9 @@ function QuizCard({title,progression,quizId}){
     const navigate = useNavigate();
 
     return(
-        <div className={"quizcard"} onClick={()=>navigate("/quiz/"+quizId)}>
+        <div key={quizId} className={"quizcard"} onClick={()=>navigate("/quiz/"+quizId)}>
             <div className={"quizcard-img-wrapper"}>
-            <img src={"/studier_IDI_GeirMogen.jpg"} className={"card-image"}/>
+            <img src={"/studier_IDI_GeirMogen.jpg"} alt="Quiz title-image" className={"card-image"}/>
             </div>
             <div className={"quizcard-info-wrapper"}>
                 <h2 className={"quizcard-title"}>{title}</h2><br/>

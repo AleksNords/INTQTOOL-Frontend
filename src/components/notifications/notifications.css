@@ -1,0 +1,65 @@
+.notifications-page {
+    min-height:100%;
+    min-width:100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.notifications-title {
+    position: relative;
+    font-weight: bolder;
+    font-size: 3rem;
+    margin: 1rem 0 0 5rem;
+}
+
+.notification-title-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.main-divider {
+    height: 2px;
+    border: none;
+    width: 90%;
+    align-self: center;
+    margin: 1rem 0 2rem 0;
+}
+
+.clear-notification-button {
+    margin: 1rem 0 0 2rem;
+}
+
+.notification-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.no-notifications-big {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grey-bell {
+    margin-top: 40%;
+    color: #8F8F8F;
+    transform: rotate(40deg);
+}
+
+.nothing-to-see {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #8F8F8F;
+}
+
+.no-notifications-subtext {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #898CAB;
+    letter-spacing: 0.07rem;
+}

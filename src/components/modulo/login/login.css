@@ -1,7 +1,7 @@
-
-body{
+.position-wrapper{
     background: rgba(0, 0, 0, 0.4);
 }
+
 
 .login-wrapper{
     z-index: 1;

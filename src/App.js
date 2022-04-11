@@ -33,7 +33,7 @@ function App() {
                         <Route path={"/quiz/:id"} element={<Quiz/>}/>
                         <Route path={"/mycourses"} element={<Courses/>}/>
                         <Route path={"/notifications"} element={<Notifications/>}/>
-                        <Route path={"/quiz/new"} element={<NewQuiz/>}/>
+                        <Route path={"/quizeditor/:id"} element={<NewQuiz/>}/>
                     </Routes>
 
                 ) : null}
