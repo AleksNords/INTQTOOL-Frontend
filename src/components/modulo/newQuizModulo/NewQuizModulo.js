@@ -30,7 +30,6 @@ export default function NewQuizModulo({setShowFunction}) {
     });
 
     const handleClickOutside = (event) => {
-        console.log(event.target.className);
         if (event.target.className === "new-quiz-modulo-wrapper") {
             setShowFunction(false);
         }

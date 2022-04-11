@@ -9,13 +9,13 @@ export default function QuestionBanner({quizLength,currentQuestion,setCurrentQue
     for (let i=0;i<quizLength;i++){
         if(i === currentQuestion){
             questionsDivs.push(
-                <div key={i+1} className={"question-banner-item question-banner-current-item"}>
+                <div key={"question" + i+1} className={"question-banner-item question-banner-current-item"}>
                     <h1>{i+1}</h1>
                 </div>
             )
         }else{
             questionsDivs.push(
-                <div key={i+1} className={"question-banner-item"} onClick={()=>{setCurrentQuestion(i)}}>
+                <div key={"question" + i+1} className={"question-banner-item"} onClick={()=>{setCurrentQuestion(i)}}>
                     <h1>{i+1}</h1>
                 </div>
             )
