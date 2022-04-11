@@ -84,9 +84,11 @@ export default function Home() {
                                              progression={10}/>
                         })}
                     </div>)
-                    :!showArchived && quizAnswers.length <= 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
+                    :showArchived && quizAnswers.length <= 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
                         : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
+
                                 {quizAnswers.map((quiz)=>{
+
                                     return <QuizCard title={quiz.title} quizId={quiz.id}
                                                      status={quiz.status}/>
                                 })}
