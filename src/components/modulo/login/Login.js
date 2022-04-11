@@ -29,7 +29,6 @@ export default function Login() {
                 "Access-Control-Allow-headers": "*",
                 "Content-Type": "application/json"
             },
-            withCredentials: true,
             data: details
 
         }).then(function (response) {

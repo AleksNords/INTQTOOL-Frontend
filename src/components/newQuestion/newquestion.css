@@ -1,3 +1,16 @@
+.top-content-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.remove-question-button {
+    height: 100%;
+    align-self: center;
+    margin-right: 2%;
+}
+
 .new-question {
     width: 100%;
     height: 100%;
@@ -9,8 +22,10 @@
 }
 
 .main-question-content-wrapper {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    height: 100%;
+    min-height: 70vh;
 }
 
 .main-question-content {
@@ -36,4 +51,12 @@
 
 .MuiInputBase-root {
     font-size: 1.5rem;
+}
+
+.new-quiz-submit-button-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
 }

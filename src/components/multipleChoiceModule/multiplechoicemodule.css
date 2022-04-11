@@ -8,12 +8,6 @@
     font-weight: bolder;
 }
 
-/*
-.choice-wrapper {
-    width: 100%;
-}
- */
-
 .question-choice-textfield {
     width: 25vw;
 }
@@ -29,5 +23,5 @@
 .add-new-choice-button {
     margin-left: 3.3rem;
     width: 25vw;
-    height: 50px;
+    height: 54px;
 }
