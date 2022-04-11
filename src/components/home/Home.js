@@ -8,6 +8,7 @@ export default function Home() {
 
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [quizzes,setQuizzes] =useState([]);
+    const [showArchived,setShowArchived] = useState(false);
 
     useEffect(()=>{
         axios({
@@ -25,6 +26,22 @@ export default function Home() {
         });
     },[]);
 
+    function toggleActiveArchiveQuiz(elem){
+        let activeQuizElem = document.getElementById("Active-quiz-headers");
+        let archivedQuizElem = document.getElementById("Archived-quiz-headers");
+        if(elem.target.id === "Active-quiz-headers"){
+            activeQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-enabled"
+            archivedQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-disabled"
+            setShowArchived(false);
+
+        }else if(elem.target.id === "Archived-quiz-headers"){
+            activeQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-disabled"
+            archivedQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-enabled"
+            setShowArchived(true);
+        }
+
+    }
+
 
 
 
@@ -32,19 +49,20 @@ export default function Home() {
     return (
         <div className={"home"}>
             <div className={"quiz-type-navigator"}>
-                <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
-                <h1 className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1>
+                <h1 id="Active-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
+                <h1 id="Archived-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1>
             </div>
 
-                {quizzes.length >= 1 ?
+                {quizzes.length >= 1 && !showArchived ?
                     (<div className={"quizcard-container"}>
-                        {quizzes.map((quiz)=>{
+                        { quizzes.map((quiz)=>{
                             quiz = JSON.parse(quiz);
                             return <QuizCard title={quiz.title} quizId={quiz.id}
                                              progression={10}/>
                         })}
                     </div>)
-                    :
+                    :showArchived ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
+                        :
                     (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active quizzes</h1></div>)}
 
         </div>
