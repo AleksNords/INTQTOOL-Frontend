@@ -13,6 +13,7 @@ export default function Home() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
     const [quizzes,setQuizzes] =useState([]);
+    const [quizAnswers,setquizAnswers] =useState([]);
     const [showArchived,setShowArchived] = useState(false);
 
     useEffect(()=>{
@@ -29,6 +30,22 @@ export default function Home() {
         });
     },[]);
 
+    function updateQuizAnswers(){
+        axios({
+            url:"http://10.212.26.200:8080/user/archivedquizzes",
+            method:'get',
+            headers:{
+                "Authorization":"Bearer "+isLogged.jwtToken
+            }
+        }).then((response)=>{
+            if(response.status === 200){
+                let temp =response.data;
+                temp = temp.map((qa)=>JSON.parse(qa))
+                setquizAnswers(temp);
+            }
+        })
+    }
+
     function toggleActiveArchiveQuiz(elem){
         let activeQuizElem = document.getElementById("Active-quiz-headers");
         let archivedQuizElem = document.getElementById("Archived-quiz-headers");
@@ -41,6 +58,7 @@ export default function Home() {
             activeQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-disabled"
             archivedQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-enabled"
             setShowArchived(true);
+            updateQuizAnswers();
         }
 
     }
@@ -66,8 +84,13 @@ export default function Home() {
                                              progression={10}/>
                         })}
                     </div>)
-                    :showArchived ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
-                        :
+                    :!showArchived && quizAnswers.length <= 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
+                        : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
+                                {quizAnswers.map((quiz)=>{
+                                    return <QuizCard title={quiz.title} quizId={quiz.id}
+                                                     status={quiz.status}/>
+                                })}
+                            </div>):
                     (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active quizzes</h1></div>)}
 
 

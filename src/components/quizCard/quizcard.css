@@ -47,7 +47,7 @@
     float: right;
     font-size: 1.6rem;
     text-decoration: underline;
-    margin: 0 1rem;
+    margin: 0 2rem;
 }
 
 .quizcard-subtext-span{
@@ -55,5 +55,15 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.5rem;
+    padding: 0.5rem;
+}
+
+.quizcard-subtext-span-status{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+
+
 }
