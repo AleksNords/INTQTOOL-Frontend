@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './newquiz.css';
 import QuestionBanner from "../questionBanner/QuestionBanner";
 import NewQuestion from "../newQuestion/NewQuestion";

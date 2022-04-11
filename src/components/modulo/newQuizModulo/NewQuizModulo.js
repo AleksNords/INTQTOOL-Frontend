@@ -13,6 +13,7 @@ import Switch from '@mui/material/Switch';
 import {Button} from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import {useNavigate} from "react-router";
+import axios from 'axios';
 
 export default function NewQuizModulo({setShowFunction}) {
 
@@ -20,6 +21,9 @@ export default function NewQuizModulo({setShowFunction}) {
     const navigate = useNavigate();
     const [deadlineDate, setDeadlineDate] = useState(new Date().setHours(23,59));
     const [enableDeadline, setEnableDeadline] = useState(true);
+    const [title,setTitle] = useState("");
+    const [course,setCourse] = useState("");
+    const [description, setDescription] = useState("");
     const newQuizTheme = createTheme({
         typography: {
             fontSize: 25,
@@ -28,6 +32,29 @@ export default function NewQuizModulo({setShowFunction}) {
             blue: "#000000",
         }
     });
+
+    function submitQuizDetails(){
+        let newQuizId;
+        // axios({
+        //         method: 'post',
+        //         url: "http://10.212.26.200:8080/newquiz",
+        //         data: {
+        //             title:title,
+        //             course:course,
+        //             description:description,
+        //             deadlineDate:deadlineDate
+        //         }
+        // }).then((response)=>{
+        //     if(response.status === 200){
+        //         newQuizId =response.data;
+        //         navigate("/quizeditor/"+newQuizId)
+        //     }else{
+        //
+        //     }
+        //
+        // })
+        navigate("/quizeditor/"+1);
+    }
 
     const handleClickOutside = (event) => {
         if (event.target.className === "new-quiz-modulo-wrapper") {
@@ -53,8 +80,8 @@ export default function NewQuizModulo({setShowFunction}) {
                 <h1>New Quiz - <span className="course-code">INFT2400</span> Applikasjonsutvikling</h1>
                 <div className="editable-content-wrapper">
                         <div className="textfield-wrapper">
-                            <TextField className="textfield" variant="outlined" label="Title"/>
-                            <TextField multiline rows={9} className="textfield textarea" variant="outlined" label="Description"/>
+                            <TextField className="textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
+                            <TextField multiline rows={9} className="textfield textarea" variant="outlined" label="Description" onChange={(elem)=>setDescription(elem.target.value)}/>
                             <div className="deadline">
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
@@ -76,11 +103,11 @@ export default function NewQuizModulo({setShowFunction}) {
                             <Autocomplete
                                 className="textfield"
                                 options={["apple", "orange", "metamphetamine"]}
-                                renderInput={(params) => <TextField {...params} label="Course" />}/>
+                                renderInput={(params) => <TextField {...params} label="Course" onChange={(elem)=>setCourse(elem.target.value)}/>}/>
                             <div className="quiz-cover-image">
                                 <Button variant="contained" startIcon={<ImageIcon/>} component="label">Change<input type="file" hidden/></Button>
                             </div>
-                            <Button sx={{fontSize: 18}} className="continue-button" variant="contained" onClick={()=>navigate("/quiz/new")}>Continue</Button>
+                            <Button sx={{fontSize: 18}} className="continue-button" variant="contained" onClick={()=>submitQuizDetails()}>Continue</Button>
                         </div>
                 </div>
             </div>

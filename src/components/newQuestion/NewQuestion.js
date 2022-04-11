@@ -28,22 +28,22 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
     const [hints, setHints] = useState([]);
 
     function addAlternative() {
-        if (alternatives.length < 6) {
-            let temp = alternatives;
-            temp.push({
+        if (question.alternatives.length < 6) {
+            let temp = question;
+            temp.alternatives.push({
                 alternativeText: "",
                 correct: false,
             });
-            setAlternatives(temp);
+            setQuestion(temp)
             setAlternativeAmnt(alternativeAmnt + 1);
             changeQuestionAlternatives(questionIndex, temp.alternatives);
         }
     }
 
     function deleteAlternative(index) {
-        let temp = alternatives;
-        temp.splice(index, 1);
-        setAlternatives(temp);
+        let temp = question;
+        temp.alternatives.splice(index, 1);
+        setQuestion(temp);
         setAlternativeAmnt(alternativeAmnt - 1);
         changeQuestionAlternatives(questionIndex, temp.alternatives);
     }
