@@ -24,6 +24,7 @@ export default function NewQuizModulo({setShowFunction}) {
     const [title,setTitle] = useState("");
     const [course,setCourse] = useState("");
     const [description, setDescription] = useState("");
+    const url = "https://quiz.web-tek.ninja:8443";
     const newQuizTheme = createTheme({
         typography: {
             fontSize: 25,
@@ -37,7 +38,7 @@ export default function NewQuizModulo({setShowFunction}) {
         let newQuizId;
         // axios({
         //         method: 'post',
-        //         url: "https://quiz.web-tek.ninja:8080/newquiz",
+        //         url: url+"/newquiz",
         //         data: {
         //             title:title,
         //             course:course,

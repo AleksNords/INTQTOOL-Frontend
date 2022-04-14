@@ -15,11 +15,12 @@ export default function Home() {
     const [quizzes,setQuizzes] =useState([]);
     const [quizAnswers,setquizAnswers] =useState([]);
     const [showArchived,setShowArchived] = useState(false);
+    const url = "https://quiz.web-tek.ninja:8443";
 
     useEffect(()=>{
         axios({
             method:"get",
-            url:"https://quiz.web-tek.ninja:8080/user/quizzes",
+            url: url+"/user/quizzes",
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
             }
@@ -32,7 +33,7 @@ export default function Home() {
 
     function updateQuizAnswers(){
         axios({
-            url:"https://quiz.web-tek.ninja:8080/user/archivedquizzes",
+            url: url + "/user/archivedquizzes",
             method:'get',
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken

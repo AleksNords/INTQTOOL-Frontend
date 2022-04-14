@@ -11,6 +11,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const url = "https://quiz.web-tek.ninja:8443";
 
 
 
@@ -22,7 +23,7 @@ export default function Login() {
 
         axios({
             method: 'post',
-            url: "https://quiz.web-tek.ninja:8080/authenticate",
+            url: url+"/authenticate",
             headers: {
                 "Accept": "*/*",
                 "Access-Control-Allow-Origin": "*",
@@ -50,7 +51,7 @@ export default function Login() {
     function getUserInfo(token) {
         axios({
             method: "get",
-            url: "https://quiz.web-tek.ninja:8080/user/myuser",
+            url: url+"/user/myuser",
             headers: {
                 "Authorization": "Bearer " + token
             }

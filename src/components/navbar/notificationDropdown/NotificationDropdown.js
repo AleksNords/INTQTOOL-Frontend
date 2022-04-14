@@ -17,6 +17,7 @@ export default function NotificationDropDown({clearParentNotifications}) {
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
     const [notifications, setNotifications] = useState(user.notifications);
+    const url = "https://quiz.web-tek.ninja:8443";
 
     function clearNotifications() {
         if (notifications.length >= 1) {
@@ -29,7 +30,7 @@ export default function NotificationDropDown({clearParentNotifications}) {
             setNotifications([])
             /*axios({
                 method: "get",
-                url: "https://quiz.web-tek.ninja:8080/user/clearnotifications",
+                url: url+"/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
@@ -47,7 +48,7 @@ export default function NotificationDropDown({clearParentNotifications}) {
 
         /*axios({
             method: "get",
-            url: "https://quiz.web-tek.ninja:8080/user/removenotification/"+notificationID,
+            url: url+"/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
