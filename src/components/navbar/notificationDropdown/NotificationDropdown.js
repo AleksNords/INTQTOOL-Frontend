@@ -29,7 +29,7 @@ export default function NotificationDropDown({clearParentNotifications}) {
             setNotifications([])
             /*axios({
                 method: "get",
-                url: "http://localhost:8080/user/clearnotifications",
+                url: "https://quiz.web-tek.ninja:8080/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
@@ -47,7 +47,7 @@ export default function NotificationDropDown({clearParentNotifications}) {
 
         /*axios({
             method: "get",
-            url: "http://localhost:8080/user/removenotification/"+notificationID,
+            url: "https://quiz.web-tek.ninja:8080/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

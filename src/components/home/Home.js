@@ -19,7 +19,7 @@ export default function Home() {
     useEffect(()=>{
         axios({
             method:"get",
-            url:"http://10.212.26.200:8080/user/quizzes",
+            url:"https://quiz.web-tek.ninja:8080/user/quizzes",
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
             }
@@ -32,7 +32,7 @@ export default function Home() {
 
     function updateQuizAnswers(){
         axios({
-            url:"http://10.212.26.200:8080/user/archivedquizzes",
+            url:"https://quiz.web-tek.ninja:8080/user/archivedquizzes",
             method:'get',
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
@@ -92,7 +92,7 @@ export default function Home() {
                                              progression={10}/>
                         })}
                     </div>)
-                    :showArchived && quizAnswers.length <= 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
+                    :showArchived && quizAnswers.length < 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
                         : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
 
                                 {quizAnswers.map((quiz)=>{

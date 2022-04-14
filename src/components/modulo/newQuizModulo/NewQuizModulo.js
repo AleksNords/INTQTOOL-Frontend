@@ -37,7 +37,7 @@ export default function NewQuizModulo({setShowFunction}) {
         let newQuizId;
         // axios({
         //         method: 'post',
-        //         url: "http://10.212.26.200:8080/newquiz",
+        //         url: "https://quiz.web-tek.ninja:8080/newquiz",
         //         data: {
         //             title:title,
         //             course:course,

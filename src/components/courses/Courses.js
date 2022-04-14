@@ -16,7 +16,7 @@ function Courses() {
     useEffect(() => {
         axios({
             method: "get",
-            url: "http://10.212.26.200:8080/user/courses",
+            url: "https://quiz.web-tek.ninja:8080/user/courses",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -28,7 +28,7 @@ function Courses() {
     function joinCourse(){
         axios({
             method:"get",
-            url:"http://10.212.26.200:8080/user/joincourse/"+joinCode,
+            url:"https://quiz.web-tek.ninja:8080/user/joincourse/"+joinCode,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
