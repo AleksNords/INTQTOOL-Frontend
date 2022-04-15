@@ -9,7 +9,7 @@ export default function NewQuiz() {
     let {id} = useParams();
     const navigate = useNavigate();
     const [questionAmnt, setQuestionAmnt] = useState(1);
-    const [quiz,setQuiz] = useState({});
+    const [quiz, setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const url = "https://quiz.web-tek.ninja:8443";
     const [questions, setQuestions] = useState([{
@@ -72,6 +72,12 @@ export default function NewQuiz() {
         setQuestions(temp);
     }
 
+    function changeQuestionHints(index, newHints) {
+        let temp = questions;
+        temp[index].hints = newHints;
+        setQuestions(temp);
+    }
+
     function setIsMultipleChoice(index, newValue) {
         let temp = questions;
         temp[index].isMultipleChoice = newValue;
@@ -96,7 +102,7 @@ export default function NewQuiz() {
         <div className="new-quiz-page">
             <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length} setCurrentQuestion={(e)=>setCurrentQuestion(e)} isNewQuizBanner={true}/>
             {questions.length > 0 ?
-                <NewQuestion submitQuiz={submitQuiz} deleteQuestion={deleteQuestion} setIsMultipleChoice={setIsMultipleChoice} changeQuestionText={changeQuestionText} changeQuestionAlternatives={changeQuestionAlternatives} question={questions[currentQuestion]} questionIndex={currentQuestion} questionNumber={currentQuestion + 1} setQuestion={(question)=>{let temp = questions; temp[currentQuestion] = question;setQuestions(temp)}}/>
+                <NewQuestion submitQuiz={submitQuiz} deleteQuestion={deleteQuestion} setIsMultipleChoice={setIsMultipleChoice} changeQuestionText={changeQuestionText} changeQuestionAlternatives={changeQuestionAlternatives} changeQuestionHints={changeQuestionHints} question={questions[currentQuestion]} questionIndex={currentQuestion} questionNumber={currentQuestion + 1} setQuestion={(question)=>{let temp = questions; temp[currentQuestion] = question;setQuestions(temp)}}/>
             : null}
         </div>
     )

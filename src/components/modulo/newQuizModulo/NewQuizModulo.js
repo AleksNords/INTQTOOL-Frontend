@@ -78,11 +78,15 @@ export default function NewQuizModulo({setShowFunction}) {
         <div className="new-quiz-modulo-wrapper">
             <ThemeProvider theme={newQuizTheme}>
             <div ref={ref} className="new-quiz-modulo">
-                <h1>New Quiz - <span className="course-code">INFT2400</span> Applikasjonsutvikling</h1>
+                <h1>New Quiz</h1>
                 <div className="editable-content-wrapper">
                         <div className="textfield-wrapper">
-                            <TextField className="textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
-                            <TextField multiline rows={9} className="textfield textarea" variant="outlined" label="Description" onChange={(elem)=>setDescription(elem.target.value)}/>
+                            <TextField className="new-quiz-textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
+                            <TextField multiline inputProps={{
+                                style: {
+                                    height: "21.5vh",
+                                },
+                            }} className="new-quiz-textfield textarea" variant="outlined" label="Description" onChange={(elem)=>setDescription(elem.target.value)}/>
                             <div className="deadline">
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
@@ -102,13 +106,13 @@ export default function NewQuizModulo({setShowFunction}) {
                         </div>
                         <div className="extras-wrapper">
                             <Autocomplete
-                                className="textfield"
+                                className="new-quiz-textfield"
                                 options={["apple", "orange", "metamphetamine"]}
                                 renderInput={(params) => <TextField {...params} label="Course" onChange={(elem)=>setCourse(elem.target.value)}/>}/>
                             <div className="quiz-cover-image">
                                 <Button variant="contained" startIcon={<ImageIcon/>} component="label">Change<input type="file" hidden/></Button>
                             </div>
-                            <Button sx={{fontSize: 18}} className="continue-button" variant="contained" onClick={()=>submitQuizDetails()}>Continue</Button>
+                            <Button sx={{fontSize: 17}} className="continue-button" variant="contained" onClick={()=>submitQuizDetails()}>Continue</Button>
                         </div>
                 </div>
             </div>

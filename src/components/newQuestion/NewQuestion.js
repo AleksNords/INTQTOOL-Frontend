@@ -7,7 +7,7 @@ import HintModule from "../hintModule/HintModule";
 import CloseIcon from '@mui/icons-material/Close';
 
 
-export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, setIsMultipleChoice, submitQuiz}) {
+export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice, submitQuiz}) {
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
@@ -25,7 +25,6 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
 
 
     const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
-    const [hints, setHints] = useState([]);
 
     function addAlternative() {
         if (question.alternatives.length < 6) {
@@ -34,7 +33,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                 alternativeText: "",
                 correct: false,
             });
-            setQuestion(temp)
+            setQuestion(temp);
             setAlternativeAmnt(alternativeAmnt + 1);
             changeQuestionAlternatives(questionIndex, temp.alternatives);
         }
@@ -52,33 +51,33 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         let temp = question;
         let index = question.alternatives.indexOf(alternative);
         temp.alternatives[index] = alternative;
-
         setQuestion(temp);
         changeQuestionAlternatives(questionIndex, temp.alternatives);
     }
 
     function addHint() {
-        if (hints.length < 5) {
-            let temp = hints;
-            temp.push("");
-            setHints(temp);
+        if (question.hints.length < 5) {
+            let temp = question;
+            temp.hints.push("");
+            setQuestion(temp);
             setHintAmnt(hintAmnt + 1);
+            changeQuestionHints(questionIndex, temp.hints);
         }
     }
 
     function deleteHint(index) {
-        let temp = hints;
-        temp.splice(index, 1);
-        setHints(temp);
+        let temp = question;
+        temp.hints.splice(index, 1);
+        setQuestion(temp);
         setHintAmnt(hintAmnt - 1);
-        console.log(hints);
+        changeQuestionHints(questionIndex, temp.hints);
     }
 
     function changeHint(hint, index) {
-        let temp = hints;
-        temp[index] = hint;
-        setHints(temp);
-        console.log(hints);
+        let temp = question;
+        temp.hints[index] = hint;
+        setQuestion(temp);
+        changeQuestionHints(questionIndex, temp.hints);
     }
 
     function setMultipleChoice(index, newValue) {
@@ -103,7 +102,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                         {question.isMultipleChoice ? <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative} addAlternative={addAlternative} deleteAlternative={deleteAlternative} alternatives={question.alternatives}/> : null}
                     </RadioGroup>
                 </div>
-                <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={hints}/>
+                <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={question.hints}/>
             </div>
             <div className="new-quiz-submit-button-wrapper">
                 <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}} className="remove-question-button" >submit</Button>

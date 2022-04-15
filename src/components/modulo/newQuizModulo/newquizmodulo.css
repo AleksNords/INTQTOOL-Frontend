@@ -23,9 +23,6 @@
     font-size: 2.5rem;
 }
 
-h1 span {
-    color: #1C5BA5;
-}
 .editable-content-wrapper {
     width: 100%;
     display: flex;
@@ -44,13 +41,20 @@ h1 span {
 }
 
 .textfield-wrapper label {
+     font-size: 1.4rem;
+     background-color: white;
+     padding-right: 6px;
+     font-weight: 500;
+ }
+
+.new-quiz-textfield label {
     font-size: 1.4rem;
     background-color: white;
     padding-right: 6px;
     font-weight: 500;
 }
 
-.textfield {
+.new-quiz-textfield {
     width: 80%;
 }
 
@@ -70,7 +74,7 @@ h1 span {
 
 .quiz-cover-image {
     border-radius: 5px;
-    height: 59%;
+    height: 25vh;
     width: 80%;
     background-color: #e76b97;
     display: flex;
