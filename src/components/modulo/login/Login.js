@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './login.css';
 import {useDispatch} from "react-redux";
 import {setUser} from "../../../store/action/userAction";
@@ -11,6 +11,8 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const url = "https://quiz.web-tek.ninja:8443";
+
 
 
     function submitLogin() {
@@ -21,7 +23,7 @@ export default function Login() {
 
         axios({
             method: 'post',
-            url: "http://10.212.26.200:8080/authenticate",
+            url: url+"/authenticate",
             headers: {
                 "Accept": "*/*",
                 "Access-Control-Allow-Origin": "*",
@@ -49,7 +51,7 @@ export default function Login() {
     function getUserInfo(token) {
         axios({
             method: "get",
-            url: "http://10.212.26.200:8080/user/myuser",
+            url: url+"/user/myuser",
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -66,6 +68,14 @@ export default function Login() {
     function goToSignUp() {
         navigate("/signup");
     }
+    useEffect(()=>{
+
+        document.querySelector('#login-password-input').addEventListener('keypress',(event)=>{
+            if(event.key === 'Enter'){
+                submitLogin();
+            }
+        });
+    },[])
 
     return (
         <div className={"position-wrapper"}>
@@ -75,8 +85,9 @@ export default function Login() {
                     <input type={"text"} className={"login-form-field"}
                            onChange={elem => setUsername(elem.target.value)}/>
                     <label>Password</label>
-                    <input type={"password"} className={"login-form-field"}
-                           onChange={elem => setPassword(elem.target.value)}/>
+                    <input id="login-password-input" name={"login-password-input"} type={"password"} className={"login-form-field"}
+                           onChange={elem => setPassword(elem.target.value)}
+                    />
                 </div>
                 <div className={"login-submit-wrapper"}>
                     <input type={"button"} value={"Login"} className={"login-form-submitButton"} onClick={submitLogin}/>

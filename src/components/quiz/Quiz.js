@@ -12,7 +12,7 @@ export default function Quiz() {
     let {id} = useParams();
 
     const navigate = useNavigate();
-
+    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [quiz, setQuiz] = useState({});
     const [questionAnswers, setQuestionAnswers] = useState([]);
@@ -28,7 +28,7 @@ export default function Quiz() {
 
         axios({
             method: "get",
-            url: "http://10.212.26.200:8080/quiz/" + id,
+            url: url+"/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -41,7 +41,7 @@ export default function Quiz() {
 
         axios({
             method: "get",
-            url: "http://10.212.26.200:8080/user/quizanswers/" + id,
+            url: url+"/user/quizanswers/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -72,7 +72,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: "http://10.212.26.200:8080/user/saveanswer",
+            url: url+"/user/saveanswer",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -101,7 +101,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: "http://10.212.26.200:8080/user/submitanswer",
+            url: url+"/user/submitanswer",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },

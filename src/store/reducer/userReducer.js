@@ -15,7 +15,6 @@ const userReducer = (state = initialState, action) => {
             return newState;
         case 'REMOVE_USER':
             let newState2 ={
-                ...state,
                 user: {}
             };
             return newState2;

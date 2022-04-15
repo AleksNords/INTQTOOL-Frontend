@@ -15,6 +15,7 @@ export default function Notifications() {
     const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
+    const url = "https://quiz.web-tek.ninja:8443";
     const [notifications, setNotifications] = useState(user.notifications);
 
     function clearNotifications() {
@@ -27,7 +28,7 @@ export default function Notifications() {
             setNotifications([])
             /*axios({
                 method: "get",
-                url: "http://localhost:8080/user/clearnotifications",
+                url: url+"/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
@@ -45,7 +46,7 @@ export default function Notifications() {
 
         /*axios({
             method: "get",
-            url: "http://localhost:8080/user/removenotification/"+notificationID,
+            url: url+"/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

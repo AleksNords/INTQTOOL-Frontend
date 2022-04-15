@@ -13,12 +13,14 @@ export default function Home() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
     const [quizzes,setQuizzes] =useState([]);
+    const [quizAnswers,setquizAnswers] =useState([]);
     const [showArchived,setShowArchived] = useState(false);
+    const url = "https://quiz.web-tek.ninja:8443";
 
     useEffect(()=>{
         axios({
             method:"get",
-            url:"http://10.212.26.200:8080/user/quizzes",
+            url: url+"/user/quizzes",
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
             }
@@ -28,6 +30,22 @@ export default function Home() {
         ).catch(function (response){
         });
     },[]);
+
+    function updateQuizAnswers(){
+        axios({
+            url: url + "/user/archivedquizzes",
+            method:'get',
+            headers:{
+                "Authorization":"Bearer "+isLogged.jwtToken
+            }
+        }).then((response)=>{
+            if(response.status === 200){
+                let temp =response.data;
+                temp = temp.map((qa)=>JSON.parse(qa))
+                setquizAnswers(temp);
+            }
+        })
+    }
 
     function toggleActiveArchiveQuiz(elem){
         let activeQuizElem = document.getElementById("Active-quiz-headers");
@@ -41,6 +59,7 @@ export default function Home() {
             activeQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-disabled"
             archivedQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-enabled"
             setShowArchived(true);
+            updateQuizAnswers();
         }
 
     }
@@ -55,7 +74,15 @@ export default function Home() {
             <div className={"quiz-type-navigator"}>
                 <h1 id="Active-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
                 <h1 id="Archived-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1>
-                <Button className="new-quiz" onClick={()=>setShowNewQuizModulo(true)} sx={{fontSize: 16}} variant={"contained"}  startIcon={<AddIcon/>}>New Quiz</Button>
+                {
+                    (user.user.roles)?(
+                        (user.user.roles.includes("ROLE_TEACHER")) || (user.user.roles.includes("ROLE_ADMIN")) ? (
+                    <Button className="new-quiz" onClick={()=>setShowNewQuizModulo(true)} sx={{fontSize: 16}} variant={"contained"}  startIcon={<AddIcon/>}>New Quiz</Button>
+                    ):null):null
+
+
+                }
+
             </div>
 
                 {quizzes.length >= 1 && !showArchived ?
@@ -66,9 +93,17 @@ export default function Home() {
                                              progression={10}/>
                         })}
                     </div>)
-                    :showArchived ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
-                        :
+                    :showArchived && quizAnswers.length < 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
+                        : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
+
+                                {quizAnswers.map((quiz)=>{
+
+                                    return <QuizCard title={quiz.title} quizId={quiz.id}
+                                                     status={quiz.status}/>
+                                })}
+                            </div>):
                     (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active quizzes</h1></div>)}
+
 
         </div>
     )

@@ -11,6 +11,7 @@ export default function NewQuiz() {
     const [questionAmnt, setQuestionAmnt] = useState(1);
     const [quiz,setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const url = "https://quiz.web-tek.ninja:8443";
     const [questions, setQuestions] = useState([{
         questionText: "",
         isMultipleChoice: false,
@@ -21,7 +22,7 @@ export default function NewQuiz() {
     useEffect(()=>{
         axios({
                 method: 'get',
-                url: "http://10.212.26.200:8080/quiz/quizdetails/"+id
+                url: url+"/quiz/quizdetails/"+id
 
             }).then((response)=>{
                 if(response.status === 200){
@@ -36,7 +37,7 @@ export default function NewQuiz() {
         // setQuiz(temp);
         // axios({
         //     method: 'post',
-        //     url: "http://10.212.26.200:8080/newquiz",
+        //     url: "https://quiz.web-tek.ninja:8080/newquiz",
         //     data: temp
         // }).then((response)=>{
         //     if(response.status){

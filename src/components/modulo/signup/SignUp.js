@@ -17,6 +17,7 @@ function SignUp() {
     const [passwordConf,setPasswordConf] = React.useState("");
     const [warning,setWarning] = React.useState(false);
     const [warningText,setWarningText] = React.useState("");
+    const url = "https://quiz.web-tek.ninja:8443";
 
     function submitAccount(){
         if(email === emailConf){
@@ -30,7 +31,7 @@ function SignUp() {
                     "password": password
                 }
 
-                axios("http://10.212.26.200:8080/user/add",{
+                axios(url+"/user/add",{
                     method: "post",
                     data:newUser
                 }).then(function (response){

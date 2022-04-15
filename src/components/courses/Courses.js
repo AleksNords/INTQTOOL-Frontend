@@ -11,12 +11,13 @@ function Courses() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer.user);
     const roles = user.roles;
+    const url = "https://quiz.web-tek.ninja:8443";
 
 
     useEffect(() => {
         axios({
             method: "get",
-            url: "http://10.212.26.200:8080/user/courses",
+            url: url+"/user/courses",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -28,7 +29,7 @@ function Courses() {
     function joinCourse(){
         axios({
             method:"get",
-            url:"http://10.212.26.200:8080/user/joincourse/"+joinCode,
+            url: url + "/user/joincourse/"+joinCode,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
