@@ -11,7 +11,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const url = "https://quiz.web-tek.ninja:8443";
+    const url = "http://localhost:8080";
 
 
 
@@ -34,6 +34,7 @@ export default function Login() {
             data: details
 
         }).then(function (response) {
+
             if (response.status === 200) {
                 dispatch(setLoginStatus({
                     isLogged: true,
@@ -42,9 +43,11 @@ export default function Login() {
                 getUserInfo(response.data.jwt);
                 navigate("/");
             }
-        }).catch(function (response) {
-            console.log(response.status);
-            console.log(response);
+        }).catch(function (error) {
+            if(error.response.status === 401){
+                displayErrorPrompt();
+            }
+
         });
     }
 
@@ -65,6 +68,11 @@ export default function Login() {
             });
     }
 
+    function displayErrorPrompt(){
+        let errorPrompt = document.getElementById("login-error-prompt");
+        errorPrompt.style.display="flex";
+    }
+
     function goToSignUp() {
         navigate("/signup");
     }
@@ -80,11 +88,15 @@ export default function Login() {
     return (
         <div className={"position-wrapper"}>
             <div className="login-wrapper">
+
                 <div className={"login-fields"}>
-                    <label>Username</label>
+                    <div id={"login-error-prompt"} className={"login-error-prompt"}>
+                        <p>Wrong username or password</p>
+                    </div>
+                    <label className={"login-form-label-username"}>Username</label>
                     <input type={"text"} className={"login-form-field"}
                            onChange={elem => setUsername(elem.target.value)}/>
-                    <label>Password</label>
+                    <label className={"login-form-label-password"}>Password</label>
                     <input id="login-password-input" name={"login-password-input"} type={"password"} className={"login-form-field"}
                            onChange={elem => setPassword(elem.target.value)}
                     />
