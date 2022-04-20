@@ -20,7 +20,7 @@ export default function Question({question, currentQuestion,setAnswer,currAns,qu
         <div className={"question-wrapper"} key={currentQuestion}>
             <h1 className={"question-text-header"}>{question.question}</h1>
             {
-                (question.type === "multiple_choice" && question.alternatives !== undefined) ? (
+                (question.type === 1 && question.alternatives !== undefined) ? (
                         <RadioGroup name={"question-"+question.id} onChange={(elem)=>{ answer.answer = elem.target.value;setAnswer(answer)}} defaultValue={answer.answer}>
 
                                 {
@@ -37,7 +37,7 @@ export default function Question({question, currentQuestion,setAnswer,currAns,qu
                         </RadioGroup>
                     )
                     :
-                    (question.type === "long_answer") ? (
+                    (question.type === 2) ? (
                             <textarea
                                 className={"longanswer-textfield"}
                                 placeholder={"Ditt svar her..."} onChange={(elem)=>{ answer.answer = elem.target.value;setAnswer(answer)}}>

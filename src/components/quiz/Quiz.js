@@ -12,7 +12,7 @@ export default function Quiz() {
     let {id} = useParams();
 
     const navigate = useNavigate();
-    const url = "https://quiz.web-tek.ninja:8443";
+    const url = "http://localhost:8080";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [quiz, setQuiz] = useState({});
     const [questionAnswers, setQuestionAnswers] = useState([]);

@@ -15,7 +15,7 @@ export default function Home() {
     const [quizzes,setQuizzes] =useState([]);
     const [quizAnswers,setquizAnswers] =useState([]);
     const [showArchived,setShowArchived] = useState(false);
-    const url = "https://quiz.web-tek.ninja:8443";
+    const url = "http://localhost:8080";
 
     useEffect(()=>{
         axios({
@@ -29,6 +29,19 @@ export default function Home() {
             }
         ).catch(function (response){
         });
+        axios({
+            url: url + "/user/archivedquizzes",
+            method:'get',
+            headers:{
+                "Authorization":"Bearer "+isLogged.jwtToken
+            }
+        }).then((response)=>{
+            if(response.status === 200){
+                let temp =response.data;
+                temp = temp.map((qa)=>JSON.parse(qa))
+                setquizAnswers(temp);
+            }
+        })
     },[]);
 
     function updateQuizAnswers(){
