@@ -34,7 +34,7 @@
 .sign-up-warning{
     align-self: center;
     width:25rem;
-    height:3rem;
+    height:auto;
     background-color: #feb1b1;
     border: 2px solid #ff4f4f;
     color: #ff4f4f;
@@ -48,9 +48,8 @@
     flex-grow:1;
     flex-direction: column;
     color: white;
-    font-family: "Roboto";
     float: right;
-    padding-right: 2rem;
+    padding: 17rem 5rem;
 
 }
 
@@ -58,11 +57,10 @@
     border-radius: 5px;
     background-color: #1C5BA5;
     color: white;
-    font-family: "Roboto";
     width: 16.5rem;
     height: 3.7rem;
     border:0;
-    align-self: center;
+    align-self: end;
     cursor: pointer;
 }
 

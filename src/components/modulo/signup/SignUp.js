@@ -8,49 +8,91 @@ function SignUp() {
 
     const navigate = useNavigate();
 
-    const [username,setUsername] = React.useState("");
-    const [firstName,setFirstName] = React.useState("");
-    const [lastName,setLastName] = React.useState("");
-    const [email,setEmail] = React.useState("");
-    const [emailConf,setEmailConf] = React.useState("");
-    const [password,setPassword] = React.useState("");
-    const [passwordConf,setPasswordConf] = React.useState("");
-    const [warning,setWarning] = React.useState(false);
-    const [warningText,setWarningText] = React.useState("");
-    const url = "https://quiz.web-tek.ninja:8443";
+    const [username, setUsername] = React.useState("");
+    const [firstName, setFirstName] = React.useState("");
+    const [lastName, setLastName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [emailConf, setEmailConf] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [warning, setWarning] = React.useState(false);
+    const [warningText, setWarningText] = React.useState("");
+    const url = "http://localhost:8080";
 
-    function submitAccount(){
-        if(email === emailConf){
-            if(password === passwordConf){
-                setWarning(false);
-                let newUser = {
-                    "username":username,
-                    "firstName": firstName,
-                    "lastName": lastName,
-                    "email":email,
-                    "password": password
-                }
+    function submitAccount() {
+        if (username.length > 0) {
+            if (email.length > 0) {
+                if (email === emailConf) {
+                    if (firstName.length > 0) {
+                        if (lastName.length > 0) {
+                            if (checkPasswordFormat()) {
+                                setWarning(false);
+                                let newUser = {
+                                    "username": username,
+                                    "firstName": firstName,
+                                    "lastName": lastName,
+                                    "email": email,
+                                    "password": password
+                                }
 
-                axios(url+"/user/add",{
-                    method: "post",
-                    data:newUser
-                }).then(function (response){
-                    if(response.status === 201){
-                        navigate("/");
+                                axios(url + "/user/add", {
+                                    method: "post",
+                                    data: newUser
+                                }).then(function (response) {
+                                    if (response.status === 201) {
+                                        navigate("/");
+                                    }
+
+                                }).catch((error) => {
+                                    console.log(error.response);
+                                });
+                            }
+                        } else {
+                            setWarningText("Last name is required");
+                            setWarning(true);
+                        }
+                    } else {
+                        setWarningText("First name is required");
+                        setWarning(true);
                     }
-
-                });
-            } else{
-                setWarningText("Passwords does not match");
+                } else {
+                    setWarningText("Email does not match");
+                    setWarning(true);
+                }
+            } else {
+                setWarningText("Email is required");
                 setWarning(true);
             }
-        }
-        else{
-            setWarningText("Email does not match");
+
+        } else {
+            setWarningText("Username is required");
             setWarning(true);
         }
     }
 
+    function checkPasswordFormat() {
+        let passwordIsValid = false;
+        if (password.length < 8) {
+            setWarningText("Password must contain at least 8 letters");
+            setWarning(true);
+
+        } else if (password.search(/[a-z]/) < 0) {
+            setWarningText("Password must contain at one lowercase letter");
+            setWarning(true);
+
+        } else if (password.search(/[A-Z]/) < 0) {
+            setWarningText("Password must contain at least 1 uppercase letter");
+            setWarning(true);
+
+        } else if (password.search(/[0-9]/) < 0) {
+            setWarningText("Password must contain at one number");
+            setWarning(true);
+
+        } else {
+            passwordIsValid = true;
+        }
+
+        return passwordIsValid;
+    }
 
 
     return (
@@ -69,44 +111,42 @@ function SignUp() {
                         {(warning === true) ? <div className={"sign-up-warning"}>
 
                             <p>Warning: {warningText}</p>
-                        </div>: <div></div>}
+                        </div> : <div></div>}
 
                         <div className={"sign-up-item"}>
                             <TextField label={"First name"} className={"sign-up-form-field"}
-                                   onChange={elem => setFirstName(elem.target.value)}/>
+                                       onChange={elem => setFirstName(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-item"}>
                             <TextField label={"Last name"} className={"sign-up-form-field"}
-                                   onChange={elem => setLastName(elem.target.value)}/>
+                                       onChange={elem => setLastName(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-item"}>
                             <TextField label={"E-mail"} className={"sign-up-form-field"}
-                                   onChange={elem => setEmail(elem.target.value)}/>
+                                       onChange={elem => setEmail(elem.target.value)}/>
                         </div>
 
 
                         <div className={"sign-up-item"}>
                             <TextField label={"Confirm e-mail"} className={"sign-up-form-field"}
-                                   onChange={elem => setEmailConf(elem.target.value)}/>
+                                       onChange={elem => setEmailConf(elem.target.value)}/>
                         </div>
                         <div className={"sign-up-item"}>
                             <TextField label={"Password"} type={"password"} className={"sign-up-form-field"}
-                                   onChange={elem => setPassword(elem.target.value)}/>
-                        </div>
-                        <div className={"sign-up-item"}>
-                            <TextField label={"Confirm password"} type={"password"} className={"sign-up-form-field"}
-                            onChange={elem => setPasswordConf(elem.target.value)}/>
+                                       onChange={elem => setPassword(elem.target.value)}/>
                         </div>
 
+                        <div className={"sign-up-submit-wrapper"}>
+                            <Button sx={{fontSize: 14}} variant="contained" className={"sign-up-form-submitButton"}
+                                    onClick={submitAccount}>Create account</Button>
+                        </div>
 
 
                     </div>
                 </div>
-                <div className={"sign-up-submit-wrapper"}>
-                    <Button sx={{fontSize: 14}} variant="contained" className={"sign-up-form-submitButton"} onClick={submitAccount} >Create account</Button>
-                </div>
+
             </div>
 
 
