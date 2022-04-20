@@ -16,7 +16,7 @@ import {useNavigate} from "react-router";
 import axios from 'axios';
 import {useSelector} from "react-redux";
 
-export default function NewQuizModulo({setShowFunction}) {
+export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
 
     const ref = useRef(null);
     const navigate = useNavigate();
@@ -77,11 +77,18 @@ export default function NewQuizModulo({setShowFunction}) {
         //     }
         //
         // })
+        if (typeof setShowSavedQuiz === "function") {
+            setShowSavedQuiz(true);
+        }
+        setShowFunction(false);
         navigate("/quizeditor/"+1);
     }
 
     const handleClickOutside = (event) => {
         if (event.target.className === "new-quiz-modulo-wrapper") {
+            if (typeof setShowSavedQuiz === "function") {
+                setShowSavedQuiz(true);
+            }
             setShowFunction(false);
         }
     };

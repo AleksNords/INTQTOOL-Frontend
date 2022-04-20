@@ -5,7 +5,10 @@ import {Button, FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import MultipleChoiceModule from "../multipleChoiceModule/MultipleChoiceModule";
 import HintModule from "../hintModule/HintModule";
 import CloseIcon from '@mui/icons-material/Close';
-
+import SettingsIcon from '@mui/icons-material/Settings';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import sx from "@mui/system/sx";
+import {width} from "@mui/system";
 
 export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice, submitQuiz}) {
 
@@ -95,7 +98,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
             </div>
             <div className="main-question-content-wrapper">
                 <div className="main-question-content">
-                    <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} inputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
+                    <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
                     <RadioGroup key={"multipleChoice" + questionNumber} defaultValue={question.isMultipleChoice ? "multiple_choice" : "long_answer"}>
                         <FormControlLabel value="long_answer" control={<Radio onClick={()=>setMultipleChoice(questionIndex, false)} className="question-type-radio" size={"large"}/>} label="Freetext answer" />
                         <FormControlLabel value="multiple_choice" control={<Radio onClick={()=>setMultipleChoice(questionIndex, true)} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
@@ -103,9 +106,6 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                     </RadioGroup>
                 </div>
                 <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={question.hints}/>
-            </div>
-            <div className="new-quiz-submit-button-wrapper">
-                <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}} className="remove-question-button" >submit</Button>
             </div>
         </div>
 

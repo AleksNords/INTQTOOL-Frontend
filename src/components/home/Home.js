@@ -12,9 +12,9 @@ export default function Home() {
     const [showNewQuizModulo, setShowNewQuizModulo] = React.useState(false);
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer);
-    const [quizzes,setQuizzes] =useState([]);
-    const [quizAnswers,setquizAnswers] =useState([]);
-    const [showArchived,setShowArchived] = useState(false);
+    const [quizzes, setQuizzes] =useState([]);
+    const [quizAnswers, setquizAnswers] =useState([]);
+    const [showArchived, setShowArchived] = useState(false);
     const url = "http://localhost:8080";
 
     useEffect(()=>{
