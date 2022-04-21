@@ -10,6 +10,7 @@ import Quiz from "./components/quiz/Quiz";
 import Courses from "./components/courses/Courses";
 import Notifications from "./components/notifications/Notifications";
 import NewQuiz from "./components/newQuiz/NewQuiz";
+import GradingQuiz from "./components/gradingQuiz/GradingQuiz";
 
 function App() {
     const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
                         <Route path={"/mycourses"} element={<Courses/>}/>
                         <Route path={"/notifications"} element={<Notifications/>}/>
                         <Route path={"/quizeditor/:id"} element={<NewQuiz/>}/>
+                        <Route path={"/quizgrader/:id"} element={<GradingQuiz/>}/>
                     </Routes>
 
                 ) : null}

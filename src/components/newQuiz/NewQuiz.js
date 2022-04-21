@@ -10,7 +10,6 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import Slide from '@mui/material/Slide';
 
 export default function NewQuiz() {
 
@@ -130,7 +129,7 @@ export default function NewQuiz() {
             : null}
             <div className="new-quiz-button-wrapper">
                 <Button onClick={()=> setShowNewQuizModulo(true)} variant="contained" sx={{fontSize: 16, backgroundColor: "#0665bf", ":hover": {backgroundColor: "#00509e"}}} className="new-quiz-button" startIcon={<SettingsIcon/>}>options</Button>
-                <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}} className="new-quiz-button" endIcon={<ArrowRightIcon/>}>submit</Button>
+                <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#40AA5A"}}} className="new-quiz-button" endIcon={<ArrowRightIcon/>}>submit</Button>
             </div>
         </div>
     )

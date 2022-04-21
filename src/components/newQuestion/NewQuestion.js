@@ -100,8 +100,8 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                 <div className="main-question-content">
                     <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
                     <RadioGroup key={"multipleChoice" + questionNumber} defaultValue={question.isMultipleChoice ? "multiple_choice" : "long_answer"}>
-                        <FormControlLabel value="long_answer" control={<Radio onClick={()=>setMultipleChoice(questionIndex, false)} className="question-type-radio" size={"large"}/>} label="Freetext answer" />
-                        <FormControlLabel value="multiple_choice" control={<Radio onClick={()=>setMultipleChoice(questionIndex, true)} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
+                        <FormControlLabel className="radio-button" value="long_answer" control={<Radio onClick={()=>setMultipleChoice(questionIndex, false)} className="question-type-radio" size={"large"}/>} label="Freetext answer" />
+                        <FormControlLabel className="radio-button" value="multiple_choice" control={<Radio onClick={()=>setMultipleChoice(questionIndex, true)} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
                         {question.isMultipleChoice ? <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative} addAlternative={addAlternative} deleteAlternative={deleteAlternative} alternatives={question.alternatives}/> : null}
                     </RadioGroup>
                 </div>
