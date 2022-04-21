@@ -10,24 +10,35 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import sx from "@mui/system/sx";
 import {width} from "@mui/system";
 
-export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice, submitQuiz}) {
+export default function NewQuestion({
+                                        question,
+                                        deleteQuestion,
+                                        questionNumber,
+                                        setQuestion,
+                                        changeQuestionText,
+                                        questionIndex,
+                                        changeQuestionAlternatives,
+                                        changeQuestionHints,
+                                        setIsMultipleChoice,
+                                        submitQuiz
+                                    }) {
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
 
-    if (question && question.alternatives.length == 0) {
+    if (question && question.alternatives.length === 0) {
         for (let i = 0; i < 4; i++) {
             let temp = question;
             temp.alternatives.push({
-                     alternativeText: "",
-                     correct: false
-                 })
+                alternativeText: "",
+                correct: false
+            })
             setQuestion(temp);
         }
     }
 
-
-    const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
+    console.log(question);
+    const [isMultipleChoice, setMyIsMultipleChoice] = useState((question.type === 1));
 
     function addAlternative() {
         if (question.alternatives.length < 6) {
@@ -76,6 +87,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         changeQuestionHints(questionIndex, temp.hints);
     }
 
+
     function changeHint(hint, index) {
         let temp = question;
         temp.hints[index] = hint;
@@ -88,21 +100,36 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         setIsMultipleChoice(index, newValue);
     }
 
-    return(
+    return (
         <div key={"question" + questionIndex + question.questionText} className="new-question">
             <div className="top-content-wrapper">
                 <h1 className="question-number">
                     {questionNumber}
                 </h1>
-                <Button onClick={()=> deleteQuestion(questionIndex)} endIcon={<CloseIcon/>} variant="contained" sx={{fontSize: 16, backgroundColor: "#f63e3e", ":hover": {backgroundColor: "#cf3535"}}} className="remove-question-button" >remove</Button>
+                <Button onClick={() => deleteQuestion(questionIndex)} endIcon={<CloseIcon/>} variant="contained"
+                        sx={{fontSize: 16, backgroundColor: "#f63e3e", ":hover": {backgroundColor: "#cf3535"}}}
+                        className="remove-question-button">remove</Button>
             </div>
             <div className="main-question-content-wrapper">
                 <div className="main-question-content">
-                    <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
-                    <RadioGroup key={"multipleChoice" + questionNumber} defaultValue={question.isMultipleChoice ? "multiple_choice" : "long_answer"}>
-                        <FormControlLabel value="long_answer" control={<Radio onClick={()=>setMultipleChoice(questionIndex, false)} className="question-type-radio" size={"large"}/>} label="Freetext answer" />
-                        <FormControlLabel value="multiple_choice" control={<Radio onClick={()=>setMultipleChoice(questionIndex, true)} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
-                        {question.isMultipleChoice ? <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative} addAlternative={addAlternative} deleteAlternative={deleteAlternative} alternatives={question.alternatives}/> : null}
+                    <TextField key={question.question + questionIndex} defaultValue={question.questionText}
+                               onChange={(elem) => changeQuestionText(questionIndex, elem.target.value)} multiline
+                               rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield"
+                               variant="outlined" label="Question"/>
+                    <RadioGroup key={"multipleChoice" + questionNumber}
+                                defaultValue={question.type}>
+                        <FormControlLabel value="2"
+                                          control={<Radio onClick={() => setMultipleChoice(questionIndex, false)}
+                                                          className="question-type-radio" size={"large"}/>}
+                                          label="Freetext answer"/>
+                        <FormControlLabel value="1"
+                                          control={<Radio onClick={() => setMultipleChoice(questionIndex, true)}
+                                                          className="question-type-radio" size={"large"}/>}
+                                          label="Multiple choice"/>
+                        {question.type === 1 ?
+                            <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative}
+                                                  addAlternative={addAlternative} deleteAlternative={deleteAlternative}
+                                                  alternatives={question.alternatives}/> : null}
                     </RadioGroup>
                 </div>
                 <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={question.hints}/>

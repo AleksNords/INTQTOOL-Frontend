@@ -32,8 +32,10 @@ export default function Quiz() {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-                setQuiz(response.data);
-                console.log(response.data);
+            let temp = response.data;
+            temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
+                setQuiz(temp);
+                console.log(temp);
             }
         );
 
@@ -118,26 +120,26 @@ export default function Quiz() {
     return (
 
         <div className={"quiz-wrapper"}>
-            {(quiz.title !== null) || (quiz.title !== undefined) ?
+            {(quiz.deployedQuiz) ?
                 (<div className={"quiz-frontpage-wrapper"}>
                     {(currentQuestion === -1) ?
                         (
-                            <QuizFrontPage title={quiz.title} description={quiz.description}
-                                           quizLength={quiz.quizLength} startQuiz={setCurrentQuestion}/>
+                            <QuizFrontPage title={quiz.deployedQuiz.title} description={quiz.deployedQuiz.description}
+                                           quizLength={quiz.deployedQuiz.quizLength} startQuiz={setCurrentQuestion}/>
                         )
                         :
                         (
                             <div className={"question-page-wrapper"}>
-                                <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.quizLength}
+                                <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.deployedQuiz.quizLength}
                                                 setCurrentQuestion={setCurrentQuestion}/>
                                 <Question quizId={id} currAns={questionAnswers[currentQuestion]}
-                                          question={JSON.parse(quiz.questions[currentQuestion])}
+                                          question={JSON.parse(quiz.deployedQuiz.questions[currentQuestion])}
                                           currentQuestion={currentQuestion} setAnswer={(ans) => {
                                     let temp = questionAnswers;
                                     temp[currentQuestion] = ans;
                                     setQuestionAnswers(temp)
                                 }}/>
-                                <QuizNavigation quizLength={quiz.quizLength} setCurrentQuestion={setCurrentQuestion}
+                                <QuizNavigation quizLength={quiz.deployedQuiz.quizLength} setCurrentQuestion={setCurrentQuestion}
                                                 currentQuestion={currentQuestion} endQuiz={() => endQuiz()}
                                                 saveFunction={saveQuiz}/>
                             </div>

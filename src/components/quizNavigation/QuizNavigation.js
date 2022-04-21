@@ -7,7 +7,7 @@ export default function QuizNavigation({currentQuestion, setCurrentQuestion, qui
     return (
         <div className={"quiz-navigation"}>
             {
-                (currentQuestion === 0) ? (
+                (currentQuestion === 0 && quizLength>1) ? (
                     <div className={"quiz-navigation-button-container"}>
                         <button className={"quiz-nav-button"}
                                 onClick={() => setCurrentQuestion(-1)}>Frontpage</button>
@@ -34,6 +34,7 @@ export default function QuizNavigation({currentQuestion, setCurrentQuestion, qui
 
                     </div>
                 )
+
             }
 
         </div>

@@ -102,7 +102,7 @@ export default function Home() {
                     (<div className={"quizcard-container"}>
                         {quizzes.map((deployedquiz)=>{
                             deployedquiz = JSON.parse(deployedquiz);
-                            let quiz = JSON.parse(deployedquiz.quiz)
+                            let quiz = JSON.parse(deployedquiz.deployedQuiz)
                             console.log(quiz);
                             return <QuizCard title={quiz.title} quizId={deployedquiz.id}
                                              progression={10}/>

@@ -57,31 +57,32 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
         })
     }, []);
 
-    function submitQuizDetails(){
+    function submitQuizDetails() {
         let newQuizId;
-        // axios({
-        //         method: 'post',
-        //         url: url+"/newquiz",
-        //         data: {
-        //             title:title,
-        //             course:course,
-        //             description:description,
-        //             deadlineDate:deadlineDate
-        //         }
-        // }).then((response)=>{
-        //     if(response.status === 200){
-        //         newQuizId =response.data;
-        //         navigate("/quizeditor/"+newQuizId)
-        //     }else{
-        //
-        //     }
-        //
-        // })
-        if (typeof setShowSavedQuiz === "function") {
-            setShowSavedQuiz(true);
-        }
-        setShowFunction(false);
-        navigate("/quizeditor/"+1);
+
+        axios({
+            method: 'post',
+            url: url + "/quiz/new/" + courseID,
+            headers: {
+                "Authorization": "Bearer " + isLogged.jwtToken
+            },
+            data: {
+                deployedQuiz: {
+                    title: title,
+                    description: description
+                },
+                deadline: deadlineDate
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                navigate("/quizeditor/"+response.data.deployedQuizId)
+            } else {
+
+            }
+
+        })
+        //navigate("/quizeditor/"+newQuizId);
+
     }
 
     const handleClickOutside = (event) => {
