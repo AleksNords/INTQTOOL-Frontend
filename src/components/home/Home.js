@@ -26,6 +26,7 @@ export default function Home() {
             }
         }).then(function (response){
                 setQuizzes(response.data);
+                console.log(response.data);
             }
         ).catch(function (response){
         });
@@ -100,9 +101,11 @@ export default function Home() {
 
                 {quizzes.length >= 1 && !showArchived ?
                     (<div className={"quizcard-container"}>
-                        {quizzes.map((quiz)=>{
-                            quiz = JSON.parse(quiz);
-                            return <QuizCard title={quiz.title} quizId={quiz.id}
+                        {quizzes.map((deployedquiz)=>{
+                            deployedquiz = JSON.parse(deployedquiz);
+                            let quiz = JSON.parse(deployedquiz.quiz)
+                            console.log(quiz);
+                            return <QuizCard title={quiz.title} quizId={deployedquiz.id}
                                              progression={10}/>
                         })}
                     </div>)

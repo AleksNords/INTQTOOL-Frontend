@@ -17,7 +17,6 @@ export default function Quiz() {
     const [quiz, setQuiz] = useState({});
     const [questionAnswers, setQuestionAnswers] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({
-        "quizId": id,
         "answers": [],
         "status": "in-progress",
         "courseId": ""
@@ -72,7 +71,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: url+"/user/saveanswer",
+            url: url+"/user/saveanswer/"+id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -101,7 +100,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: url+"/user/submitanswer",
+            url: url+"/user/submitanswer/"+id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
