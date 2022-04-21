@@ -4,7 +4,7 @@ import QuestionBanner from "../questionBanner/QuestionBanner";
 import NewQuestion from "../newQuestion/NewQuestion";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router";
-import {Button} from "@mui/material";
+import {Button, Slide} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
@@ -117,11 +117,11 @@ export default function NewQuiz() {
 
     return (
         <div className="new-quiz-page">
-            <Snackbar open={showSavedQuiz} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{width: "100%", backgroundColor: "#40aa5a", fontSize: 15, "& .css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}}}>
-                    Your quiz has been updated!
-                </Alert>
-            </Snackbar>
+                <Snackbar open={showSavedQuiz} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
+                    <Alert onClose={handleCloseSnackbar} severity="success" sx={{width: "100%", backgroundColor: "#40aa5a", fontSize: 15, "& .css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}}}>
+                        Your quiz has been updated!
+                    </Alert>
+                </Snackbar>
             {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
             <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length} setCurrentQuestion={(e)=>setCurrentQuestion(e)} isNewQuizBanner={true}/>
             {questions.length > 0 ?
