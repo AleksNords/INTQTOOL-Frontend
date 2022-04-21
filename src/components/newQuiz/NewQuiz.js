@@ -4,12 +4,26 @@ import QuestionBanner from "../questionBanner/QuestionBanner";
 import NewQuestion from "../newQuestion/NewQuestion";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router";
+import {Button} from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Slide from '@mui/material/Slide';
 
 export default function NewQuiz() {
+
+    const Alert = React.forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+
     let {id} = useParams();
+    const [showNewQuizModulo, setShowNewQuizModulo] = useState(false);
+    const [showSavedQuiz, setShowSavedQuiz] = useState(false);
     const navigate = useNavigate();
     const [questionAmnt, setQuestionAmnt] = useState(1);
-    const [quiz,setQuiz] = useState({});
+    const [quiz, setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const url = "https://quiz.web-tek.ninja:8443";
     const [questions, setQuestions] = useState([{
@@ -30,6 +44,10 @@ export default function NewQuiz() {
                 }
         })
     },[])
+
+    const handleCloseSnackbar = () => {
+        setShowSavedQuiz(false);
+    };
 
     function submitQuiz() {
         // let temp = quiz;
@@ -72,6 +90,12 @@ export default function NewQuiz() {
         setQuestions(temp);
     }
 
+    function changeQuestionHints(index, newHints) {
+        let temp = questions;
+        temp[index].hints = newHints;
+        setQuestions(temp);
+    }
+
     function setIsMultipleChoice(index, newValue) {
         let temp = questions;
         temp[index].isMultipleChoice = newValue;
@@ -94,10 +118,20 @@ export default function NewQuiz() {
 
     return (
         <div className="new-quiz-page">
+            <Snackbar open={showSavedQuiz} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{width: "100%", backgroundColor: "#40aa5a", fontSize: 15, "& .css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}}}>
+                    Your quiz has been updated!
+                </Alert>
+            </Snackbar>
+            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
             <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length} setCurrentQuestion={(e)=>setCurrentQuestion(e)} isNewQuizBanner={true}/>
             {questions.length > 0 ?
-                <NewQuestion submitQuiz={submitQuiz} deleteQuestion={deleteQuestion} setIsMultipleChoice={setIsMultipleChoice} changeQuestionText={changeQuestionText} changeQuestionAlternatives={changeQuestionAlternatives} question={questions[currentQuestion]} questionIndex={currentQuestion} questionNumber={currentQuestion + 1} setQuestion={(question)=>{let temp = questions; temp[currentQuestion] = question;setQuestions(temp)}}/>
+                <NewQuestion submitQuiz={submitQuiz} deleteQuestion={deleteQuestion} setIsMultipleChoice={setIsMultipleChoice} changeQuestionText={changeQuestionText} changeQuestionAlternatives={changeQuestionAlternatives} changeQuestionHints={changeQuestionHints} question={questions[currentQuestion]} questionIndex={currentQuestion} questionNumber={currentQuestion + 1} setQuestion={(question)=>{let temp = questions; temp[currentQuestion] = question;setQuestions(temp)}}/>
             : null}
+            <div className="new-quiz-button-wrapper">
+                <Button onClick={()=> setShowNewQuizModulo(true)} variant="contained" sx={{fontSize: 16, backgroundColor: "#0665bf", ":hover": {backgroundColor: "#00509e"}}} className="new-quiz-button" startIcon={<SettingsIcon/>}>options</Button>
+                <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}} className="new-quiz-button" endIcon={<ArrowRightIcon/>}>submit</Button>
+            </div>
         </div>
     )
 }

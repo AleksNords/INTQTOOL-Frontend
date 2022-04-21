@@ -14,17 +14,22 @@ import {Button} from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import {useNavigate} from "react-router";
 import axios from 'axios';
+import {useSelector} from "react-redux";
 
-export default function NewQuizModulo({setShowFunction}) {
+export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
 
     const ref = useRef(null);
     const navigate = useNavigate();
+    const isLogged = useSelector(state => state.isLoggedReducer);
     const [deadlineDate, setDeadlineDate] = useState(new Date().setHours(23,59));
     const [enableDeadline, setEnableDeadline] = useState(true);
     const [title,setTitle] = useState("");
-    const [course,setCourse] = useState("");
+    const [courseID, setCourseID] = useState("");
     const [description, setDescription] = useState("");
-    const url = "https://quiz.web-tek.ninja:8443";
+    const [courseOptions, setCourseOptions] = useState([]);
+
+
+    const url = "http://localhost:8080";
     const newQuizTheme = createTheme({
         typography: {
             fontSize: 25,
@@ -33,6 +38,24 @@ export default function NewQuizModulo({setShowFunction}) {
             blue: "#000000",
         }
     });
+
+    useEffect(() => {
+        axios({
+            method: "get",
+            url: url+"/user/courses",
+            headers: {
+                "Authorization": "Bearer " + isLogged.jwtToken
+            }
+        }).then(function (response) {
+            setCourseOptions(response.data.map((crs) => {
+                let temp = JSON.parse(crs);
+                return ({
+                    label: temp.name,
+                    id: temp.id
+                })
+            }));
+        })
+    }, []);
 
     function submitQuizDetails(){
         let newQuizId;
@@ -54,17 +77,20 @@ export default function NewQuizModulo({setShowFunction}) {
         //     }
         //
         // })
+        if (typeof setShowSavedQuiz === "function") {
+            setShowSavedQuiz(true);
+        }
+        setShowFunction(false);
         navigate("/quizeditor/"+1);
     }
 
     const handleClickOutside = (event) => {
         if (event.target.className === "new-quiz-modulo-wrapper") {
+            if (typeof setShowSavedQuiz === "function") {
+                setShowSavedQuiz(true);
+            }
             setShowFunction(false);
         }
-        //if (event.target.localName === "li" || event.target.className === "css-j7qwjs" || ref.current.contains(event.target)) {
-        //    return;
-        //}
-        //setShowFunction(false);
     };
 
     useEffect(() => {
@@ -78,11 +104,15 @@ export default function NewQuizModulo({setShowFunction}) {
         <div className="new-quiz-modulo-wrapper">
             <ThemeProvider theme={newQuizTheme}>
             <div ref={ref} className="new-quiz-modulo">
-                <h1>New Quiz - <span className="course-code">INFT2400</span> Applikasjonsutvikling</h1>
+                <h1>New Quiz</h1>
                 <div className="editable-content-wrapper">
                         <div className="textfield-wrapper">
-                            <TextField className="textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
-                            <TextField multiline rows={9} className="textfield textarea" variant="outlined" label="Description" onChange={(elem)=>setDescription(elem.target.value)}/>
+                            <TextField className="new-quiz-textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
+                            <TextField multiline inputProps={{
+                                style: {
+                                    height: "21.5vh",
+                                },
+                            }} className="new-quiz-textfield textarea" variant="outlined" label="Description" onChange={(elem)=>setDescription(elem.target.value)}/>
                             <div className="deadline">
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
@@ -102,13 +132,22 @@ export default function NewQuizModulo({setShowFunction}) {
                         </div>
                         <div className="extras-wrapper">
                             <Autocomplete
-                                className="textfield"
-                                options={["apple", "orange", "metamphetamine"]}
-                                renderInput={(params) => <TextField {...params} label="Course" onChange={(elem)=>setCourse(elem.target.value)}/>}/>
+                                className="new-quiz-textfield"
+                                options={courseOptions}
+                                value={courseOptions.id}
+                                onChange={(elem, newValue) => {
+                                    if (newValue) {
+                                        setCourseID(newValue.id);
+                                    }
+                                    else {
+                                        setCourseID("");
+                                    }
+                                    }}
+                                renderInput={(params) => <TextField {...params} label="Course"/>}/>
                             <div className="quiz-cover-image">
                                 <Button variant="contained" startIcon={<ImageIcon/>} component="label">Change<input type="file" hidden/></Button>
                             </div>
-                            <Button sx={{fontSize: 18}} className="continue-button" variant="contained" onClick={()=>submitQuizDetails()}>Continue</Button>
+                            <Button sx={{fontSize: 17}} className="continue-button" variant="contained" onClick={()=>submitQuizDetails()}>Continue</Button>
                         </div>
                 </div>
             </div>

@@ -5,9 +5,12 @@ import {Button, FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import MultipleChoiceModule from "../multipleChoiceModule/MultipleChoiceModule";
 import HintModule from "../hintModule/HintModule";
 import CloseIcon from '@mui/icons-material/Close';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import sx from "@mui/system/sx";
+import {width} from "@mui/system";
 
-
-export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, setIsMultipleChoice, submitQuiz}) {
+export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice, submitQuiz}) {
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
@@ -25,7 +28,6 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
 
 
     const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
-    const [hints, setHints] = useState([]);
 
     function addAlternative() {
         if (question.alternatives.length < 6) {
@@ -34,7 +36,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                 alternativeText: "",
                 correct: false,
             });
-            setQuestion(temp)
+            setQuestion(temp);
             setAlternativeAmnt(alternativeAmnt + 1);
             changeQuestionAlternatives(questionIndex, temp.alternatives);
         }
@@ -52,33 +54,33 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         let temp = question;
         let index = question.alternatives.indexOf(alternative);
         temp.alternatives[index] = alternative;
-
         setQuestion(temp);
         changeQuestionAlternatives(questionIndex, temp.alternatives);
     }
 
     function addHint() {
-        if (hints.length < 5) {
-            let temp = hints;
-            temp.push("");
-            setHints(temp);
+        if (question.hints.length < 5) {
+            let temp = question;
+            temp.hints.push("");
+            setQuestion(temp);
             setHintAmnt(hintAmnt + 1);
+            changeQuestionHints(questionIndex, temp.hints);
         }
     }
 
     function deleteHint(index) {
-        let temp = hints;
-        temp.splice(index, 1);
-        setHints(temp);
+        let temp = question;
+        temp.hints.splice(index, 1);
+        setQuestion(temp);
         setHintAmnt(hintAmnt - 1);
-        console.log(hints);
+        changeQuestionHints(questionIndex, temp.hints);
     }
 
     function changeHint(hint, index) {
-        let temp = hints;
-        temp[index] = hint;
-        setHints(temp);
-        console.log(hints);
+        let temp = question;
+        temp.hints[index] = hint;
+        setQuestion(temp);
+        changeQuestionHints(questionIndex, temp.hints);
     }
 
     function setMultipleChoice(index, newValue) {
@@ -96,17 +98,14 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
             </div>
             <div className="main-question-content-wrapper">
                 <div className="main-question-content">
-                    <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} inputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
+                    <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
                     <RadioGroup key={"multipleChoice" + questionNumber} defaultValue={question.isMultipleChoice ? "multiple_choice" : "long_answer"}>
                         <FormControlLabel value="long_answer" control={<Radio onClick={()=>setMultipleChoice(questionIndex, false)} className="question-type-radio" size={"large"}/>} label="Freetext answer" />
                         <FormControlLabel value="multiple_choice" control={<Radio onClick={()=>setMultipleChoice(questionIndex, true)} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
                         {question.isMultipleChoice ? <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative} addAlternative={addAlternative} deleteAlternative={deleteAlternative} alternatives={question.alternatives}/> : null}
                     </RadioGroup>
                 </div>
-                <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={hints}/>
-            </div>
-            <div className="new-quiz-submit-button-wrapper">
-                <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}} className="remove-question-button" >submit</Button>
+                <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={question.hints}/>
             </div>
         </div>
 

@@ -13,7 +13,7 @@ export default function HintModule({addHint, hints, deleteHint, changeHint}) {
 
     for (let i = 0; i < hints.length; i++) {
         hintDivs.push(
-            <div className="hint-wrapper"><LightbulbOutlinedIcon sx={{fontSize: 40}} className="hint-icon"/><TextField key={hints[i] + i} defaultValue={hints[i]} onChange={(elem)=>{let temp = elem.target.value; changeHint(temp, i)}}  className="hint-textfield" variant="outlined"/><IconButton ><CloseIcon onClick={()=>deleteHint(i)} sx={{fontSize: 30, color: "#000000"}}/></IconButton></div>
+            <div key={JSON.stringify(hints[i]) + i} className="hint-wrapper"><LightbulbOutlinedIcon sx={{fontSize: 40}} className="hint-icon"/><TextField key={hints[i] + i} defaultValue={hints[i]} onChange={(elem)=>{let temp = elem.target.value; changeHint(temp, i)}}  className="hint-textfield" variant="outlined"/><IconButton ><CloseIcon onClick={()=>deleteHint(i)} sx={{fontSize: 30, color: "#000000"}}/></IconButton></div>
         );
     }
 
