@@ -44,8 +44,8 @@ export default function NewQuestion({
         if (question.alternatives.length < 6) {
             let temp = question;
             temp.alternatives.push({
-                alternativeText: "",
-                correct: false,
+                alternative: "",
+                rightAlternative: false,
             });
             setQuestion(temp);
             setAlternativeAmnt(alternativeAmnt + 1);

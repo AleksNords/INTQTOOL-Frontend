@@ -1,8 +1,8 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import './home.css';
 import QuizCard from "../quizCard/QuizCard";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Button} from "@mui/material";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
 import AddIcon from '@mui/icons-material/Add';

@@ -9,7 +9,6 @@ import reducer from "./store/reducer";
 import {getConfiguredCache} from "money-clip";
 import getPersistMiddleware from "redux-persist-middleware";
 import {StyledEngineProvider} from '@mui/material/styles';
-import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 
 const rootElement = document.getElementById('root');
 const cache = getConfiguredCache();
@@ -38,7 +37,7 @@ cache.getAll().then((data) => {
     const store = createStore(
         reducer,
         data,
-        composeWithDevTools(applyMiddleware(persistUser,persistLoginStatus)));
+        compose(applyMiddleware(persistUser,persistLoginStatus)));
 
 
     ReactDOM.render(

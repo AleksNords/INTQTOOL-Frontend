@@ -48,7 +48,11 @@ export default function NewQuiz() {
                 let temp = response.data;
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 if(temp.deployedQuiz.questions.length >=1){
-                    setQuestions(temp.deployedQuiz.questions.map((question)=>{let tempQuestion =JSON.parse(question);tempQuestion.hints=[];return tempQuestion}))
+                    setQuestions(temp.deployedQuiz.questions.map((question)=>{
+                        let tempQuestion =JSON.parse(question);
+                        tempQuestion.hints=[];
+                        tempQuestion.alternatives = tempQuestion.alternatives.map((alternative)=>JSON.parse(alternative));
+                        return tempQuestion}))
                 }
                 setQuiz(temp);
             }

@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './fullsizenotification.css';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router";
-import Button from "@mui/material/Button";
-import {setUser} from "../../../store/action/userAction";
+
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import GradingIcon from "@mui/icons-material/Grading";
 import ErrorIcon from "@mui/icons-material/Error";
