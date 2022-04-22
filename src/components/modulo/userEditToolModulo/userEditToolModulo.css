@@ -1,0 +1,20 @@
+.user-edit-tool-modulo{
+    width:35%;
+    height:20%;
+    background-color: white;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding:1rem;
+}
+
+.user-edit-tool-button-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    height: 40%;
+}
+.user-edit-tool-info-wrapper{
+    height:60%;
+}

@@ -12,6 +12,7 @@ import Divider from '@mui/material/Divider';
 import NotificationBell from './notificationBell/NotificationBell';
 import {ThemeProvider} from '@mui/system';
 import {createTheme} from "@mui/material/styles";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -43,6 +44,22 @@ export default function Navbar() {
                     <span onClick={()=>navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}} />My Courses</span>
                     <Divider color="divider.white" orientation="vertical" flexItem className={"vertical-divider"}/>
                     <span><SettingsIcon sx={{fontSize: 40}}/>Settings</span>
+                    {
+                        (user.user.roles && user.user.roles.includes("ROLE_ADMIN")) ?
+                            (
+                                <Divider color="divider.white" orientation="vertical" flexItem className={"vertical-divider"}/>
+                            )
+                            :
+                            null
+                    }
+                    {
+                        (user.user.roles && user.user.roles.includes("ROLE_ADMIN")) ?
+                            (
+                                <span onClick={()=>navigate("/admintools")}><AdminPanelSettingsIcon sx={{fontSize: 40}}/>Admin tools</span>
+                            )
+                            :
+                            null
+                    }
                 </div>
                 <div className="personalLinks">
                     <div><NotificationBell/></div>
