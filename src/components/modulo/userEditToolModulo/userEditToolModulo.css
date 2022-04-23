@@ -1,20 +1,49 @@
-.user-edit-tool-modulo{
-    width:35%;
-    height:20%;
+.user-edit-tool-modulo {
+    width: 56rem;
+    height: 20rem;
     background-color: white;
     border-radius: 1rem;
     display: flex;
+    z-index: 2;
     flex-direction: column;
-    padding:1rem;
+    padding: 1rem;
 }
 
-.user-edit-tool-button-wrapper{
+.user-edit-tool-button-wrapper {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     width: 100%;
     align-items: center;
     height: 40%;
 }
-.user-edit-tool-info-wrapper{
-    height:60%;
+
+.user-admin-tool-action-button {
+    margin:0 2rem;
+}
+
+.user-edit-tool-info-wrapper {
+    height: 60%;
+}
+
+.add-user-to-course-tool {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+}
+
+.add-user-to-course-button {
+    margin:0 2.7rem;
+}
+
+.add-user-to-course-field label {
+    font-size: 1.4rem;
+    background-color: white;
+    padding-right: 6px;
+    font-weight: 500;
+}
+
+.add-user-to-course-field {
+    width:60%;
 }
