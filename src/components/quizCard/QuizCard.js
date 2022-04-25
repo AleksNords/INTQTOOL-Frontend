@@ -10,7 +10,7 @@ function QuizCard({title, progression, quizId,status}) {
     const user = useSelector(state => state.userReducer.user);
 
     return (
-        <div key={quizId} className={"quizcard"} onClick={() => (user.includes("ROLE_ADMIN") || user.includes("ROLE_TEACHER")) ? navigate("/quizgrader/" + quizId):navigate("/quiz/" + quizId)}>
+        <div key={quizId} className={"quizcard"} onClick={() => (user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_TEACHER")) ? navigate("/quizgrader/" + quizId):navigate("/quiz/" + quizId)}>
             <div className={"quizcard-img-wrapper"}>
                 <img src={"/studier_IDI_GeirMogen.jpg"} alt="Quiz title-image" className={"card-image"}/>
             </div>

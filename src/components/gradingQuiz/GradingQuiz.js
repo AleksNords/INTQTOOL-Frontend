@@ -53,7 +53,10 @@ export default function GradingQuiz() {
             let temp = response.data;
             temp = temp.map((answers) => answers.map((answer) => JSON.parse(answer)));
             setAnswers(temp);
-            setCurrentAnswer(temp[0][0].id);
+            console.log(temp);
+            if(temp[0][0]) {
+                setCurrentAnswer(temp[0][0].id);
+            }
         })
     }
 
@@ -77,7 +80,7 @@ export default function GradingQuiz() {
 
     return (
         <div className="grading-quiz">
-            <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined} setCurrentQuestion={(e)=>{setCurrentAnswer(answers[e][0].id);setCurrentQuestion(e)}}/>
+            <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined} setCurrentQuestion={(e)=>{if(answers[e][0]){setCurrentAnswer(answers[e][0].id);setCurrentQuestion(e)}else{setCurrentAnswer(0);setCurrentQuestion(e)}}}/>
             <div className={"grading-wrapper"}>
                 {quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1 ? <div className="auto-graded-question-filter">
                     <Snackbar sx={{color: "white"}} open={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1} autoHideDuration={6000} anchorOrigin={{ vertical: 'center', horizontal: 'center' }} >

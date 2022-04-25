@@ -10,7 +10,6 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import Slide from '@mui/material/Slide';
 import {useSelector} from "react-redux";
 
 export default function NewQuiz() {
