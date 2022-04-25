@@ -1,0 +1,19 @@
+.new-course-modulo {
+    width: 56rem;
+    height: 20rem;
+    background-color: white;
+    border-radius: 1rem;
+    display: flex;
+    z-index: 2;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-course-input-fields{
+    height: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+}

@@ -86,7 +86,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     useEffect(() => {
         axios({
             method: "get",
-            url: url + "/user/courses",
+            url: url + "/course/all",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

@@ -46,6 +46,7 @@ export default function NewQuiz() {
         }).then((response) => {
             if (response.status === 200) {
                 let temp = response.data;
+                console.log(temp);
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 if(temp.deployedQuiz.questions.length >=1){
                     setQuestions(temp.deployedQuiz.questions.map((question)=>{
