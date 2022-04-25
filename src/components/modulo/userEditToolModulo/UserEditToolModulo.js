@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export default function UserEditToolModulo({editableUser, setShowUserTool, userUpdater}) {
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
     const [courseID, setCourseID] = useState("");

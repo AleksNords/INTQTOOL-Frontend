@@ -7,7 +7,7 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
 export default function UserTools() {
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);

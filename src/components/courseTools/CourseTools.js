@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import NewCourseModulo from "../modulo/newCourseModulo/NewCourseModulo";
 
 export default function CourseTools(){
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);

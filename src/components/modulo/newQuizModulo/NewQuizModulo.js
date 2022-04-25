@@ -29,7 +29,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
     const [courseOptions, setCourseOptions] = useState([]);
 
 
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
     const newQuizTheme = createTheme({
         typography: {
             fontSize: 25,

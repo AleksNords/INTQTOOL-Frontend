@@ -16,7 +16,7 @@ function SignUp() {
     const [password, setPassword] = React.useState("");
     const [warning, setWarning] = React.useState(false);
     const [warningText, setWarningText] = React.useState("");
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
 
     function submitAccount() {
         if (username.length > 0) {

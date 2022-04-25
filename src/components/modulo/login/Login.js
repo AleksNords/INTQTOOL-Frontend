@@ -11,7 +11,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
 
 
 

@@ -11,7 +11,7 @@ function Courses() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const user = useSelector(state => state.userReducer.user);
     const roles = user.roles;
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
 
 
     useEffect(() => {

@@ -15,7 +15,7 @@ export default function Home() {
     const [quizzes, setQuizzes] =useState([]);
     const [quizAnswers, setquizAnswers] =useState([]);
     const [showArchived, setShowArchived] = useState(false);
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
 
     useEffect(()=>{
         axios({

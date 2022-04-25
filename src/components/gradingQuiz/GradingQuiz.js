@@ -6,7 +6,7 @@ import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import GradingQuestion from "../gradingQuestion/GradingQuestion";
 import AnswerList from "../answerList/AnswerList";
-import {Alert} from "@mui/lab";
+import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 
 export default function GradingQuiz() {
@@ -16,7 +16,7 @@ export default function GradingQuiz() {
     const [course, setCourse] = useState("");
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(0);
-    const url = "http://localhost:8080";
+    const url = "https://quiz.web-tek.ninja:8443";
     let {id} = useParams();
 
     const [answers, setAnswers] = useState([])
