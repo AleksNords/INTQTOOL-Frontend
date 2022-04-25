@@ -37,7 +37,6 @@ export default function NewQuestion({
         }
     }
 
-    console.log(question);
     const [isMultipleChoice, setMyIsMultipleChoice] = useState((question.type === 1));
 
     function addAlternative() {

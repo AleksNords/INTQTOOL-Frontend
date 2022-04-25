@@ -10,7 +10,7 @@ import Quiz from "./components/quiz/Quiz";
 import Courses from "./components/courses/Courses";
 import Notifications from "./components/notifications/Notifications";
 import NewQuiz from "./components/newQuiz/NewQuiz";
-import AdminTools from "./components/adminTools/AdminTools";
+//import AdminTools from "./components/adminTools/AdminTools";
 
 function App() {
     const isLogged = useSelector(state => state.isLoggedReducer);
@@ -34,7 +34,7 @@ function App() {
                         <Route path={"/mycourses"} element={<Courses/>}/>
                         <Route path={"/notifications"} element={<Notifications/>}/>
                         <Route path={"/quizeditor/:id"} element={<NewQuiz/>}/>
-                        <Route path={"/admintools"} element={<AdminTools/>}/>
+                        {/*<Route path={"/admintools"} element={<AdminTools/>}/>*/}
                     </Routes>
 
                 ) : null}

@@ -46,6 +46,7 @@ export default function NewQuiz() {
         }).then((response) => {
             if (response.status === 200) {
                 let temp = response.data;
+                console.log(response.data);
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 if(temp.deployedQuiz.questions.length >=1){
                     setQuestions(temp.deployedQuiz.questions.map((question)=>{
@@ -71,7 +72,7 @@ export default function NewQuiz() {
         setQuiz(temp);
         axios({
             method: 'post',
-            url: url + "/quiz/save",
+            url: url + "/quiz/save/",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -82,7 +83,6 @@ export default function NewQuiz() {
                 console.log(response);
             }
         })
-
     }
 
     function addQuestion() {
@@ -154,8 +154,7 @@ export default function NewQuiz() {
                     Your quiz has been updated!
                 </Alert>
             </Snackbar>
-            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowSavedQuiz={setShowSavedQuiz}
-                                                                                  setShowFunction={setShowNewQuizModulo}/>
+            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo quizDetails={quiz} setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/>
                 <div className="shadow-filter"/>
             </div> : null}
             <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length}
