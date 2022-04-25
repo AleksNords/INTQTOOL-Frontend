@@ -4,7 +4,7 @@ import QuestionBanner from "../questionBanner/QuestionBanner";
 import NewQuestion from "../newQuestion/NewQuestion";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router";
-import {Button} from "@mui/material";
+import {Button, Slide} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
@@ -35,7 +35,7 @@ export default function NewQuiz() {
         hints: []
     }]);
 
-    useEffect(() => {
+    useEffect(()=>{
         axios({
             method: 'get',
             url: url + "/quiz/quizdetails/" + id,
@@ -58,7 +58,7 @@ export default function NewQuiz() {
                 setQuiz(temp);
             }
         })
-    }, [])
+    },[])
 
     const handleCloseSnackbar = () => {
         setShowSavedQuiz(false);

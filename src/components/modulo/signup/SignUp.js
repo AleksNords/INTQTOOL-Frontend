@@ -95,6 +95,7 @@ function SignUp() {
     }
 
 
+
     return (
         <div className={"position-wrapper"}>
             <div className={"sign-up-wrapper"}>
@@ -111,31 +112,31 @@ function SignUp() {
                         {(warning === true) ? <div className={"sign-up-warning"}>
 
                             <p>Warning: {warningText}</p>
-                        </div> : <div></div>}
+                        </div>: <div></div>}
 
                         <div className={"sign-up-item"}>
                             <TextField label={"First name"} className={"sign-up-form-field"}
-                                       onChange={elem => setFirstName(elem.target.value)}/>
+                                   onChange={elem => setFirstName(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-item"}>
                             <TextField label={"Last name"} className={"sign-up-form-field"}
-                                       onChange={elem => setLastName(elem.target.value)}/>
+                                   onChange={elem => setLastName(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-item"}>
                             <TextField label={"E-mail"} className={"sign-up-form-field"}
-                                       onChange={elem => setEmail(elem.target.value)}/>
+                                   onChange={elem => setEmail(elem.target.value)}/>
                         </div>
 
 
                         <div className={"sign-up-item"}>
                             <TextField label={"Confirm e-mail"} className={"sign-up-form-field"}
-                                       onChange={elem => setEmailConf(elem.target.value)}/>
+                                   onChange={elem => setEmailConf(elem.target.value)}/>
                         </div>
                         <div className={"sign-up-item"}>
                             <TextField label={"Password"} type={"password"} className={"sign-up-form-field"}
-                                       onChange={elem => setPassword(elem.target.value)}/>
+                                   onChange={elem => setPassword(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-submit-wrapper"}>
@@ -146,7 +147,6 @@ function SignUp() {
 
                     </div>
                 </div>
-
             </div>
 
 

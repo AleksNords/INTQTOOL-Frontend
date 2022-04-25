@@ -1,0 +1,45 @@
+.answer-card {
+    border-radius: 8px;
+    border: 1px solid #5B5B5B;
+    height: 15rem;
+    width: 35rem;
+    box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, 0.30);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 9px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.answer-card:hover {
+    background-color: #e0e5e7;
+}
+
+.answer-select-checkbox {
+    align-self: start;
+}
+
+.student-answer-text {
+    align-self: center;
+    font-size: 2rem;
+    width: 90%;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.student-answer-text:hover {
+    cursor: pointer;
+}
+
+.answer-card-top-interactable-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.select-answer-button {
+    height: 3.5rem;
+    margin: 9px;
+}

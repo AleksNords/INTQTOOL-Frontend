@@ -87,7 +87,6 @@ export default function NewQuestion({
         changeQuestionHints(questionIndex, temp.hints);
     }
 
-
     function changeHint(hint, index) {
         let temp = question;
         temp.hints[index] = hint;
@@ -100,7 +99,7 @@ export default function NewQuestion({
         setIsMultipleChoice(index, newValue);
     }
 
-    return (
+    return(
         <div key={"question" + questionIndex + question.questionText} className="new-question">
             <div className="top-content-wrapper">
                 <h1 className="question-number">

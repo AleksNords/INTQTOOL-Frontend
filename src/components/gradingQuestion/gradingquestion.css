@@ -1,0 +1,45 @@
+.grading-question {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2%;
+}
+
+.question-text {
+    margin-left: 3%;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.answer-text {
+    align-self: center;
+    margin-top: 3vh;
+    width: 70%;
+}
+
+.feedback-text {
+    align-self: center;
+    margin: 7% 0 8% 0;
+    width: 70%;
+    height: 20%;
+}
+
+.credit-label {
+    font-size: 1.8rem;
+    font-weight: 500;
+    align-self: center;
+    margin-right: 1rem;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.credit-radio-wrapper {
+    display: flex;
+    align-self: end;
+    margin-right: 27%;
+}
+
+.submit-feedback-button {
+    width: 35%;
+    margin-top: 2%;
+    align-self: center;
+}
