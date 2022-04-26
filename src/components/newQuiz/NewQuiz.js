@@ -26,7 +26,7 @@ export default function NewQuiz() {
     const [questionAmnt, setQuestionAmnt] = useState(1);
     const [quiz, setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const url = "https://quiz.web-tek.ninja:8443";
+    const url = "http://localhost:8080";
     const [questions, setQuestions] = useState([{
         questionText: "",
         type: 2,

@@ -29,7 +29,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     const [courseOptions, setCourseOptions] = useState([]);
 
 
-    const url = "https://quiz.web-tek.ninja:8443";
+    const url = "http://localhost:8080";
     const newQuizTheme = createTheme({
         typography: {
             fontSize: 25,
@@ -54,7 +54,24 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     }, []);
 
     function submitQuizDetails() {
-        let newQuizId;
+        let updatedQuizDetails;
+        if(quizDetails){
+            let temp = quizDetails;
+            temp.courseId = courseID;
+            temp.deployedQuiz.title = title;
+            temp.deployedQuiz.description = description;
+            temp.deadline = deadlineDate;
+            delete temp.deployedQuiz.author;
+            updatedQuizDetails = temp;
+        }else{
+            updatedQuizDetails = {
+                deployedQuiz: {
+                    title: title,
+                    description: description
+                },
+                deadline: deadlineDate
+            }
+        }
 
         axios({
             method: 'post',
@@ -62,13 +79,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
-            data: {
-                deployedQuiz: {
-                    title: title,
-                    description: description
-                },
-                deadline: deadlineDate
-            }
+            data: updatedQuizDetails
         }).then((response) => {
             if (response.status === 200) {
                 navigate("/quizeditor/"+response.data.deployedQuizId)
