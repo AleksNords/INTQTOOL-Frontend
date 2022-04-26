@@ -70,7 +70,7 @@ export default function NewQuiz() {
         setQuiz(temp);
         axios({
             method: 'post',
-            url: url + "/quiz/save/"+id,
+            url: url + "/quiz/save/"+quiz.courseId,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
