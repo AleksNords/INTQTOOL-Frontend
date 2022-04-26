@@ -5,6 +5,8 @@ import {setUser} from "../../../store/action/userAction";
 import {setLoginStatus} from "../../../store/action/isLoggedAction";
 import {useNavigate} from "react-router";
 import axios from "axios";
+import {TextField} from "@mui/material";
+import Button from "@mui/material/Button";
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -14,16 +16,16 @@ export default function Login() {
     const url = "https://quiz.web-tek.ninja:8443";
 
 
-
     function submitLogin() {
-        var details = {
+        console.log(password);
+        let details = {
             'username': username,
             'password': password
         };
 
         axios({
             method: 'post',
-            url: url+"/authenticate",
+            url: url + "/authenticate",
             headers: {
                 "Accept": "*/*",
                 "Access-Control-Allow-Origin": "*",
@@ -44,7 +46,7 @@ export default function Login() {
                 navigate("/");
             }
         }).catch(function (error) {
-            if(error.response.status === 401){
+            if (error.response.status === 401) {
                 displayErrorPrompt();
             }
 
@@ -54,7 +56,7 @@ export default function Login() {
     function getUserInfo(token) {
         axios({
             method: "get",
-            url: url+"/user/myuser",
+            url: url + "/user/myuser",
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -68,22 +70,14 @@ export default function Login() {
             });
     }
 
-    function displayErrorPrompt(){
+    function displayErrorPrompt() {
         let errorPrompt = document.getElementById("login-error-prompt");
-        errorPrompt.style.display="flex";
+        errorPrompt.style.display = "flex";
     }
 
     function goToSignUp() {
         navigate("/signup");
     }
-    useEffect(()=>{
-
-        document.querySelector('#login-password-input').addEventListener('keypress',(event)=>{
-            if(event.key === 'Enter'){
-                submitLogin();
-            }
-        });
-    },[])
 
     return (
         <div className={"position-wrapper"}>
@@ -93,17 +87,25 @@ export default function Login() {
                     <div id={"login-error-prompt"} className={"login-error-prompt"}>
                         <p>Wrong username or password</p>
                     </div>
-                    <label className={"login-form-label-username"}>Username</label>
-                    <input type={"text"} className={"login-form-field"}
-                           onChange={elem => setUsername(elem.target.value)}/>
-                    <label className={"login-form-label-password"}>Password</label>
-                    <input id="login-password-input" name={"login-password-input"} type={"password"} className={"login-form-field"}
-                           onChange={elem => setPassword(elem.target.value)}
+                    <TextField label={"Username"} type={"text"} size={"small"} className={"login-form-field"}
+                               onChange={elem => setUsername(elem.target.value)}
+                               InputLabelProps={{style: {fontSize: 15, color: "black"}}}
+                               InputProps={{style: {fontSize: 15}}}/>
+                    <TextField size={"small"} label={"Password"} id="login-password-input" name={"login-password-input"}
+                               type={"password"} className={"login-form-field"}
+                               onChange={elem => setPassword(elem.target.value)}
+                               InputLabelProps={{style: {fontSize: 15, color: "black"}}}
+                               InputProps={{style: {fontSize: 15}}}
+                               onKeyUp={(event)=>{
+                                   if(event.key === "Enter"){
+                                       submitLogin();
+                                   }
+                               }}
                     />
                 </div>
                 <div className={"login-submit-wrapper"}>
-                    <input type={"button"} value={"Login"} className={"login-form-submitButton"} onClick={submitLogin}/>
-                    <p>Dont have an account? <a onClick={goToSignUp} className={"sign-up-link"}>Sign up here!</a></p>
+                    <Button sx={{fontSize: 15}} variant={"contained"} className={"login-form-submitButton"} onClick={submitLogin}>Login</Button>
+                    <p className={"sign-up-paragraph"}>Dont have an account? <a onClick={goToSignUp} className={"sign-up-link"}>Sign up here!</a></p>
                 </div>
 
             </div>
