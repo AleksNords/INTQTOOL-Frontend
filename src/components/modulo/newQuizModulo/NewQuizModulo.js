@@ -16,16 +16,16 @@ import {useNavigate} from "react-router";
 import axios from 'axios';
 import {useSelector} from "react-redux";
 
-export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
+export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDetails}) {
 
     const ref = useRef(null);
     const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer);
-    const [deadlineDate, setDeadlineDate] = useState(new Date().setHours(23,59));
+    const [deadlineDate, setDeadlineDate] = useState(quizDetails ? quizDetails.deadline : new Date().setHours(23,59));
     const [enableDeadline, setEnableDeadline] = useState(true);
-    const [title,setTitle] = useState("");
-    const [courseID, setCourseID] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState(quizDetails ? quizDetails.deployedQuiz.title : "");
+    const [courseID, setCourseID] = useState(quizDetails ? quizDetails.courseId : "");
+    const [description, setDescription] = useState(quizDetails ? quizDetails.deployedQuiz.description : "");
     const [courseOptions, setCourseOptions] = useState([]);
 
 
@@ -48,11 +48,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
             }
         }).then(function (response) {
             setCourseOptions(response.data.map((crs) => {
-                let temp = JSON.parse(crs);
-                return ({
-                    label: temp.name,
-                    id: temp.id
-                })
+                return JSON.parse(crs);
             }));
         })
     }, []);
@@ -82,7 +78,6 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
 
         })
         //navigate("/quizeditor/"+newQuizId);
-
     }
 
     const handleClickOutside = (event) => {
@@ -108,8 +103,8 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
                 <h1>New Quiz</h1>
                 <div className="editable-content-wrapper">
                         <div className="textfield-wrapper">
-                            <TextField className="new-quiz-textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
-                            <TextField multiline inputProps={{
+                            <TextField defaultValue={title} className="new-quiz-textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
+                            <TextField defaultValue={description} multiline inputProps={{
                                 style: {
                                     height: "21.5vh",
                                 },
@@ -125,6 +120,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
                                     value={deadlineDate}
                                     onChange={(newValue) => {
                                         setDeadlineDate(newValue);
+                                        console.log(deadlineDate)
                                     }}
                                 />
                             </LocalizationProvider>
@@ -133,17 +129,18 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz}) {
                         </div>
                         <div className="extras-wrapper">
                             <Autocomplete
+                                key={quizDetails ? (quizDetails + courseID + courseOptions) : null}
                                 className="new-quiz-textfield"
                                 options={courseOptions}
-                                value={courseOptions.id}
+                                getOptionLabel={(option) => option.name}
+                                defaultValue={quizDetails ? (courseOptions.find((crs) => crs.id === quizDetails.courseId)) : null}
                                 onChange={(elem, newValue) => {
                                     if (newValue) {
                                         setCourseID(newValue.id);
                                     }
                                     else {
                                         setCourseID("");
-                                    }
-                                    }}
+                                    }}}
                                 renderInput={(params) => <TextField {...params} label="Course"/>}/>
                             <div className="quiz-cover-image">
                                 <Button variant="contained" startIcon={<ImageIcon/>} component="label">Change<input type="file" hidden/></Button>

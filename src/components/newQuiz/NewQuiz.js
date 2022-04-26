@@ -34,7 +34,7 @@ export default function NewQuiz() {
         hints: []
     }]);
 
-    useEffect(()=>{
+    useEffect(() => {
         axios({
             method: 'get',
             url: url + "/quiz/quizdetails/" + id,
@@ -45,7 +45,6 @@ export default function NewQuiz() {
         }).then((response) => {
             if (response.status === 200) {
                 let temp = response.data;
-                console.log(temp);
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 if(temp.deployedQuiz.questions.length >=1){
                     setQuestions(temp.deployedQuiz.questions.map((question)=>{
@@ -57,7 +56,7 @@ export default function NewQuiz() {
                 setQuiz(temp);
             }
         })
-    },[])
+    }, [])
 
     const handleCloseSnackbar = () => {
         setShowSavedQuiz(false);
@@ -82,7 +81,6 @@ export default function NewQuiz() {
                 console.log(response);
             }
         })
-
     }
 
     function addQuestion() {
@@ -154,8 +152,7 @@ export default function NewQuiz() {
                     Your quiz has been updated!
                 </Alert>
             </Snackbar>
-            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowSavedQuiz={setShowSavedQuiz}
-                                                                                  setShowFunction={setShowNewQuizModulo}/>
+            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo quizDetails={quiz} setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/>
                 <div className="shadow-filter"/>
             </div> : null}
             <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length}
