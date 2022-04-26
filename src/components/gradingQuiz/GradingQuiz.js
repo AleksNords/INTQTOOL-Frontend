@@ -35,7 +35,7 @@ export default function GradingQuiz() {
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
                 setQuiz(temp);
-                getCourse();
+                getCourse(temp.courseId);
                 getAnswers();
             }
             }
@@ -60,10 +60,10 @@ export default function GradingQuiz() {
         })
     }
 
-    function getCourse() {
+    function getCourse(thisCourseId) {
         axios({
             method: "get",
-            url: url +"/course/" + id,
+            url: url +"/course/" + thisCourseId,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
