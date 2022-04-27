@@ -68,7 +68,13 @@ export default function CourseTools(){
                            onChange={(elem) => setSearchWord(elem.target.value)}
                            label={(filteredCourses.length === 0) ?"No result":"Search"} className={"course-tools-search-field"}
                            InputLabelProps={{style: {fontSize: 11, color: "black"}}}
-                           InputProps={{style: {fontSize: 11}}}/>
+                           InputProps={{style: {fontSize: 11}}}
+                           onKeyUp={(event)=>{
+                               if(event.key === "Enter"){
+                                   searchCourse();
+                               }
+                           }}
+                />
                 <Button onClick={searchCourse}
                         variant={"contained"}
                         sx={{fontSize: 10}}

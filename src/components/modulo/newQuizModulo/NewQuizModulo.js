@@ -62,6 +62,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
             temp.deployedQuiz.description = description;
             temp.deadline = deadlineDate;
             delete temp.deployedQuiz.author;
+            delete temp.deployedQuiz.questions;
             updatedQuizDetails = temp;
         }else{
             updatedQuizDetails = {

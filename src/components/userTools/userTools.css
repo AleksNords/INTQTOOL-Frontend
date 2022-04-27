@@ -5,6 +5,7 @@
 .user-table{
     width:100%;
     border-collapse: collapse;
+    font-size: 1.5rem;
 }
 .user-tools-search-field{
     width:25rem;
