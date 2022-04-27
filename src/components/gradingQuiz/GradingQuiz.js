@@ -35,6 +35,7 @@ export default function GradingQuiz() {
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
                 setQuiz(temp);
+                console.log(temp)
                 getCourse(temp.courseId);
                 getAnswers();
             }
@@ -53,7 +54,6 @@ export default function GradingQuiz() {
             let temp = response.data;
             temp = temp.map((answers) => answers.map((answer) => JSON.parse(answer)));
             setAnswers(temp);
-            console.log(temp);
             if(temp[0][0]) {
                 setCurrentAnswer(temp[0][0].id);
             }
