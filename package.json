@@ -2,6 +2,7 @@
   "name": "intqtool-frontend",
   "version": "0.1.0",
   "private": true,
+  "TODO Girts comments": "Are all these dependencies really needed? Also, you should update to newer versions of React etc",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",

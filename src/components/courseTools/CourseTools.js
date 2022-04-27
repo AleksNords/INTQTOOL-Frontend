@@ -9,6 +9,7 @@ import NewCourseModulo from "../modulo/newCourseModulo/NewCourseModulo";
 export default function CourseTools(){
     const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
+    // TODO - you don't use the courses anywhere, just filteredCourses
     const [courses, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
     const [searchWord, setSearchWord] = useState("");

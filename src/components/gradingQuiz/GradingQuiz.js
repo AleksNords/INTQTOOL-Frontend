@@ -72,6 +72,7 @@ export default function GradingQuiz() {
         })
     }
 
+    // TODO - don't leave commented-out code in the final delivery
     //function setCheckedFunction(answerId, newChecked) {
     //    let temp = answers;
     //    answers[answerId].checked = newChecked;

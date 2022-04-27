@@ -23,13 +23,14 @@ export default function NewQuiz() {
     const [showNewQuizModulo, setShowNewQuizModulo] = useState(false);
     const [showSavedQuiz, setShowSavedQuiz] = useState(false);
     const navigate = useNavigate();
+    // TODO - do you need to have questionAmnt as a redundant variable? questionAmnt = questions.length
     const [questionAmnt, setQuestionAmnt] = useState(1);
     const [quiz, setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const url = "https://quiz.web-tek.ninja:8443";
     const [questions, setQuestions] = useState([{
         questionText: "",
-        type: 2,
+        type: 2, // TODO - avoid such magic constants. It is unclear for the reader (developer) what 2 represents
         alternatives: [],
         hints: []
     }]);
@@ -117,6 +118,7 @@ export default function NewQuiz() {
     function setIsMultipleChoice(index, newValue) {
         let temp = questions;
         if (newValue) {
+            // TODO - magic constants again
             temp[index].type = 1;
         } else {
             temp[index].type = 2;
@@ -147,6 +149,8 @@ export default function NewQuiz() {
                     width: "100%",
                     backgroundColor: "#40aa5a",
                     fontSize: 15,
+                    // TODO - totally cryptic css class: ptiqhd? :)
+                    // TODO - why font size here, not in a corresponding CSS file?
                     "& .css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}
                 }}>
                     Your quiz has been updated!
@@ -173,6 +177,7 @@ export default function NewQuiz() {
                 <Button onClick={() => setShowNewQuizModulo(true)} variant="contained"
                         sx={{fontSize: 16, backgroundColor: "#0665bf", ":hover": {backgroundColor: "#00509e"}}}
                         className="new-quiz-button" startIcon={<SettingsIcon/>}>options</Button>
+                {/*TODO - better set all the background colors, font sizes etc in a CSS class, and use the class here*/}
                 <Button onClick={() => submitQuiz()} variant="contained"
                         sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}}
                         className="new-quiz-button" endIcon={<ArrowRightIcon/>}>submit</Button>

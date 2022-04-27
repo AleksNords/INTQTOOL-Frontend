@@ -15,9 +15,13 @@ export default function Home() {
     const [quizzes, setQuizzes] =useState([]);
     const [quizAnswers, setquizAnswers] =useState([]);
     const [showArchived, setShowArchived] = useState(false);
+    // TODO - no constant URLs in the code - these should be in environment files
     const url = "https://quiz.web-tek.ninja:8443";
 
     useEffect(()=>{
+        // TODO - suggested to extract all communication with backend in an external function, then call that function
+        //  here and in all other places where REST API request must be sent. In that way you encapsulate all the
+        //  JWT-token logic and other things in a single place
         axios({
             method:"get",
             url: url+"/user/quizzes",
@@ -37,6 +41,7 @@ export default function Home() {
             }
         }).then((response)=>{
             if(response.status === 200){
+                // TODO - temp is not a good name for a variable. What does it contain?
                 let temp =response.data;
                 temp = temp.map((qa)=>JSON.parse(qa))
                 setquizAnswers(temp);
@@ -61,9 +66,12 @@ export default function Home() {
     }
 
     function toggleActiveArchiveQuiz(elem){
+        // TODO - it is unusual to use capital letters in DOM element ID and class names
         let activeQuizElem = document.getElementById("Active-quiz-headers");
         let archivedQuizElem = document.getElementById("Archived-quiz-headers");
         if(elem.target.id === "Active-quiz-headers"){
+            // TODO - here you probably simply want to add/remove class ...-enabled and ...-disabled
+            // Use .classList.add() and .classList.remove() instead
             activeQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-enabled"
             archivedQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-disabled"
             setShowArchived(false);
@@ -83,7 +91,9 @@ export default function Home() {
 
     return (
         <div className={"home"}>
+            {/*TODO - lines should not be so long*/}
             {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
+
             <div className={"quiz-type-navigator"}>
                 <h1 id="Active-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizzes</h1>
                 <h1 id="Archived-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Answered Quizzes</h1>
@@ -107,6 +117,8 @@ export default function Home() {
                                              progression={10}/>
                         })}
                     </div>)
+                    // TODO - such conditions with ? and : in multiple levels are hard to read. How about extracting
+                    //  those with some ifs, preparing the necessary chunks and including them here?
                     :showArchived && quizAnswers.length < 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
                         : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
 

@@ -14,6 +14,7 @@ function SignUp() {
     const [email, setEmail] = React.useState("");
     const [emailConf, setEmailConf] = React.useState("");
     const [password, setPassword] = React.useState("");
+    // TODO - do you need the `warning`, when you have warningText? warning = (warningText !== "")
     const [warning, setWarning] = React.useState(false);
     const [warningText, setWarningText] = React.useState("");
     const url = "https://quiz.web-tek.ninja:8443";
@@ -25,6 +26,7 @@ function SignUp() {
                     if (firstName.length > 0) {
                         if (lastName.length > 0) {
                             if (checkPasswordFormat()) {
+                                // TODO - not good to have so many levels of nesting
                                 setWarning(false);
                                 let newUser = {
                                     "username": username,

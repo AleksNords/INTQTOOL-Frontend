@@ -11,6 +11,7 @@ import getPersistMiddleware from "redux-persist-middleware";
 import {StyledEngineProvider} from '@mui/material/styles';
 
 const rootElement = document.getElementById('root');
+// TODO - why the cache? Storing in cookies is not good enough? :)
 const cache = getConfiguredCache();
 
 const userActionMap = {
@@ -33,7 +34,11 @@ const persistLoginStatus = getPersistMiddleware({
     actionMap: loginStatusActionMap
 });
 
+// TODO - check all the warnings you get in the JS console, most of them are valid. Ideally - no warnings should be
+// in the console. They should not be simply suppressed either :)
+
 cache.getAll().then((data) => {
+    // TODO - there are newer and better alternatives for Redux, but perhaps no time to re-write it now?
     const store = createStore(
         reducer,
         data,

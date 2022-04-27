@@ -11,6 +11,7 @@ export default function AdminToolsNavigator({setCurrentTool}){
         if(elem.target.id === "user-tools-headers"){
             activeQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-enabled"
             archivedQuizElem.className = "quiz-type-navigator-title quiz-type-navigator-title-disabled"
+            // TODO - magic constants again :)
             setCurrentTool(1);
 
         }else if(elem.target.id === "course-tools-headers"){

@@ -17,6 +17,7 @@ export default function Login() {
 
 
     function submitLogin() {
+        // TODO - no logging of passwords in the console! :)
         console.log(password);
         let details = {
             'username': username,
@@ -27,6 +28,7 @@ export default function Login() {
             method: 'post',
             url: url + "/authenticate",
             headers: {
+                // TODO - the Access headers don't make sense in requests, these should be send by the backend, not frontend
                 "Accept": "*/*",
                 "Access-Control-Allow-Origin": "*",
                 'Access-Control-Allow-Credentials': true,
@@ -80,6 +82,7 @@ export default function Login() {
     }
 
     return (
+        // TODO - is there a reason why the class name is enclosed in {}? The same for IDs
         <div className={"position-wrapper"}>
             <div className="login-wrapper">
 

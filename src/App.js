@@ -4,6 +4,8 @@ import Navbar from "./components/navbar/Navbar";
 import Login from "./components/modulo/login/Login";
 import {Route,Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+// TODO - perhaps the components representing whole "pages" could be moved to folder `pages`, not components?
+// Now it is hard to find which component is where, which is the main
 import Home from "./components/home/Home";
 import SignUp from "./components/modulo/signup/SignUp";
 import Quiz from "./components/quiz/Quiz";
@@ -28,6 +30,7 @@ function App() {
                         <Route path={"/signup"} element={<SignUp/>}/>
 
                     </Routes>
+                    // TODO - the other isLogged check is redundant
                 ) : (isLogged.isLogged === true) ? (
                     <Routes>
                         <Route exact path={"/"} element={<Home/>}/>

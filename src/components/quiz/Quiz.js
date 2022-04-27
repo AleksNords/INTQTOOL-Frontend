@@ -47,7 +47,9 @@ export default function Quiz() {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-
+                // TODO - not good to encode specific string values in IF-checks. What if you will change a single
+            //  character in the response message on the backend side? Will you remember to fix that character
+            //  in frontend code?
                 if (response.status === 200 && response.data !== "No answer" && response.data !== "Answers submitted") {
 
                     let temp = response.data
@@ -65,6 +67,8 @@ export default function Quiz() {
         );
     }, []);
 
+    // TODO - remember to also add a comment for every class and every method - in general - what does the method do?
+    //  When is it called? Is that an event handler (callback)? Does it send a request?
     function saveQuiz() {
         let temp = quizAnswers;
         temp.answers = questionAnswers;
