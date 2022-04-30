@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './gradingquestion.css';
 import {Button, FormControlLabel, Radio, RadioGroup, TextField} from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
