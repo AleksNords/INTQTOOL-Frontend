@@ -82,7 +82,12 @@ export default function Login() {
                     <TextField label={"Username"} type={"text"} size={"small"} className={"login-form-field"}
                                onChange={elem => setUsername(elem.target.value)}
                                InputLabelProps={{style: {fontSize: 15, color: "black"}}}
-                               InputProps={{style: {fontSize: 15}}}/>
+                               InputProps={{style: {fontSize: 15}}}
+                               onKeyUp={(event)=>{
+                                   if(event.key === "Enter"){
+                                       submitLogin();
+                                   }
+                               }}/>
                     <TextField size={"small"} label={"Password"} id="login-password-input" name={"login-password-input"}
                                type={"password"} className={"login-form-field"}
                                onChange={elem => setPassword(elem.target.value)}

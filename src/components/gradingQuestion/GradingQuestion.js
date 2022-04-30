@@ -10,7 +10,8 @@ export default function GradingQuestion({question, questionIndex, currentAnswer}
 
     return (
             <div className="grading-question">
-                <h2 className="question-text">Question {questionIndex}: {question ? question.question : null} </h2>
+                <h2 className="question-text">Question {questionIndex}: {question ? question.questionText : null} </h2>
+
                 <TextField key={questionIndex + currentAnswer} sx={{".MuiOutlinedInput-notchedOutline": {borderColor: "#000000"}}} className="answer-text" multiline rows={6} value={currentAnswer ? currentAnswer.answer : ""} label="Student answer" InputLabelProps={{style: {fontSize: 18, color: "black"}}} InputProps={{style: {fontSize: 18}, readOnly: true}}/>
                 <TextField className={"feedback-text"} multiline rows={6} label="Feedback" InputLabelProps={{style: {fontSize: 18}}} InputProps={{style: {fontSize: 18}}}/>
                 <RadioGroup key={"grading" + questionIndex} className="credit-radio-wrapper" row>

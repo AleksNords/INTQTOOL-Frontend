@@ -63,7 +63,13 @@ export default function UserTools() {
                            onChange={(elem) => setSearchWord(elem.target.value)}
                            label={(filteredUsers.length === 0) ?"No result":"Search"} className={"user-tools-search-field"}
                            InputLabelProps={{style: {fontSize: 11, color: "black"}}}
-                           InputProps={{style: {fontSize: 11}}}/>
+                           InputProps={{style: {fontSize: 11}}}
+                           onKeyUp={(event)=>{
+                               if(event.key === "Enter"){
+                                   searchUsers();
+                               }
+                           }}
+                />
                 <Button onClick={searchUsers}
                         variant={"contained"}
                         sx={{fontSize: 10}}
