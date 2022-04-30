@@ -14,7 +14,22 @@ export default function MultipleChoiceModule({addAlternative, alternatives, dele
 
     for (let i = 0; i < alternatives.length; i++) {
         alternativeDivs.push(
-            <div key={JSON.stringify(alternatives[i]) + i} ><FormControlLabel value={alternativeLetters[i]} control={<Checkbox inputProps={{tabIndex: "-1"}} key={JSON.stringify(alternatives[i]) + i} defaultChecked={alternatives[i].correct} onChange={(elem)=>{let temp = alternatives[i]; temp.correct = elem.target.checked; changeAlternative(temp)}} sx={{color: "#f63e3e", width: 45, '&.Mui-checked': {color: "#42C767",},}} icon={<span className="question-choice" >{alternativeLetters[i]}</span>} checkedIcon={<span className="question-choice" >{alternativeLetters[i]}</span>}/>} label={<TextField key={alternatives[i].alternativeText} defaultValue={alternatives[i].alternativeText} onChange={(elem)=>{let temp = alternatives[i]; temp.alternativeText = elem.target.value; changeAlternative(temp)}} className="question-choice-textfield" variant="outlined"/>}/><IconButton tabIndex={-1} onClick={()=>deleteAlternative(i)}><CloseIcon sx={{fontSize: 30, color: "#000000"}}/></IconButton></div>
+            <div key={JSON.stringify(alternatives[i]) + i} >
+                <FormControlLabel value={alternativeLetters[i]} control={
+                    <Checkbox key={JSON.stringify(alternatives[i]) + i}
+                              defaultChecked={alternatives[i].correct}
+                              onChange={(elem)=>{let temp = alternatives[i]; temp.correct = elem.target.checked; changeAlternative(temp)}}
+                              sx={{color: "#F63E3E", width: 45, '&.Mui-checked': {color: "#42C767",},}}
+                              icon={<span className="question-choice" >{alternativeLetters[i]}</span>}
+                              checkedIcon={<span className="question-choice" >{alternativeLetters[i]}</span>}/>}
+                                  label={<TextField key={alternatives[i].alternative}
+                                                    defaultValue={alternatives[i].alternative}
+                                                    onChange={(elem)=>{let temp = alternatives[i]; temp.alternative = elem.target.value; changeAlternative(temp)}}
+                                                    className="question-choice-textfield" variant="outlined"/>}/>
+                <IconButton onClick={()=>deleteAlternative(i)}>
+                    <CloseIcon sx={{fontSize: 30, color: "#000000"}}/>
+                </IconButton>
+            </div>
         );
     }
 

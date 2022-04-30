@@ -19,7 +19,7 @@ export default function HintModule({addHint, hints, deleteHint, changeHint}) {
 
     return (
         <div className="hint-module">
-            {hintDivs.map((divs)=> divs)}
+            {hintDivs}
             {   hints.length < 5 ?
                 <div className="hint-wrapper"><LightbulbOutlinedIcon sx={{fontSize: 40, color: "#646464"}} className="hint-icon"/><Button onClick={()=>addHint()} sx={{borderColor: "#646464", borderStyle: "dashed", borderWidth: 2, textTransform: "none", ":hover": {borderColor: "#646464", borderWidth: 2}}} className="add-new-hint-button" variant="outlined"><AddIcon sx={{fontSize: 30, color: "#646464"}}/> Add a hint</Button></div>
                 : null

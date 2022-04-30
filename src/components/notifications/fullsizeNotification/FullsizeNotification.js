@@ -1,17 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './fullsizenotification.css';
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router";
-import Button from "@mui/material/Button";
-import {setUser} from "../../../store/action/userAction";
+
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import GradingIcon from "@mui/icons-material/Grading";
 import ErrorIcon from "@mui/icons-material/Error";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function FullSizeNotification({id,message,type,deleteNotificationFunction}) {
+export default function FullSizeNotification({id, message, type, deleteNotificationFunction}) {
 
     function renderIcon() {
         switch (type) {
@@ -38,7 +35,7 @@ export default function FullSizeNotification({id,message,type,deleteNotification
             </div>
             <div className="notification-top-wrapper">
                 <span>2m</span>
-                <CancelIcon  onClick={()=>deleteNotificationFunction(id)} sx={{fontSize: 40, cursor: "pointer"}}/>
+                <CancelIcon onClick={() => deleteNotificationFunction(id)} sx={{fontSize: 40, cursor: "pointer"}}/>
             </div>
             <a>Go to question <ArrowForwardIosIcon sx={{fontSize: 20}}/></a>
         </div>

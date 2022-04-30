@@ -6,7 +6,7 @@ import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import GradingQuestion from "../gradingQuestion/GradingQuestion";
 import AnswerList from "../answerList/AnswerList";
-import Alert from '@mui/material/Alert';
+import { Alert } from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 
 export default function GradingQuiz() {
@@ -25,7 +25,7 @@ export default function GradingQuiz() {
 
         axios({
             method: "get",
-            url: url+"/quiz/" + id,
+            url: process.env.REACT_APP_URL+"/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -35,7 +35,7 @@ export default function GradingQuiz() {
                 temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
                 temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
                 setQuiz(temp);
-                getCourse();
+                getCourse(temp.courseId);
                 getAnswers();
             }
             }
@@ -45,7 +45,7 @@ export default function GradingQuiz() {
     function getAnswers() {
         axios({
             method: "get",
-            url: url +"/quiz/quizanswers/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/quizanswers/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -53,14 +53,16 @@ export default function GradingQuiz() {
             let temp = response.data;
             temp = temp.map((answers) => answers.map((answer) => JSON.parse(answer)));
             setAnswers(temp);
-            setCurrentAnswer(temp[0][0].id);
+            if(temp[0][0]) {
+                setCurrentAnswer(temp[0][0].id);
+            }
         })
     }
 
-    function getCourse() {
+    function getCourse(thisCourseId) {
         axios({
             method: "get",
-            url: url +"/course/" + id,
+            url: process.env.REACT_APP_URL + "/course/" + thisCourseId,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -77,7 +79,7 @@ export default function GradingQuiz() {
 
     return (
         <div className="grading-quiz">
-            <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined} setCurrentQuestion={(e)=>{setCurrentAnswer(answers[e][0].id);setCurrentQuestion(e)}}/>
+            <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined} setCurrentQuestion={(e)=>{if(answers[e][0]){setCurrentAnswer(answers[e][0].id);setCurrentQuestion(e)}else{setCurrentAnswer(0);setCurrentQuestion(e)}}}/>
             <div className={"grading-wrapper"}>
                 {quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1 ? <div className="auto-graded-question-filter">
                     <Snackbar sx={{color: "white"}} open={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1} autoHideDuration={6000} anchorOrigin={{ vertical: 'center', horizontal: 'center' }} >

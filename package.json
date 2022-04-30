@@ -29,8 +29,7 @@
     "redux-persist-middleware": "^1.0.1",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
-    "web-vitals": "^2.1.4",
-    "@mui/system": "^5.5.3"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

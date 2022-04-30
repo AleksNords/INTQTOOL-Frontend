@@ -68,7 +68,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
             <div className="answer-list-header">
                 <h1 key={answers + answers.length} className="answer-list-title answer-list-header-item">Student answers ({answers.length > 0 ? answers.length : 0})</h1>
                 <TextField className="answer-list-header-item"
-                           key={answers + currentQuestion}
+                           key={answers + currentQuestion+1}
                            label={<div><SearchIcon sx={{fontSize: 20}}/>Search</div>}
                            InputLabelProps={{style: {fontSize: 18}}} InputProps={{style: {fontSize: 18}}}
                            value={search}
@@ -92,9 +92,9 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
                             <TextField focused={true} inputRef={input => input && input.focus()} multiline rows={3} defaultValue={toolbarFeedback} onChange={(e) => setToolbarFeedback(e.target.value)} className="toolbar-feedback-textfield"/>
                         </Fade>
                         <RadioGroup className="credit-radio-wrapper toolbar-radio-wrapper" row>
-                            <FormControlLabel className="grading-button" value="correct" control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}} className="grading-radio" icon={<CheckIcon sx={{fontSize: 40}}/>} checkedIcon={<CheckIcon sx={{fontSize: 40, color: "#42c767"}}/>} size={"large"}/>}/>
-                            <FormControlLabel className="grading-button" value="incorrect" control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 40}}/>} checkedIcon={<CloseIcon sx={{fontSize: 40, color: "#f63e3e"}}/>} size={"large"}/>}/>
-                            <FormControlLabel className="grading-button" value="partly_correct" control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 40}}/>} checkedIcon={<PercentIcon sx={{fontSize: 40, color: "#f0c11b"}}/>} size={"large"}/>}/>
+                            <FormControlLabel label="" className="grading-button" value="correct" control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}} className="grading-radio" icon={<CheckIcon sx={{fontSize: 40}}/>} checkedIcon={<CheckIcon sx={{fontSize: 40, color: "#42c767"}}/>} size={"large"}/>}/>
+                            <FormControlLabel label="" className="grading-button" value="incorrect" control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 40}}/>} checkedIcon={<CloseIcon sx={{fontSize: 40, color: "#f63e3e"}}/>} size={"large"}/>}/>
+                            <FormControlLabel label="" className="grading-button" value="partly_correct" control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 40}}/>} checkedIcon={<PercentIcon sx={{fontSize: 40, color: "#f0c11b"}}/>} size={"large"}/>}/>
                         </RadioGroup>
                         <div className="toolbar-button-wrapper">
                             <IconButton onClick={() => setshowToolbarFeedback(!showToolbarFeedback)} TouchRippleProps={{sx: {color: "#2f7ed9"}}}><CommentIcon sx={{fontSize: 40, color: "#2f7ed9"}}/></IconButton>

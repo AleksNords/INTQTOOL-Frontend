@@ -1,8 +1,8 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import './home.css';
 import QuizCard from "../quizCard/QuizCard";
 import axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Button} from "@mui/material";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
 import AddIcon from '@mui/icons-material/Add';
@@ -15,12 +15,11 @@ export default function Home() {
     const [quizzes, setQuizzes] =useState([]);
     const [quizAnswers, setquizAnswers] =useState([]);
     const [showArchived, setShowArchived] = useState(false);
-    const url = "http://localhost:8080";
 
     useEffect(()=>{
         axios({
             method:"get",
-            url: url+"/user/quizzes",
+            url: process.env.REACT_APP_URL + "/user/quizzes",
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
             }
@@ -29,11 +28,24 @@ export default function Home() {
             }
         ).catch(function (response){
         });
+        axios({
+            url: process.env.REACT_APP_URL + "/user/archivedquizzes",
+            method:'get',
+            headers:{
+                "Authorization":"Bearer "+isLogged.jwtToken
+            }
+        }).then((response)=>{
+            if(response.status === 200){
+                let temp =response.data;
+                temp = temp.map((qa)=>JSON.parse(qa))
+                setquizAnswers(temp);
+            }
+        })
     },[]);
 
     function updateQuizAnswers(){
         axios({
-            url: url + "/user/archivedquizzes",
+            url: process.env.REACT_APP_URL + "/user/archivedquizzes",
             method:'get',
             headers:{
                 "Authorization":"Bearer "+isLogged.jwtToken
@@ -72,8 +84,8 @@ export default function Home() {
         <div className={"home"}>
             {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
             <div className={"quiz-type-navigator"}>
-                <h1 id="Active-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizes</h1>
-                <h1 id="Archived-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Archived Quizes</h1>
+                <h1 id="Active-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-enabled"}>Active Quizzes</h1>
+                <h1 id="Archived-quiz-headers" onClick={(elem)=>toggleActiveArchiveQuiz(elem)} className={"quiz-type-navigator-title quiz-type-navigator-title-disabled"} >Answered Quizzes</h1>
                 {
                     (user.user.roles)?(
                         (user.user.roles.includes("ROLE_TEACHER")) || (user.user.roles.includes("ROLE_ADMIN")) ? (
@@ -87,9 +99,10 @@ export default function Home() {
 
                 {quizzes.length >= 1 && !showArchived ?
                     (<div className={"quizcard-container"}>
-                        {quizzes.map((quiz)=>{
-                            quiz = JSON.parse(quiz);
-                            return <QuizCard title={quiz.title} quizId={quiz.id}
+                        {quizzes.map((deployedquiz)=>{
+                            deployedquiz = JSON.parse(deployedquiz);
+                            let quiz = JSON.parse(deployedquiz.deployedQuiz)
+                            return <QuizCard title={quiz.title} quizId={deployedquiz.id}
                                              progression={10}/>
                         })}
                     </div>)

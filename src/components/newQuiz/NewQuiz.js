@@ -10,6 +10,7 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import {useSelector} from "react-redux";
 
 export default function NewQuiz() {
 
@@ -18,57 +19,74 @@ export default function NewQuiz() {
     });
 
     let {id} = useParams();
+    const isLogged = useSelector(state => state.isLoggedReducer);
     const [showNewQuizModulo, setShowNewQuizModulo] = useState(false);
     const [showSavedQuiz, setShowSavedQuiz] = useState(false);
     const navigate = useNavigate();
     const [questionAmnt, setQuestionAmnt] = useState(1);
     const [quiz, setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const url = "https://quiz.web-tek.ninja:8443";
     const [questions, setQuestions] = useState([{
         questionText: "",
-        isMultipleChoice: false,
+        type: 2,
         alternatives: [],
         hints: []
     }]);
 
-    useEffect(()=>{
+    useEffect(() => {
         axios({
-                method: 'get',
-                url: url+"/quiz/quizdetails/"+id
+            method: 'get',
+            url: process.env.REACT_APP_URL + "/quiz/quizdetails/" + id,
+            headers: {
+                "Authorization": "Bearer " + isLogged.jwtToken
+            }
 
-            }).then((response)=>{
-                if(response.status === 200){
-                    setQuiz(response.data)
+        }).then((response) => {
+            if (response.status === 200) {
+                let temp = response.data;
+                temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
+                if(temp.deployedQuiz.questions.length >=1){
+                    setQuestions(temp.deployedQuiz.questions.map((question)=>{
+                        let tempQuestion =JSON.parse(question);
+                        tempQuestion.hints=[];
+                        tempQuestion.alternatives = tempQuestion.alternatives.map((alternative)=>JSON.parse(alternative));
+                        return tempQuestion}))
                 }
+                setQuiz(temp);
+            }
         })
-    },[])
+    }, [])
 
     const handleCloseSnackbar = () => {
         setShowSavedQuiz(false);
     };
 
     function submitQuiz() {
-        // let temp = quiz;
-        // temp.questions = questions;
-        // setQuiz(temp);
-        // axios({
-        //     method: 'post',
-        //     url: "https://quiz.web-tek.ninja:8080/newquiz",
-        //     data: temp
-        // }).then((response)=>{
-        //     if(response.status){
-        //         navigate("/");
-        //     }
-        // })
-        navigate("/");
+        let temp = quiz;
+        temp.deployedQuiz.questions = questions;
+        temp.deployedQuiz.quizLength = questions.length;
+        delete temp.deployedQuiz.author;
+        setQuiz(temp);
+        axios({
+            method: 'post',
+            url: process.env.REACT_APP_URL + "/quiz/save/"+quiz.courseId,
+            headers: {
+                "Authorization": "Bearer " + isLogged.jwtToken
+            },
+            data: temp
+        }).then((response) => {
+            if (response.status === 200) {
+                navigate("/");
+                console.log(response);
+            }
+        })
     }
 
     function addQuestion() {
         let temp = questions;
         temp.push({
             questionText: "",
-            isMultipleChoice: false,
+            type: 2,
             alternatives: [],
             hints: []
         });
@@ -97,7 +115,12 @@ export default function NewQuiz() {
 
     function setIsMultipleChoice(index, newValue) {
         let temp = questions;
-        temp[index].isMultipleChoice = newValue;
+        if (newValue) {
+            temp[index].type = 1;
+        } else {
+            temp[index].type = 2;
+        }
+
         setQuestions(temp);
     }
 
@@ -117,19 +140,41 @@ export default function NewQuiz() {
 
     return (
         <div className="new-quiz-page">
-                <Snackbar open={showSavedQuiz} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} >
-                    <Alert onClose={handleCloseSnackbar} severity="success" sx={{width: "100%", backgroundColor: "#40aa5a", fontSize: 15, "& .css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}}}>
-                        Your quiz has been updated!
-                    </Alert>
-                </Snackbar>
-            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
-            <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length} setCurrentQuestion={(e)=>setCurrentQuestion(e)} isNewQuizBanner={true}/>
+            <Snackbar open={showSavedQuiz} autoHideDuration={6000} onClose={handleCloseSnackbar}
+                      anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{
+                    width: "100%",
+                    backgroundColor: "#40aa5a",
+                    fontSize: 15,
+                    "& .css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}
+                }}>
+                    Your quiz has been updated!
+                </Alert>
+            </Snackbar>
+            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo quizDetails={quiz} setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/>
+                <div className="shadow-filter"/>
+            </div> : null}
+            <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length}
+                            setCurrentQuestion={(e) => setCurrentQuestion(e)} isNewQuizBanner={true}/>
             {questions.length > 0 ?
-                <NewQuestion submitQuiz={submitQuiz} deleteQuestion={deleteQuestion} setIsMultipleChoice={setIsMultipleChoice} changeQuestionText={changeQuestionText} changeQuestionAlternatives={changeQuestionAlternatives} changeQuestionHints={changeQuestionHints} question={questions[currentQuestion]} questionIndex={currentQuestion} questionNumber={currentQuestion + 1} setQuestion={(question)=>{let temp = questions; temp[currentQuestion] = question;setQuestions(temp)}}/>
-            : null}
+                <NewQuestion submitQuiz={submitQuiz} deleteQuestion={deleteQuestion}
+                             setIsMultipleChoice={setIsMultipleChoice} changeQuestionText={changeQuestionText}
+                             changeQuestionAlternatives={changeQuestionAlternatives}
+                             changeQuestionHints={changeQuestionHints} question={questions[currentQuestion]}
+                             questionIndex={currentQuestion} questionNumber={currentQuestion + 1}
+                             setQuestion={(question) => {
+                                 let temp = questions;
+                                 temp[currentQuestion] = question;
+                                 setQuestions(temp)
+                             }}/>
+                : null}
             <div className="new-quiz-button-wrapper">
-                <Button onClick={()=> setShowNewQuizModulo(true)} variant="contained" sx={{fontSize: 16, backgroundColor: "#0665bf", ":hover": {backgroundColor: "#00509e"}}} className="new-quiz-button" startIcon={<SettingsIcon/>}>options</Button>
-                <Button onClick={()=> submitQuiz()} variant="contained" sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#40AA5A"}}} className="new-quiz-button" endIcon={<ArrowRightIcon/>}>submit</Button>
+                <Button onClick={() => setShowNewQuizModulo(true)} variant="contained"
+                        sx={{fontSize: 16, backgroundColor: "#0665bf", ":hover": {backgroundColor: "#00509e"}}}
+                        className="new-quiz-button" startIcon={<SettingsIcon/>}>options</Button>
+                <Button onClick={() => submitQuiz()} variant="contained"
+                        sx={{fontSize: 16, backgroundColor: "#42C767", ":hover": {backgroundColor: "#42c767"}}}
+                        className="new-quiz-button" endIcon={<ArrowRightIcon/>}>submit</Button>
             </div>
         </div>
     )
