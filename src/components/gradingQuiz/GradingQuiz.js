@@ -6,7 +6,7 @@ import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import GradingQuestion from "../gradingQuestion/GradingQuestion";
 import AnswerList from "../answerList/AnswerList";
-import {Alert} from "@mui/lab";
+import Alert from '@mui/material/Alert';
 import Snackbar from "@mui/material/Snackbar";
 
 export default function GradingQuiz() {

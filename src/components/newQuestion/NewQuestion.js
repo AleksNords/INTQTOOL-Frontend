@@ -14,20 +14,18 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
+    const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
 
-    if (question && question.alternatives.length == 0) {
+    if (question && question.alternatives.length === 0 && isMultipleChoice) {
         for (let i = 0; i < 4; i++) {
             let temp = question;
             temp.alternatives.push({
-                     alternativeText: "",
-                     correct: false
-                 })
+                alternativeText: "",
+                correct: false
+            })
             setQuestion(temp);
         }
     }
-
-
-    const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
 
     function addAlternative() {
         if (question.alternatives.length < 6) {
@@ -84,9 +82,13 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
     }
 
     function setMultipleChoice(index, newValue) {
-        setMyIsMultipleChoice(newValue);
         setIsMultipleChoice(index, newValue);
+        setMyIsMultipleChoice(newValue);
     }
+
+    useEffect(()=> {
+        setMyIsMultipleChoice(question.isMultipleChoice);
+    },[questionIndex])
 
     return(
         <div key={"question" + questionIndex + question.questionText} className="new-question">
@@ -101,8 +103,8 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                     <TextField key={question.questionText + questionIndex} defaultValue={question.questionText} onChange={(elem)=> changeQuestionText(questionIndex, elem.target.value)} multiline rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield" variant="outlined" label="Question"/>
                     <RadioGroup key={"multipleChoice" + questionNumber} defaultValue={question.isMultipleChoice ? "multiple_choice" : "long_answer"}>
                         <FormControlLabel className="radio-button" value="long_answer" control={<Radio onClick={()=>setMultipleChoice(questionIndex, false)} className="question-type-radio" size={"large"}/>} label="Freetext answer" />
-                        <FormControlLabel className="radio-button" value="multiple_choice" control={<Radio onClick={()=>setMultipleChoice(questionIndex, true)} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
-                        {question.isMultipleChoice ? <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative} addAlternative={addAlternative} deleteAlternative={deleteAlternative} alternatives={question.alternatives}/> : null}
+                        <FormControlLabel className="radio-button" value="multiple_choice" control={<Radio onClick={()=> {console.log(isMultipleChoice); setMultipleChoice(questionIndex, true)}} className="question-type-radio" size={"large"}/>} label="Multiple choice" />
+                        {isMultipleChoice ? <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative} addAlternative={addAlternative} deleteAlternative={deleteAlternative} alternatives={question.alternatives}/> : null}
                     </RadioGroup>
                 </div>
                 <HintModule changeHint={changeHint} addHint={addHint} deleteHint={deleteHint} hints={question.hints}/>
