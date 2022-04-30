@@ -7,7 +7,6 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
 export default function UserTools() {
-    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -22,7 +21,7 @@ export default function UserTools() {
     function updateUsers() {
         axios({
             method: "get",
-            url: url + "/user/all",
+            url: process.env.REACT_APP_URL + "/user/all",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

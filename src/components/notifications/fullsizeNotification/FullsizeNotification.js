@@ -8,7 +8,7 @@ import GradingIcon from "@mui/icons-material/Grading";
 import ErrorIcon from "@mui/icons-material/Error";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function FullSizeNotification({id,message,type,deleteNotificationFunction}) {
+export default function FullSizeNotification({id, message, type, deleteNotificationFunction}) {
 
     function renderIcon() {
         switch (type) {
@@ -35,7 +35,7 @@ export default function FullSizeNotification({id,message,type,deleteNotification
             </div>
             <div className="notification-top-wrapper">
                 <span>2m</span>
-                <CancelIcon  onClick={()=>deleteNotificationFunction(id)} sx={{fontSize: 40, cursor: "pointer"}}/>
+                <CancelIcon onClick={() => deleteNotificationFunction(id)} sx={{fontSize: 40, cursor: "pointer"}}/>
             </div>
             <a>Go to question <ArrowForwardIosIcon sx={{fontSize: 20}}/></a>
         </div>

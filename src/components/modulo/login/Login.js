@@ -13,7 +13,6 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
-    const url = "https://quiz.web-tek.ninja:8443";
 
 
     function submitLogin() {
@@ -25,14 +24,7 @@ export default function Login() {
 
         axios({
             method: 'post',
-            url: url + "/authenticate",
-            headers: {
-                "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*",
-                'Access-Control-Allow-Credentials': true,
-                "Access-Control-Allow-headers": "*",
-                "Content-Type": "application/json"
-            },
+            url: process.env.REACT_APP_URL + "/authenticate",
             data: details
 
         }).then(function (response) {
@@ -56,7 +48,7 @@ export default function Login() {
     function getUserInfo(token) {
         axios({
             method: "get",
-            url: url + "/user/myuser",
+            url: process.env.REACT_APP_URL + "/user/myuser",
             headers: {
                 "Authorization": "Bearer " + token
             }

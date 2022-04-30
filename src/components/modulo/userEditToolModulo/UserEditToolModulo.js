@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export default function UserEditToolModulo({editableUser, setShowUserTool, userUpdater}) {
-    const url = "https://quiz.web-tek.ninja:8443";
+
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
     const [courseID, setCourseID] = useState("");
@@ -14,7 +14,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     function giveRoleStudent() {
         axios({
             method: "get",
-            url: url + "/user/makestudent/" + editableUser.id,
+            url: process.env.REACT_APP_URL + "/user/makestudent/" + editableUser.id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -30,7 +30,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     function giveRoleTeacher() {
         axios({
             method: "get",
-            url: url + "/user/maketeacher/" + editableUser.id,
+            url: process.env.REACT_APP_URL + "/user/maketeacher/" + editableUser.id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -46,7 +46,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     function giveRoleAdministrator() {
         axios({
             method: "get",
-            url: url + "/user/makeadmin/" + editableUser.id,
+            url: process.env.REACT_APP_URL + "/user/makeadmin/" + editableUser.id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -61,7 +61,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     function addUserToCourse(){
         axios({
             method: "post",
-            url: url + "/course/adduser/" +courseID,
+            url: process.env.REACT_APP_URL + "/course/adduser/" +courseID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -86,7 +86,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     useEffect(() => {
         axios({
             method: "get",
-            url: url + "/course/all",
+            url: process.env.REACT_APP_URL + "/course/all",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

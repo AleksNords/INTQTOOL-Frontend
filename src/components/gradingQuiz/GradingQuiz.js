@@ -16,7 +16,6 @@ export default function GradingQuiz() {
     const [course, setCourse] = useState("");
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [currentAnswer, setCurrentAnswer] = useState(0);
-    const url = "https://quiz.web-tek.ninja:8443";
     let {id} = useParams();
 
     const [answers, setAnswers] = useState([])
@@ -25,7 +24,7 @@ export default function GradingQuiz() {
 
         axios({
             method: "get",
-            url: url+"/quiz/" + id,
+            url: process.env.REACT_APP_URL+"/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -45,7 +44,7 @@ export default function GradingQuiz() {
     function getAnswers() {
         axios({
             method: "get",
-            url: url +"/quiz/quizanswers/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/quizanswers/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -63,7 +62,7 @@ export default function GradingQuiz() {
     function getCourse(thisCourseId) {
         axios({
             method: "get",
-            url: url +"/course/" + thisCourseId,
+            url: process.env.REACT_APP_URL + "/course/" + thisCourseId,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }

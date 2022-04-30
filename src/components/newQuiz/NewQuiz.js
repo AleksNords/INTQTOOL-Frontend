@@ -26,7 +26,6 @@ export default function NewQuiz() {
     const [questionAmnt, setQuestionAmnt] = useState(1);
     const [quiz, setQuiz] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const url = "https://quiz.web-tek.ninja:8443";
     const [questions, setQuestions] = useState([{
         questionText: "",
         type: 2,
@@ -37,7 +36,7 @@ export default function NewQuiz() {
     useEffect(() => {
         axios({
             method: 'get',
-            url: url + "/quiz/quizdetails/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/quizdetails/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -70,7 +69,7 @@ export default function NewQuiz() {
         setQuiz(temp);
         axios({
             method: 'post',
-            url: url + "/quiz/save/"+quiz.courseId,
+            url: process.env.REACT_APP_URL + "/quiz/save/"+quiz.courseId,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },

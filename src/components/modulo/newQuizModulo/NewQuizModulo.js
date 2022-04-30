@@ -28,8 +28,6 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     const [description, setDescription] = useState(quizDetails ? quizDetails.deployedQuiz.description : "");
     const [courseOptions, setCourseOptions] = useState([]);
 
-
-    const url = "https://quiz.web-tek.ninja:8443";
     const newQuizTheme = createTheme({
         typography: {
             fontSize: 25,
@@ -42,7 +40,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     useEffect(() => {
         axios({
             method: "get",
-            url: url+"/user/courses",
+            url: process.env.REACT_APP_URL + "/user/courses",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -75,7 +73,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
 
         axios({
             method: 'post',
-            url: url + "/quiz/new/" + courseID,
+            url: process.env.REACT_APP_URL + "/quiz/new/" + courseID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -83,10 +81,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
         }).then((response) => {
             if (response.status === 200) {
                 navigate("/quizeditor/"+response.data.deployedQuizId)
-            } else {
-
             }
-
         })
         //navigate("/quizeditor/"+newQuizId);
     }

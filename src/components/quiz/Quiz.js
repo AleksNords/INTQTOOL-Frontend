@@ -12,7 +12,6 @@ export default function Quiz() {
     let {id} = useParams();
 
     const navigate = useNavigate();
-    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [quiz, setQuiz] = useState({});
     const [questionAnswers, setQuestionAnswers] = useState([]);
@@ -27,7 +26,7 @@ export default function Quiz() {
 
         axios({
             method: "get",
-            url: url+"/quiz/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -42,7 +41,7 @@ export default function Quiz() {
 
         axios({
             method: "get",
-            url: url+"/user/quizanswers/" + id,
+            url: process.env.REACT_APP_URL + "/user/quizanswers/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -73,7 +72,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: url+"/user/saveanswer/"+id,
+            url: process.env.REACT_APP_URL + "/user/saveanswer/"+id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -88,7 +87,6 @@ export default function Quiz() {
                         setQuestionAnswers(temp.answers);
                     }
                     setQuizAnswers(temp);
-
                 }
             }
         );
@@ -102,7 +100,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: url+"/user/submitanswer/"+id,
+            url: process.env.REACT_APP_URL + "/user/submitanswer/"+id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -113,7 +111,6 @@ export default function Quiz() {
             }
         );
         navigate("/");
-
     }
 
 

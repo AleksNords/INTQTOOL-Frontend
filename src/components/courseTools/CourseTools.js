@@ -7,7 +7,6 @@ import Button from "@mui/material/Button";
 import NewCourseModulo from "../modulo/newCourseModulo/NewCourseModulo";
 
 export default function CourseTools(){
-    const url = "https://quiz.web-tek.ninja:8443";
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
@@ -21,7 +20,7 @@ export default function CourseTools(){
     function updateCourses() {
         axios({
             method: "get",
-            url: url + "/course/all",
+            url: process.env.REACT_APP_URL + "/course/all",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -43,7 +42,7 @@ export default function CourseTools(){
     function submitNewCourse(newCourse){
         axios({
             method: "post",
-            url: url + "/course/new",
+            url: process.env.REACT_APP_URL + "/course/new",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
