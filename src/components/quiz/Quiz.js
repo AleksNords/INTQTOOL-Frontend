@@ -129,7 +129,7 @@ export default function Quiz() {
                             <div className={"question-page-wrapper"}>
                                 <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.deployedQuiz.quizLength}
                                                 setCurrentQuestion={setCurrentQuestion}/>
-                                <Question quizId={id} currAns={questionAnswers[currentQuestion]}
+                                <Question currAns={questionAnswers[currentQuestion]}
                                           question={JSON.parse(quiz.deployedQuiz.questions[currentQuestion])}
                                           currentQuestion={currentQuestion} setAnswer={(ans) => {
                                     let temp = questionAnswers;

@@ -3,11 +3,10 @@ import './question.css';
 import {FormControlLabel, RadioGroup} from "@mui/material";
 import Radio from "@mui/material/Radio";
 
-export default function Question({question, currentQuestion, setAnswer, currAns, quizId}) {
+export default function Question({question, currentQuestion, setAnswer, currAns}) {
     let answer = {
         "answer": "",
-        "questionId": question.id,
-        "quizId": quizId,
+        "questionId": question.questionID,
         "type": question.type,
         "status": "in-progress"
     }
