@@ -16,7 +16,6 @@ export default function Login() {
 
 
     function submitLogin() {
-        console.log(password);
         let details = {
             'username': username,
             'password': password

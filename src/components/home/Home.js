@@ -110,9 +110,9 @@ export default function Home() {
                         : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
 
                                 {quizAnswers.map((quiz)=>{
-
+                                    console.log(quiz);
                                     return <QuizCard title={quiz.title} quizId={quiz.id}
-                                                     status={quiz.status}/>
+                                                     status={quiz.status} grading={quiz.grading+"/"+quiz.quizLength}/>
                                 })}
                             </div>):
                     (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active quizzes</h1></div>)}

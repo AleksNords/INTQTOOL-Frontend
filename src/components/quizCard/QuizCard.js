@@ -4,7 +4,7 @@ import {LinearProgress} from "@mui/material";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
 
-function QuizCard({title, progression, quizId,status}) {
+function QuizCard({title, progression, quizId,status,grading}) {
     const navigate = useNavigate();
 
     const user = useSelector(state => state.userReducer.user);
@@ -19,7 +19,7 @@ function QuizCard({title, progression, quizId,status}) {
 
                     {progression !== undefined ? (<span className={"quizcard-subtext-span"}><LinearProgress value={progression} variant={"determinate"}
                                                                   className={"quizcard-progressionbar"}/><a className={"quizcard-continue"}>continue →</a></span>)
-                        :(status !== undefined) ? (<span className={"quizcard-subtext-span"}><h3 className={"quizcard-status"}>Status: {status}</h3><a className={"quizcard-continue"}>show →</a></span>):null
+                        :(status !== undefined) ? (<span className={"quizcard-subtext-span"}><h3 className={"quizcard-status"}>Status: {status} {status === "graded" && grading ? grading:null}</h3><a className={"quizcard-continue"}>show →</a></span>):null
                     }
 
 
