@@ -81,7 +81,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
             data: updatedQuizDetails
         }).then((response) => {
             if (response.status === 200) {
-                navigate("/quizeditor/"+response.data.deployedQuizId)
+                navigate("/quizeditor/" + response.data)
             }
         })
         //navigate("/quizeditor/"+newQuizId);

@@ -10,6 +10,24 @@ body {
     background-color: #ffffff;
 }
 
+.loading-overlay {
+    min-height: 100%;
+    min-width: 100%;
+    z-index: 999;
+    position: absolute;
+}
+
+.loading {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    z-index: 5;
+}
+
+.loading svg {
+    padding-right: unset;
+}
+
 .course-quiz-title {
     margin: 5% 0 0 3%;
 }

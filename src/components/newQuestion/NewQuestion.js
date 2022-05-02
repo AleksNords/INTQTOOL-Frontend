@@ -27,9 +27,6 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         }
     }
 
-
-    const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
-
     function addAlternative() {
         if (question.alternatives.length < 6) {
             let temp = question;
