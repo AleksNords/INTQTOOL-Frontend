@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import './notificationdropdown.css';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
@@ -10,8 +10,9 @@ import {useNavigate} from "react-router";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from 'axios';
 
-export default function NotificationDropDown({clearParentNotifications}) {
+export default function NotificationDropDown({clearParentNotifications, setShowFunction}) {
 
+    let ref = useRef();
     const user = useSelector(state => state.userReducer.user);
     const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
@@ -55,10 +56,23 @@ export default function NotificationDropDown({clearParentNotifications}) {
         })*/
     }
 
+    const handleClickOutside = (event) => {
+        if (ref.current && !ref.current.contains(event.target) && event.target.tagName !== "path") {
+            setShowFunction(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [ref]);
+
     //TODO: slide animation on removing notification
 
     return (
-        <div className="notifications">
+        <div ref={ref} className="notifications">
             <div className="notification-header">
                 <span
                     className="amount-text">{(notifications.length === 0) ? "No notifications" : (notifications.length === 1) ? "1 Notification" : notifications.length + " notifications"}</span>

@@ -23,7 +23,7 @@ export default function Navbar() {
             <NotificationsIcon className={`bell ${showDropdown ? "inverted-bell" : ""}`} onClick={()=> setShowDropdown(!showDropdown)} sx={{fontSize: 45}}/>
             {user.notifications && user.notifications.length > 0 ?
                 <div className="notificationBubble"><div id="notificationAmount">{(user.notifications.length < 10) ? user.notifications.length : "9+"}</div></div> : null}
-            {showDropdown === true ? <NotificationDropDown clearParentNotifications={clearNotifications}/> : null}
+            {showDropdown === true ? <NotificationDropDown clearParentNotifications={clearNotifications} setShowFunction={setShowDropdown}/> : null}
         </div>
     )
 }
