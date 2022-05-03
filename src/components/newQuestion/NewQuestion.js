@@ -10,34 +10,24 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import sx from "@mui/system/sx";
 import {width} from "@mui/system";
 
-export default function NewQuestion({
-                                        question,
-                                        deleteQuestion,
-                                        questionNumber,
-                                        setQuestion,
-                                        changeQuestionText,
-                                        questionIndex,
-                                        changeQuestionAlternatives,
-                                        changeQuestionHints,
-                                        setIsMultipleChoice,
-                                        submitQuiz
-                                    }) {
+export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice, submitQuiz}) {
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
+    const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
 
     if (question && question.alternatives.length === 0) {
         for (let i = 0; i < 4; i++) {
             let temp = question;
             temp.alternatives.push({
-                alternativeText: "",
-                correct: false
-            })
+                     alternativeText: "",
+                     correct: false
+                 })
             setQuestion(temp);
         }
     }
 
-    const [isMultipleChoice, setMyIsMultipleChoice] = useState((question.type === 1));
+
 
     function addAlternative() {
         if (question.alternatives.length < 6) {
@@ -94,9 +84,13 @@ export default function NewQuestion({
     }
 
     function setMultipleChoice(index, newValue) {
-        setMyIsMultipleChoice(newValue);
         setIsMultipleChoice(index, newValue);
+        setMyIsMultipleChoice(newValue);
     }
+
+    useEffect(()=> {
+        setMyIsMultipleChoice(question.isMultipleChoice);
+    },[questionIndex])
 
     return(
         <div key={"question" + questionIndex + question.questionText} className="new-question">

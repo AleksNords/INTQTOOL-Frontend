@@ -5,6 +5,10 @@
     margin: 5rem 10rem;
     flex-direction: column;
     background-color: white;
+    max-height: 21rem;
+    max-width: 36rem;
+
+
 
 }
 

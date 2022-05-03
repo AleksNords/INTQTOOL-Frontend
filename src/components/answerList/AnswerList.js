@@ -11,20 +11,33 @@ import AnswerCard from "../answerCard/AnswerCard";
 import Snackbar from "@mui/material/Snackbar";
 import {Alert} from "@mui/lab";
 
-export default function AnswerList({answers, setCurrentAnswerFunction, currentQuestion}) {
+export default function AnswerList({answers, setCurrentAnswerFunction, currentQuestion, gradeFunction}) {
 
     const [search, setSearch] = useState("");
     const [showToolBar, setShowToolbar] = useState(false);
     const [showToolbarFeedback, setshowToolbarFeedback] = useState(false);
-    const [toolbarFeedback, setToolbarFeedback] = useState("");
     const [checkedAnsAmnt, setCheckedAnsAmnt] = useState(0);
     const [showAnswerGraded, setShowAnswerGraded] = useState(false);
     const [checkedAnswers, setCheckedAnswers] = useState([]);
 
-    let answerDivs = [];
+    const [toolbarFeedback, setToolbarFeedback] = useState("");
+    const [grade, setGrade] = useState(-1);
+
+    let ungradedAnswers = [];
+
+    let gradedAnswers = [];
 
     for (let i = 0; i < answers.length; i++) {
-        answerDivs.push(<AnswerCard setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]} setCheckedFunction={setChecked}/>);
+
+        if (answers[i].status !== "graded") {
+            ungradedAnswers.push(<AnswerCard isGraded={false}
+                                             setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
+                                             setCheckedFunction={setChecked}/>);
+        } else {
+            gradedAnswers.push(<AnswerCard isGraded={true}
+                                             setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
+                                             setCheckedFunction={setChecked}/>);
+        }
     }
 
     const handleCloseSnackbar = () => {
@@ -51,12 +64,29 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         console.log(checkedAnswers);
     }
 
+    function gradeMultipleQuestions() {
+        if (grade === -1) return;
+        let answerIds = [];
+        for (let i = 0; i < checkedAnswers.length ; i++) {
+            answerIds.push(checkedAnswers[i].id);
+        }
+        setShowToolbar(false);
+        setCheckedAnswers([]);
+        setCheckedAnsAmnt(0);
+        gradeFunction(answerIds, grade, toolbarFeedback);
+        setToolbarFeedback("");
+        setshowToolbarFeedback(false);
+        setShowAnswerGraded(true);
+    }
+
     useEffect(()=> {
         setCheckedAnswers([]);
         setCheckedAnsAmnt(0);
         setShowToolbar(false);
         setSearch("");
     },[answers])
+
+    //TODO: add error message when trying to submit grading without choosing a grade
 
     return (
         <div className="answer-list">
@@ -81,9 +111,9 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
             }
             <div className="answer-card-wrapper">
                 { search === "" ?
-                    answerDivs.map((answer) => answer)
+                    (ungradedAnswers.concat(gradedAnswers))
                   :
-                    answerDivs.filter((ans) => ans.props.answer.answer.toLowerCase().includes(search.toLowerCase())).map((answer) => answer)
+                    (ungradedAnswers.concat(gradedAnswers)).filter((ans) => ans.props.answer.answer.toLowerCase().includes(search.toLowerCase())).map((answer) => answer)
                 }
             </div>
                 <Slide direction="up" in={showToolBar} mountOnEnter unmountOnExit>
@@ -91,14 +121,14 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
                         <Fade in={showToolbarFeedback}>
                             <TextField focused={true} inputRef={input => input && input.focus()} multiline rows={3} defaultValue={toolbarFeedback} onChange={(e) => setToolbarFeedback(e.target.value)} className="toolbar-feedback-textfield"/>
                         </Fade>
-                        <RadioGroup className="credit-radio-wrapper toolbar-radio-wrapper" row>
-                            <FormControlLabel label="" className="grading-button" value="correct" control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}} className="grading-radio" icon={<CheckIcon sx={{fontSize: 40}}/>} checkedIcon={<CheckIcon sx={{fontSize: 40, color: "#42c767"}}/>} size={"large"}/>}/>
-                            <FormControlLabel label="" className="grading-button" value="incorrect" control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 40}}/>} checkedIcon={<CloseIcon sx={{fontSize: 40, color: "#f63e3e"}}/>} size={"large"}/>}/>
-                            <FormControlLabel label="" className="grading-button" value="partly_correct" control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 40}}/>} checkedIcon={<PercentIcon sx={{fontSize: 40, color: "#f0c11b"}}/>} size={"large"}/>}/>
+                        <RadioGroup onChange={(e) => setGrade(e.target.value)} className="credit-radio-wrapper toolbar-radio-wrapper" row>
+                            <FormControlLabel label="" className="grading-button" value={1} control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}} className="grading-radio" icon={<CheckIcon sx={{fontSize: 40}}/>} checkedIcon={<CheckIcon sx={{fontSize: 40, color: "#42c767"}}/>} size={"large"}/>}/>
+                            <FormControlLabel label="" className="grading-button" value={0} control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 40}}/>} checkedIcon={<CloseIcon sx={{fontSize: 40, color: "#f63e3e"}}/>} size={"large"}/>}/>
+                            <FormControlLabel label="" className="grading-button" value={0.5} control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 40}}/>} checkedIcon={<PercentIcon sx={{fontSize: 40, color: "#f0c11b"}}/>} size={"large"}/>}/>
                         </RadioGroup>
                         <div className="toolbar-button-wrapper">
                             <IconButton onClick={() => setshowToolbarFeedback(!showToolbarFeedback)} TouchRippleProps={{sx: {color: "#2f7ed9"}}}><CommentIcon sx={{fontSize: 40, color: "#2f7ed9"}}/></IconButton>
-                            <IconButton onClick={() => setShowAnswerGraded(true)} TouchRippleProps={{sx: {color: "#42C767"}}}><SendIcon sx={{fontSize: 40, color: "#42C767"}}/></IconButton>
+                            <IconButton onClick={() => gradeMultipleQuestions()} TouchRippleProps={{sx: {color: "#42C767"}}}><SendIcon sx={{fontSize: 40, color: "#42C767"}}/></IconButton>
                         </div>
                     </div>
                 </Slide>
