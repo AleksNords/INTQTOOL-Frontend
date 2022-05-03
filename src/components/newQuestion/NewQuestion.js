@@ -27,6 +27,8 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         }
     }
 
+
+
     function addAlternative() {
         if (question.alternatives.length < 6) {
             let temp = question;
