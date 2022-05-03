@@ -12,6 +12,7 @@ import Notifications from "./components/notifications/Notifications";
 import NewQuiz from "./components/newQuiz/NewQuiz";
 import AdminTools from "./components/adminTools/AdminTools";
 import GradingQuiz from "./components/gradingQuiz/GradingQuiz";
+import QuizFeedback from "./components/quizFeedback/QuizFeedback";
 
 function App() {
     const isLogged = useSelector(state => state.isLoggedReducer);
@@ -37,6 +38,7 @@ function App() {
                         <Route path={"/quizeditor/:id"} element={<NewQuiz/>}/>
                         <Route path={"/admintools"} element={<AdminTools/>}/>
                         <Route path={"/quizgrader/:id"} element={<GradingQuiz/>}/>
+                        <Route path={"/feedback/:id"} element={<QuizFeedback/>}/>
                     </Routes>
 
                 ) : null}
