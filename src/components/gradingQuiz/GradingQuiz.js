@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './gradingquiz.css';
 import QuestionBanner from "../questionBanner/QuestionBanner";
 import axios from "axios";
-import {useParams} from "react-router";
+import {Navigate, useParams} from "react-router";
 import {useSelector} from "react-redux";
 import GradingQuestion from "../gradingQuestion/GradingQuestion";
 import AnswerList from "../answerList/AnswerList";
@@ -12,6 +12,7 @@ import Snackbar from "@mui/material/Snackbar";
 export default function GradingQuiz() {
 
     const isLogged = useSelector(state => state.isLoggedReducer);
+    const user = useSelector(state => state.userReducer);
     const [quiz, setQuiz] = useState({});
     const [course, setCourse] = useState("");
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -99,6 +100,12 @@ export default function GradingQuiz() {
 
     return (
         <div className="grading-quiz">
+            {
+                //redirect unauthorized users to homepage
+                (!user.user.roles.includes("ROLE_ADMIN") && !user.user.roles.includes("ROLE_TEACHER"))
+                    ? <Navigate to={{pathname: '/'}}/>
+                    : null
+            }
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>
