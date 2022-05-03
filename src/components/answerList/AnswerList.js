@@ -24,9 +24,11 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
     const [grade, setGrade] = useState(-1);
 
     let ungradedAnswers = [];
+
     let gradedAnswers = [];
 
     for (let i = 0; i < answers.length; i++) {
+
         if (answers[i].status !== "graded") {
             ungradedAnswers.push(<AnswerCard isGraded={false}
                                              setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}

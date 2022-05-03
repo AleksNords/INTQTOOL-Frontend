@@ -8,6 +8,7 @@ import GradingQuestion from "../gradingQuestion/GradingQuestion";
 import AnswerList from "../answerList/AnswerList";
 import {Alert, CircularProgress} from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
+import WebSocketClient from "../websocketClient/WebSocketClient";
 
 export default function GradingQuiz() {
 
@@ -25,40 +26,22 @@ export default function GradingQuiz() {
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL + "/quiz/" + id,
+            url: process.env.REACT_APP_URL+"/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-                if (response.status === 200) {
-                    let temp = response.data;
-                    temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
-                    temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
-                    setQuiz(temp);
-                    getCourse(temp.courseId);
-                    getAnswers();
-                }
+            if (response.status === 200) {
+                let temp = response.data;
+                temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
+                temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
+                setQuiz(temp);
+                getCourse(temp.courseId);
+                //getAnswers();
+            }
             }
         )
     }, []);
-
-    function getAnswers() {
-        axios({
-            method: "get",
-            url: process.env.REACT_APP_URL + "/quiz/quizanswers/" + id,
-            headers: {
-                "Authorization": "Bearer " + isLogged.jwtToken
-            }
-        }).then(function (response) {
-            let temp = response.data;
-            temp = temp.map((answers) => answers.map((answer) => JSON.parse(answer)));
-            setAnswers(temp);
-            if (temp[0][0]) {
-                setCurrentAnswer(temp[0][0].id);
-            }
-            setLoading(false);
-        })
-    }
 
     function getCourse(thisCourseId) {
         axios({
@@ -71,6 +54,7 @@ export default function GradingQuiz() {
             setCourse(response.data);
         })
     }
+
 
     function gradeAnswers(answerIds, grade, feedback) {
         if (grade === -1) return;
@@ -99,6 +83,7 @@ export default function GradingQuiz() {
 
     return (
         <div className="grading-quiz">
+            <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/quizanswers/"+id}} autoReconnect={true} setAnswers={(newAns)=>{setAnswers(newAns);setLoading(false)}}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>

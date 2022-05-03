@@ -6,7 +6,7 @@ import Radio from "@mui/material/Radio";
 export default function Question({question, currentQuestion, setAnswer, currAns}) {
     let answer = {
         "answer": "",
-        "questionID": question.questionID,
+        "questionId": question.questionId,
         "type": question.type,
         "status": "in-progress"
     }
