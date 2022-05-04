@@ -25,17 +25,45 @@
     justify-content: space-between;
 }
 
+.feedback-radio-wrapper {
+    align-self: center;
+    display:flex;
+    width: 70%;
+    margin: 4% 0 3% 0;
+}
+
 .feedback-textfield {
     width: 45%;
 }
 
-.feedback-correct {
+.feedback {
     font-size: 4rem;
     align-self: center;
     font-weight: bold;
-    color: #48E073;
     display: flex;
     align-items: center;
     letter-spacing: 1px;
     margin-bottom: 5%;
+    color: #5B5B5B;
+}
+
+.main-feedback-wrapper {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    flex-direction: column;
+}
+
+.feedback-correct {
+    color: #48E073;
+}
+
+.feedback-incorrect {
+    color: #F63E3E;
+}
+
+.feedback-partial {
+    color: #F0C11B;
 }

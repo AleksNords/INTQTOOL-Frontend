@@ -61,12 +61,12 @@ export default function QuizNavigation({currentQuestion, setCurrentQuestion, qui
 
 
     let prevButtonText = currentQuestion === 0 ? "Frontpage" : "Previous";
-    previousButton = createNavigationButton(prevButtonText, () => setCurrentQuestion(currentQuestion - 1));
+    previousButton = createNavigationButton(prevButtonText, () => setCurrentQuestion(currentQuestion - 1), null);
 
     if (currentQuestion < quizLength - 1) {
-        nextButton = createNavigationButton("Next", () => setCurrentQuestion(currentQuestion + 1));
-    } else if (endQuiz) {
-        submitButton = createNavigationButton("Submit", endQuiz);
+        nextButton = createNavigationButton("Next", () => setCurrentQuestion(currentQuestion + 1), null);
+    } else {
+        submitButton = createNavigationButton(saveFunction ? "Submit" : "Results", endQuiz, null);
     }
 
     return (

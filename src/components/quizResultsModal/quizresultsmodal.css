@@ -1,0 +1,11 @@
+.quiz-results-modulo {
+    z-index: 1202;
+    justify-self: center;
+    align-self: center;
+    position: fixed;
+    height: 65%;
+    width: 60%;
+    background-color: white;
+    border-radius: 10px;
+    top: 15%;
+}

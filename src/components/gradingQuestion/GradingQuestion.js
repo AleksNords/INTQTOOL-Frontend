@@ -23,10 +23,10 @@ export default function GradingQuestion({question, questionIndex, currentAnswer,
                 <RadioGroup onChange={(e) => setGrade(e.target.value)} key={"grading" + questionIndex} className="credit-radio-wrapper" row>
                     <span className="credit-label">Choose credit:</span>
                     <FormControlLabel label={""} className="grading-button" value={1} control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}} className="grading-radio" icon={<CheckIcon sx={{fontSize: 50}}/>} checkedIcon={<CheckIcon sx={{fontSize: 50, color: "#42c767"}}/>} size={"large"}/>}/>
-                    <FormControlLabel label={""} className="grading-button" value={0} control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 50}}/>} checkedIcon={<CloseIcon sx={{fontSize: 50, color: "#f63e3e"}}/>} size={"large"}/>}/>
-                    <FormControlLabel label={""} className="grading-button" value={0.5} control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 50}}/>} checkedIcon={<PercentIcon sx={{fontSize: 50, color: "#f0c11b"}}/>} size={"large"}/>}/>
+                    <FormControlLabel label={""} className="grading-button" value={0} control={<Radio TouchRippleProps={{sx: {color: "#f63e3e"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 50}}/>} checkedIcon={<CloseIcon sx={{fontSize: 50, color: "#f63e3e"}}/>} size={"large"}/>}/>
+                    <FormControlLabel label={""} className="grading-button" value={0.5} control={<Radio TouchRippleProps={{sx: {color: "#f0c11b"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 50}}/>} checkedIcon={<PercentIcon sx={{fontSize: 50, color: "#f0c11b"}}/>} size={"large"}/>}/>
                 </RadioGroup>
-                <Button onClick={() => gradeFunction([currentAnswer.id], grade, feedback)} endIcon={<SendIcon/>} variant="contained" className="submit-feedback-button" sx={{fontSize: 18, backgroundColor: "#42C767", ":hover": {backgroundColor: "#40AA5A"}}} size="large">Submit feedback</Button>
+                <Button onClick={() => gradeFunction([currentAnswer.id], grade, feedback)} endIcon={<SendIcon/>} variant="contained" className="submit-feedback-button" sx={{fontSize: 18, backgroundColor: "#42c767", ":hover": {backgroundColor: "#40AA5A"}}} size="large">Submit feedback</Button>
             </div>
     )
 }

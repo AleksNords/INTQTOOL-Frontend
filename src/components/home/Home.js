@@ -101,9 +101,9 @@ export default function Home() {
                     (<div className={"quizcard-container"}>
                         {quizzes.map((deployedquiz)=>{
                             deployedquiz = JSON.parse(deployedquiz);
-                            let quiz = JSON.parse(deployedquiz.deployedQuiz)
+                            let quiz = JSON.parse(deployedquiz.quiz)
                             return <QuizCard title={quiz.title} quizId={deployedquiz.id}
-                                             progression={10}/>
+                                             progression={10} userNavigateTo={"quiz"}/>
                         })}
                     </div>)
                     :showArchived && quizAnswers.length < 1 ? (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no archived quizzes</h1></div>)
@@ -112,7 +112,7 @@ export default function Home() {
                                 {quizAnswers.map((quiz)=>{
 
                                     return <QuizCard title={quiz.title} quizId={quiz.id}
-                                                     status={quiz.status}/>
+                                                     status={quiz.status} userNavigateTo={"feedback"}/>
                                 })}
                             </div>):
                     (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active quizzes</h1></div>)}
