@@ -34,8 +34,8 @@ export default function GradingQuiz() {
         }).then(function (response) {
             if (response.status === 200) {
                 let temp = response.data;
-                temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
-                temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
+                temp.quiz = JSON.parse(temp.quiz);
+                temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
                 setQuiz(temp);
                 getCourse(temp.courseId);
                 //getAnswers();
@@ -97,7 +97,7 @@ export default function GradingQuiz() {
                 </div>
             : null}
             <QuestionBanner currentQuestion={currentQuestion}
-                            quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined}
+                            quizLength={quiz.quiz ? quiz.quiz.quizLength : undefined}
                             setCurrentQuestion={(e) => {
                                 if (answers[e][0]) {
                                     setCurrentAnswer(answers[e][0].id);
@@ -108,11 +108,11 @@ export default function GradingQuiz() {
                                 }
                             }}/>
             <div className={"grading-wrapper"}>
-                {quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1 ?
+                {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
                     <div className="auto-graded-question-filter">
                         <Snackbar sx={{color: "white"}}
-                                  open={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1}
-                                  autoHideDuration={6000} anchorOrigin={{vertical: 'center', horizontal: 'center'}}>
+                                  open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
+                                  autoHideDuration={6000} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}>
                             <Alert severity="warning" sx={{
                                 width: "100%",
                                 color: "white",
@@ -125,16 +125,16 @@ export default function GradingQuiz() {
                             </Alert>
                         </Snackbar></div> : null}
                 <div className="feedback-wrapper">
-                    <h1 className="course-quiz-title">{course.name} > {quiz.deployedQuiz ? quiz.deployedQuiz.title : undefined}</h1>
+                    <h1 className="course-quiz-title">{course.name} > {quiz.quiz ? quiz.quiz.title : undefined}</h1>
                     <GradingQuestion gradeFunction={gradeAnswers}
-                                     currentAnswer={answers[currentQuestion] && quiz.deployedQuiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
+                                     currentAnswer={answers[currentQuestion] && quiz.quiz && quiz.quiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
                                      questionIndex={currentQuestion + 1}
-                                     question={quiz.deployedQuiz ? quiz.deployedQuiz.questions[currentQuestion] : undefined}/>
+                                     question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
                             currentQuestion={currentQuestion}
-                            answers={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
-                            question={quiz.deployedQuiz ? quiz.deployedQuiz.questions[currentQuestion] : undefined}/>
+                            answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                            question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
             </div>
         </div>
     )

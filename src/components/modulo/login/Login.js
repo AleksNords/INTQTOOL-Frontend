@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import './login.css';
 import {useDispatch} from "react-redux";
 import {setUser} from "../../../store/action/userAction";
@@ -101,7 +101,7 @@ export default function Login() {
                 </div>
                 <div className={"login-submit-wrapper"}>
                     <Button sx={{fontSize: 15}} variant={"contained"} className={"login-form-submitButton"} onClick={submitLogin}>Login</Button>
-                    <p className={"sign-up-paragraph"}>Dont have an account? <a onClick={goToSignUp} className={"sign-up-link"}>Sign up here!</a></p>
+                    <p className={"sign-up-paragraph"}>Dont have an account? <span onClick={goToSignUp} className={"sign-up-link"}>Sign up here!</span></p>
                 </div>
 
             </div>

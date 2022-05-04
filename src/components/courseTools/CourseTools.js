@@ -36,7 +36,14 @@ export default function CourseTools(){
     }
 
     function searchCourse(){
-
+        let temp = courses;
+        if (searchWord.length >= 1) {
+            temp = temp.filter((course) =>
+                course.title.includes(searchWord))
+            setFilteredCourses(temp);
+        } else {
+            setFilteredCourses(courses);
+        }
     }
 
     function submitNewCourse(newCourse){

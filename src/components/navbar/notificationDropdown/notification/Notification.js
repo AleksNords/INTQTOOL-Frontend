@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './notification.css';
 import CheckIcon from '@mui/icons-material/Check';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
@@ -7,9 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import GradingIcon from '@mui/icons-material/Grading';
 import ErrorIcon from '@mui/icons-material/Error';
 
-import {white} from '@mui/material/colors';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from "../../../../store/action/userAction";
 
 export default function Notification({id,message,type,deleteNotificationFunction}) {
 

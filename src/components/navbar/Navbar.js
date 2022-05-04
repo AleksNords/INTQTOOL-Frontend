@@ -10,8 +10,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Divider from '@mui/material/Divider';
 import NotificationBell from './notificationBell/NotificationBell';
-import {ThemeProvider} from '@mui/system';
-import {createTheme} from "@mui/material/styles";
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export default function Navbar() {

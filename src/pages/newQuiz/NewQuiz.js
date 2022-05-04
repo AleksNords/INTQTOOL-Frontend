@@ -4,7 +4,7 @@ import QuestionBanner from "../../components/questionBanner/QuestionBanner";
 import NewQuestion from "../../components/newQuestion/NewQuestion";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router";
-import {Button, Slide} from "@mui/material";
+import {Button} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import NewQuizModulo from "../../components/modulo/newQuizModulo/NewQuizModulo";

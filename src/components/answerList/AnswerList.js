@@ -16,7 +16,6 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
     const [search, setSearch] = useState("");
     const [showToolBar, setShowToolbar] = useState(false);
     const [showToolbarFeedback, setshowToolbarFeedback] = useState(false);
-    const [checkedAnsAmnt, setCheckedAnsAmnt] = useState(0);
     const [showAnswerGraded, setShowAnswerGraded] = useState(false);
     const [checkedAnswers, setCheckedAnswers] = useState([]);
 
@@ -60,8 +59,6 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         } else {
             setShowToolbar(false);
         }
-        setCheckedAnsAmnt(checkedAnswers.length);
-        console.log(checkedAnswers);
     }
 
     function gradeMultipleQuestions() {
@@ -72,7 +69,6 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         }
         setShowToolbar(false);
         setCheckedAnswers([]);
-        setCheckedAnsAmnt(0);
         gradeFunction(answerIds, grade, toolbarFeedback);
         setToolbarFeedback("");
         setshowToolbarFeedback(false);
@@ -81,7 +77,6 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
 
     useEffect(()=> {
         setCheckedAnswers([]);
-        setCheckedAnsAmnt(0);
         setShowToolbar(false);
         setSearch("");
     },[answers])

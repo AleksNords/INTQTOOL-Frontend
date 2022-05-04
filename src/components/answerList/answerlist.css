@@ -57,7 +57,7 @@
     flex-wrap: wrap;
     overflow-y: scroll;
     overflow-x: hidden;
-    align-content: start;
+    align-content: flex-start;
 }
 
 .answer-card-wrapper > * {

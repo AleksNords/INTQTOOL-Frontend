@@ -17,7 +17,6 @@ export default function NotificationDropDown({clearParentNotifications}) {
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
     const [notifications, setNotifications] = useState(user.notifications);
-    const url = "https://quiz.web-tek.ninja:8443";
 
     function clearNotifications() {
         if (notifications.length >= 1) {
@@ -28,13 +27,13 @@ export default function NotificationDropDown({clearParentNotifications}) {
                 user:temp
             }))
             setNotifications([])
-            /*axios({
+            axios({
                 method: "get",
-                url: url+"/user/clearnotifications",
+                url: process.env.REACT_APP_URL+"/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
-            })*/
+            })
         }
     }
 
@@ -46,13 +45,13 @@ export default function NotificationDropDown({clearParentNotifications}) {
         }))
         setNotifications(temp.notifications);
 
-        /*axios({
+        axios({
             method: "get",
-            url: url+"/user/removenotification/"+notificationID,
+            url: process.env.REACT_APP_URL +"/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
-        })*/
+        })
     }
 
     //TODO: slide animation on removing notification
@@ -72,7 +71,7 @@ export default function NotificationDropDown({clearParentNotifications}) {
                     <span>Nothing to see here</span>
                     <span id="no-notifications-subtext">Your notifications will appear here</span>
             </div>}
-            <a onClick={()=>navigate("/notifications")} className="all-notifications">See all</a>
+            <p onClick={()=>navigate("/notifications")} className="all-notifications">See all</p>
         </div>
     )
 }

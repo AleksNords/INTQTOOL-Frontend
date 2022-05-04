@@ -21,7 +21,7 @@ export default function AnswerCard({answer, setCheckedFunction, setCurrentAnswer
     }
 
     return (
-        <div className={"answer-card " + (isGraded ? "is-graded" : undefined)}>
+        <div key={"answerCard-"+answer.id} className={"answer-card " + (isGraded ? "is-graded" : undefined)}>
             {!isGraded ?
                 <div className="answer-card-top-interactable-wrapper">
                     <Checkbox key={answer.id} onChange={handleCheckboxChange} className="answer-select-checkbox" sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} size="large"/>

@@ -37,7 +37,7 @@ export default function FullSizeNotification({id, message, type, deleteNotificat
                 <span>2m</span>
                 <CancelIcon onClick={() => deleteNotificationFunction(id)} sx={{fontSize: 40, cursor: "pointer"}}/>
             </div>
-            <a>Go to question <ArrowForwardIosIcon sx={{fontSize: 20}}/></a>
+            <p className={"go-to-question-link"}>Go to question <ArrowForwardIosIcon sx={{fontSize: 20}}/></p>
         </div>
     )
 }
