@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './adminTools.css';
-import AdminToolsNavigator from "../adminToolsNavigator/AdminToolsNavigator";
-import CourseTools from "../courseTools/CourseTools";
-import UserTools from "../userTools/UserTools";
+import AdminToolsNavigator from "../../components/adminToolsNavigator/AdminToolsNavigator";
+import CourseTools from "../../components/courseTools/CourseTools";
+import UserTools from "../../components/userTools/UserTools";
 
 export default function AdminTools() {
     const [currentTool, setCurrentTool] = useState(1);

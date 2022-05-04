@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import './newquiz.css';
-import QuestionBanner from "../questionBanner/QuestionBanner";
-import NewQuestion from "../newQuestion/NewQuestion";
+import QuestionBanner from "../../components/questionBanner/QuestionBanner";
+import NewQuestion from "../../components/newQuestion/NewQuestion";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router";
 import {Button, Slide} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
+import NewQuizModulo from "../../components/modulo/newQuizModulo/NewQuizModulo";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import {useSelector} from "react-redux";

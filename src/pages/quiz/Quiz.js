@@ -3,10 +3,10 @@ import "./quiz.css";
 import {useNavigate, useParams} from "react-router";
 import axios from "axios";
 import {useSelector} from "react-redux";
-import QuizFrontPage from "../quizFrontPage/QuizFrontPage";
-import Question from "../question/Question";
-import QuestionBanner from "../questionBanner/QuestionBanner";
-import QuizNavigation from "../quizNavigation/QuizNavigation";
+import QuizFrontPage from "../../components/quizFrontPage/QuizFrontPage";
+import Question from "../../components/question/Question";
+import QuestionBanner from "../../components/questionBanner/QuestionBanner";
+import QuizNavigation from "../../components/quizNavigation/QuizNavigation";
 
 export default function Quiz() {
     let {id} = useParams();

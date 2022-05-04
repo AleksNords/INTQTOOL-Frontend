@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './courses.css';
 import axios from "axios";
 import {useSelector} from "react-redux";
-import Course from "../course/Course";
+import Course from "../../components/course/Course";
 
 function Courses() {
 

@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import './gradingquiz.css';
-import QuestionBanner from "../questionBanner/QuestionBanner";
+import QuestionBanner from "../../components/questionBanner/QuestionBanner";
 import axios from "axios";
 import {Navigate, useParams} from "react-router";
 import {useSelector} from "react-redux";
-import GradingQuestion from "../gradingQuestion/GradingQuestion";
-import AnswerList from "../answerList/AnswerList";
+import GradingQuestion from "../../components/gradingQuestion/GradingQuestion";
+import AnswerList from "../../components/answerList/AnswerList";
 import {Alert, CircularProgress} from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
-import WebSocketClient from "../websocketClient/WebSocketClient";
+import WebSocketClient from "../../components/websocketClient/WebSocketClient";
 
 export default function GradingQuiz() {
 
