@@ -27,19 +27,19 @@ export default function GradingQuiz() {
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL+"/quiz/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-            if (response.status === 200) {
-                let temp = response.data;
-                temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
-                temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
-                setQuiz(temp);
-                getCourse(temp.courseId);
-                //getAnswers();
-            }
+                if (response.status === 200) {
+                    let temp = response.data;
+                    temp.quiz = JSON.parse(temp.quiz);
+                    temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
+                    setQuiz(temp);
+                    getCourse(temp.courseId);
+                    //getAnswers();
+                }
             }
         )
     }, []);
@@ -80,7 +80,7 @@ export default function GradingQuiz() {
         })
     }
 
-    function onMessageRecieved(data){
+    function onMessageRecieved(data) {
         console.log("This part not getting triggered!!!")
         let tempAnswers = JSON.parse(data.content).map(question => question.map(ans => JSON.parse(ans)));
         console.log(tempAnswers);
@@ -98,52 +98,55 @@ export default function GradingQuiz() {
                     ? <Navigate to={{pathname: '/'}}/>
                     : null
             }
-            <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/quizanswers/"+id}} autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
+            <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/quizanswers/" + id}}
+                             autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>
                 </div>
-            : null}
-            <QuestionBanner currentQuestion={currentQuestion}
-                            quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined}
-                            setCurrentQuestion={(e) => {
-                                if (answers[e][0]) {
-                                    setCurrentAnswer(answers[e][0].id);
-                                    setCurrentQuestion(e)
-                                } else {
-                                    setCurrentAnswer(0);
-                                    setCurrentQuestion(e)
-                                }
-                            }}/>
-            <div className={"grading-wrapper"}>
-                {quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1 ?
-                    <div className="auto-graded-question-filter">
-                        <Snackbar sx={{color: "white"}}
-                                  open={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1}
-                                  autoHideDuration={6000} anchorOrigin={{vertical: 'center', horizontal: 'center'}}>
-                            <Alert severity="warning" sx={{
-                                width: "100%",
-                                color: "white",
-                                backgroundColor: "#c6c30e",
-                                fontSize: 15,
-                                ".css-ptiqhd-MuiSvgIcon-root": {fontSize: 20},
-                                ".MuiSvgIcon-root": {color: "white"}
-                            }}>
-                                This answer is autograded!
-                            </Alert>
-                        </Snackbar></div> : null}
-                <div className="feedback-wrapper">
-                    <h1 className="course-quiz-title">{course.name} > {quiz.deployedQuiz ? quiz.deployedQuiz.title : undefined}</h1>
-                    <GradingQuestion gradeFunction={gradeAnswers}
-                                     currentAnswer={answers[currentQuestion] && quiz.deployedQuiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
-                                     questionIndex={currentQuestion + 1}
-                                     question={quiz.deployedQuiz ? quiz.deployedQuiz.questions[currentQuestion] : undefined}/>
-                </div>
-                <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
-                            currentQuestion={currentQuestion}
-                            answers={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
-                            question={quiz.deployedQuiz ? quiz.deployedQuiz.questions[currentQuestion] : undefined}/>
-            </div>
+                : <>
+                    <QuestionBanner currentQuestion={currentQuestion}
+                                    quizLength={quiz.quiz ? quiz.quiz.quizLength : undefined}
+                                    setCurrentQuestion={(e) => {
+                                        if (answers[e][0] && answers[e][0].status === "submitted") {
+                                            setCurrentAnswer(answers[e][0].id);
+                                            setCurrentQuestion(e)
+                                        } else {
+                                            setCurrentAnswer(0);
+                                            setCurrentQuestion(e)
+                                        }
+                                    }}/>
+                    <div className={"grading-wrapper"}>
+                        {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
+                            <div className="auto-graded-question-filter">
+                                <Snackbar sx={{color: "white"}}
+                                          open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
+                                          autoHideDuration={6000} anchorOrigin={{vertical: 'center', horizontal: 'center'}}>
+                                    <Alert severity="warning" sx={{
+                                        width: "100%",
+                                        color: "white",
+                                        backgroundColor: "#c6c30e",
+                                        fontSize: 15,
+                                        ".css-ptiqhd-MuiSvgIcon-root": {fontSize: 20},
+                                        ".MuiSvgIcon-root": {color: "white"}
+                                    }}>
+                                        This answer is autograded!
+                                    </Alert>
+                                </Snackbar></div> : null}
+                        <div className="feedback-wrapper">
+                            <h1 className="course-quiz-title">{course.name} > {quiz.quiz ? quiz.quiz.title : undefined}</h1>
+                            <GradingQuestion gradeFunction={gradeAnswers}
+                                             currentAnswer={answers[currentQuestion] && quiz.quiz && quiz.quiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
+                                             questionIndex={currentQuestion + 1}
+                                             question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
+                        </div>
+                        <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
+                                    currentQuestion={currentQuestion}
+                                    answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                                    question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
+                    </div>
+                </>}
+
         </div>
     )
 }
