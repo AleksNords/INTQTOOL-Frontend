@@ -12,13 +12,20 @@ import Notifications from "./components/notifications/Notifications";
 import NewQuiz from "./components/newQuiz/NewQuiz";
 import AdminTools from "./components/adminTools/AdminTools";
 import GradingQuiz from "./components/gradingQuiz/GradingQuiz";
+import WebSocketClient from "./components/websocketClient/WebSocketClient";
+import {setLoginStatus} from "./store/action/isLoggedAction";
+import {setNotifications} from "./store/action/notificationAction";
 
 function App() {
     const isLogged = useSelector(state => state.isLoggedReducer);
 
+
+
     return (
         <div className="App">
             <Navbar/>
+
+
 
             <div className="center-content">
                 {(isLogged.isLogged === false) ? (
@@ -40,6 +47,8 @@ function App() {
                     </Routes>
 
                 ) : null}
+
+
 
 
             </div>

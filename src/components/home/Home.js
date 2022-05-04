@@ -80,6 +80,7 @@ export default function Home() {
 
 
 
+
     return (
         <div className={"home"}>
             {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
