@@ -7,7 +7,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@mui/system";
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Autocomplete from '@mui/material/Autocomplete';
 import Switch from '@mui/material/Switch';
 import {Button} from "@mui/material";
@@ -81,7 +80,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
             data: updatedQuizDetails
         }).then((response) => {
             if (response.status === 200) {
-                navigate("/quizeditor/" + response.data)
+                navigate("/quizeditor/"+response.data)
             }
         })
         //navigate("/quizeditor/"+newQuizId);

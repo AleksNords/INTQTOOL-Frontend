@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './home.css';
-import QuizCard from "../quizCard/QuizCard";
+import QuizCard from "../../components/quizCard/QuizCard";
 import axios from "axios";
 import {useSelector} from "react-redux";
 import {Button} from "@mui/material";
-import NewQuizModulo from "../modulo/newQuizModulo/NewQuizModulo";
+import NewQuizModulo from "../../components/modulo/newQuizModulo/NewQuizModulo";
 import AddIcon from '@mui/icons-material/Add';
 
 export default function Home() {
@@ -112,6 +112,7 @@ export default function Home() {
                                 {quizAnswers.map((quiz)=>{
 
                                     return <QuizCard title={quiz.title} quizId={quiz.id}
+                                                     grading={quiz.grading+"/"+quiz.quizLength}
                                                      status={quiz.status} userNavigateTo={"feedback"}/>
                                 })}
                             </div>):

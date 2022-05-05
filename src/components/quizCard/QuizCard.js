@@ -4,7 +4,7 @@ import {LinearProgress} from "@mui/material";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
 
-function QuizCard({title, progression, quizId,status, userNavigateTo}) {
+function QuizCard({title, progression, quizId,status, userNavigateTo, grading}) {
     const navigate = useNavigate();
 
     const user = useSelector(state => state.userReducer.user);
@@ -12,14 +12,14 @@ function QuizCard({title, progression, quizId,status, userNavigateTo}) {
     return (
         <div key={quizId} className={"quizcard"} onClick={() => (user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_TEACHER")) ? navigate("/quizgrader/" + quizId):navigate("/" + userNavigateTo + "/" + quizId)}>
             <div className={"quizcard-img-wrapper"}>
-                <img src={"/studier_IDI_GeirMogen.jpg"} alt="Quiz title-image" className={"card-image"}/>
+                <img src={"/studier_IDI_GeirMogen.jpg"} alt="Quiz title" className={"card-image"}/>
             </div>
             <div className={"quizcard-info-wrapper"}>
                 <h2 className={"quizcard-title"}>{title}</h2>
 
                     {progression !== undefined ? (<span className={"quizcard-subtext-span"}><LinearProgress value={progression} variant={"determinate"}
-                                                                  className={"quizcard-progressionbar"}/><a className={"quizcard-continue"}>continue →</a></span>)
-                        :(status !== undefined) ? (<span className={"quizcard-subtext-span"}><h3 className={"quizcard-status"}>Status: {status}</h3><a className={"quizcard-continue"}>show →</a></span>):null
+                                                                  className={"quizcard-progressionbar"}/><p className={"quizcard-continue"}>continue →</p></span>)
+                        :(status !== undefined) ? (<span className={"quizcard-subtext-span"}><h3 className={"quizcard-status"}>Status: {status} {status === "graded" && grading ? grading:null}</h3><p className={"quizcard-continue"}>show →</p></span>):null
                     }
 
 

@@ -1,7 +1,5 @@
 import React from 'react';
 import './adminToolsNavigator.css';
-import {Button} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 
 export default function AdminToolsNavigator({setCurrentTool}){
 

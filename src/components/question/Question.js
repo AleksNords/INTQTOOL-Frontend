@@ -20,7 +20,7 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
             <h1 className={"question-text-header"}>{question.questionText}</h1>
             {
                 (question.type === 1 && question.alternatives !== undefined) ? (
-                        <RadioGroup name={"question-" + question.id} onChange={(elem) => {
+                        <RadioGroup name={"question-" + question.questionId} onChange={(elem) => {
                             answer.answer = elem.target.value;
                             setAnswer(answer)
                         }} defaultValue={answer.answer}>

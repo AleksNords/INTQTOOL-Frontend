@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useState} from "react";
 import './notificationdropdown.css';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
@@ -12,48 +12,44 @@ import axios from 'axios';
 
 export default function NotificationDropDown({clearParentNotifications, setShowFunction}) {
 
+
     let ref = useRef();
-    const user = useSelector(state => state.userReducer.user);
     const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
-    const [notifications, setNotifications] = useState(user.notifications);
-    const url = "https://quiz.web-tek.ninja:8443";
+    const notifications = useSelector(state =>state.notificationReducer)
+
 
     function clearNotifications() {
-        if (notifications.length >= 1) {
+        if (notifications.notifications.length >= 1) {
             clearParentNotifications();
-            let temp = user;
-            temp.notifications = [];
-            dispatch(setUser({
-                user:temp
+            dispatch(setNotifications({
+                notifications:[]
             }))
-            setNotifications([])
-            /*axios({
+            axios({
                 method: "get",
-                url: url+"/user/clearnotifications",
+                url: process.env.REACT_APP_URL+"/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
-            })*/
+            })
         }
     }
 
     function deleteNotification(notificationID) {
-        let temp = user;
+        let temp = notifications;
         temp.notifications = temp.notifications.filter(notification => {notification = JSON.parse(notification); return notification.id !== notificationID});
-        dispatch(setUser({
-            user:temp
+        dispatch(setNotifications({
+            notifications:temp
         }))
-        setNotifications(temp.notifications);
 
-        /*axios({
+        axios({
             method: "get",
-            url: url+"/user/removenotification/"+notificationID,
+            url: process.env.REACT_APP_URL +"/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
-        })*/
+        })
     }
 
     const handleClickOutside = (event) => {
@@ -75,18 +71,18 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
         <div ref={ref} className="notifications">
             <div className="notification-header">
                 <span
-                    className="amount-text">{(notifications.length === 0) ? "No notifications" : (notifications.length === 1) ? "1 Notification" : notifications.length + " notifications"}</span>
+                    className="amount-text">{(notifications.notifications.length === 0) ? "No notifications" : (notifications.notifications.length === 1) ? "1 Notification" : notifications.notifications.length + " notifications"}</span>
                 <Button sx={{fontSize: 14}} className="clear-button" variant="outlined" startIcon={<DeleteIcon />} onClick={clearNotifications}>Clear</Button></div>
             <Divider color="#ffffff"/>
-            {(notifications.length >= 1) ? (notifications.map((notification)=> {
-                notification = JSON.parse(notification);
+            {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification)=> {
+                //notification = JSON.parse(notification);
                 return (<div><Notification key={notification.id} deleteNotificationFunction={deleteNotification} id={notification.id} message={notification.message} type={notification.type}/><Divider color="#ffffff"/></div>)}))
                 : <div className="no-notifications">
                     <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
                     <span>Nothing to see here</span>
                     <span id="no-notifications-subtext">Your notifications will appear here</span>
             </div>}
-            <a onClick={()=>navigate("/notifications")} className="all-notifications">See all</a>
+            <p onClick={()=>navigate("/notifications")} className="all-notifications">See all</p>
         </div>
     )
 }

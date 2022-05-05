@@ -1,20 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import './newquestion.css';
 import TextField from "@mui/material/TextField";
 import {Button, FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import MultipleChoiceModule from "../multipleChoiceModule/MultipleChoiceModule";
 import HintModule from "../hintModule/HintModule";
 import CloseIcon from '@mui/icons-material/Close';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import sx from "@mui/system/sx";
-import {width} from "@mui/system";
 
 export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice, submitQuiz}) {
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
-    const [isMultipleChoice, setMyIsMultipleChoice] = useState(question.isMultipleChoice);
 
     if (question && question.alternatives.length === 0) {
         for (let i = 0; i < 4; i++) {
@@ -85,12 +80,8 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
 
     function setMultipleChoice(index, newValue) {
         setIsMultipleChoice(index, newValue);
-        setMyIsMultipleChoice(newValue);
     }
 
-    useEffect(()=> {
-        setMyIsMultipleChoice(question.isMultipleChoice);
-    },[questionIndex])
 
     return(
         <div key={"question" + questionIndex + question.questionText} className="new-question">

@@ -57,7 +57,8 @@
     margin-right: 0.5rem;
 }
 
-.full-notification a {
+
+.go-to-question-link{
     display: flex;
     align-items: center;
     position: absolute;

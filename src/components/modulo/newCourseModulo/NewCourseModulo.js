@@ -35,9 +35,10 @@ export default function NewCourseModulo({setShowNewCourseModulo,submitNewCourse}
                            }}
                            inputProps={{
                                style: {
-                                   width:"15rem",
-                               },
-                           }}/>
+                                   width:"15rem"
+                               }
+                           }}
+                           />
                 <TextField label={"Description"}
                            multiline
                            inputProps={{

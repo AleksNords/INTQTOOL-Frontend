@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import './gradingquiz.css';
-import QuestionBanner from "../questionBanner/QuestionBanner";
+import QuestionBanner from "../../components/questionBanner/QuestionBanner";
 import axios from "axios";
 import {Navigate, useParams} from "react-router";
 import {useSelector} from "react-redux";
-import GradingQuestion from "../gradingQuestion/GradingQuestion";
-import AnswerList from "../answerList/AnswerList";
+import GradingQuestion from "../../components/gradingQuestion/GradingQuestion";
+import AnswerList from "../../components/answerList/AnswerList";
 import {Alert, CircularProgress} from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
-import WebSocketClient from "../websocketClient/WebSocketClient";
+import WebSocketClient from "../../components/websocketClient/WebSocketClient";
 
 export default function GradingQuiz() {
 
@@ -34,8 +34,8 @@ export default function GradingQuiz() {
         }).then(function (response) {
             if (response.status === 200) {
                 let temp = response.data;
-                temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
-                temp.deployedQuiz.questions = temp.deployedQuiz.questions.map((question) => JSON.parse(question));
+                temp.quiz = JSON.parse(temp.quiz);
+                temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
                 setQuiz(temp);
                 getCourse(temp.courseId);
                 //getAnswers();
@@ -80,6 +80,14 @@ export default function GradingQuiz() {
         })
     }
 
+    function onMessageRecieved(data) {
+        console.log("This part not getting triggered!!!")
+        let tempAnswers = JSON.parse(data.content).map(question => question.map(ans => JSON.parse(ans)));
+        console.log(tempAnswers);
+        setAnswers(tempAnswers)
+        setLoading(false)
+    }
+
     //TODO: Fix currentAnswer not being set to the first not graded answer but the first overall answer.
 
     return (
@@ -90,14 +98,15 @@ export default function GradingQuiz() {
                     ? <Navigate to={{pathname: '/'}}/>
                     : null
             }
-            <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/quizanswers/"+id}} autoReconnect={true} setAnswers={(newAns)=>{setAnswers(newAns);setLoading(false)}}/>
+            <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/quizanswers/" + id}}
+                             autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>
                 </div>
             : null}
             <QuestionBanner currentQuestion={currentQuestion}
-                            quizLength={quiz.deployedQuiz ? quiz.deployedQuiz.quizLength : undefined}
+                            quizLength={quiz.quiz ? quiz.quiz.quizLength : undefined}
                             setCurrentQuestion={(e) => {
                                 if (answers[e][0]) {
                                     setCurrentAnswer(answers[e][0].id);
@@ -108,11 +117,11 @@ export default function GradingQuiz() {
                                 }
                             }}/>
             <div className={"grading-wrapper"}>
-                {quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1 ?
+                {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
                     <div className="auto-graded-question-filter">
                         <Snackbar sx={{color: "white"}}
-                                  open={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 1}
-                                  autoHideDuration={6000} anchorOrigin={{vertical: 'center', horizontal: 'center'}}>
+                                  open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
+                                  autoHideDuration={6000} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}>
                             <Alert severity="warning" sx={{
                                 width: "100%",
                                 color: "white",
@@ -125,16 +134,16 @@ export default function GradingQuiz() {
                             </Alert>
                         </Snackbar></div> : null}
                 <div className="feedback-wrapper">
-                    <h1 className="course-quiz-title">{course.name} > {quiz.deployedQuiz ? quiz.deployedQuiz.title : undefined}</h1>
+                    <h1 className="course-quiz-title">{course.name} > {quiz.quiz ? quiz.quiz.title : undefined}</h1>
                     <GradingQuestion gradeFunction={gradeAnswers}
-                                     currentAnswer={answers[currentQuestion] && quiz.deployedQuiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
+                                     currentAnswer={answers[currentQuestion] && quiz.quiz && quiz.quiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
                                      questionIndex={currentQuestion + 1}
-                                     question={quiz.deployedQuiz ? quiz.deployedQuiz.questions[currentQuestion] : undefined}/>
+                                     question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
                             currentQuestion={currentQuestion}
-                            answers={quiz.deployedQuiz && quiz.deployedQuiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
-                            question={quiz.deployedQuiz ? quiz.deployedQuiz.questions[currentQuestion] : undefined}/>
+                            answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                            question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
             </div>
         </div>
     )

@@ -3,27 +3,27 @@ import './notificationbell.css';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationDropDown from "../notificationDropdown/NotificationDropdown";
 import {useSelector, useDispatch} from "react-redux";
-import {setUser} from "../../../store/action/userAction";
+import {setNotifications} from "../../../store/action/notificationAction";
 
 export default function Navbar() {
-    const user = useSelector(state => state.userReducer.user);
+    const notifications = useSelector(state =>state.notificationReducer)
     const [showDropdown, setShowDropdown] = useState(false);
     const dispatch = useDispatch();
 
+
     function clearNotifications() {
-        let temp = user;
-        temp.notifications = [];
-        dispatch(setUser({
-            user:temp
+
+        dispatch(setNotifications({
+            notifications:[]
         }))
     }
 
     return (
         <div className="notificationBell">
             <NotificationsIcon className={`bell ${showDropdown ? "inverted-bell" : ""}`} onClick={()=> setShowDropdown(!showDropdown)} sx={{fontSize: 45}}/>
-            {user.notifications && user.notifications.length > 0 ?
-                <div className="notificationBubble"><div id="notificationAmount">{(user.notifications.length < 10) ? user.notifications.length : "9+"}</div></div> : null}
-            {showDropdown === true ? <NotificationDropDown clearParentNotifications={clearNotifications} setShowFunction={setShowDropdown}/> : null}
+            {notifications.notifications && notifications.notifications.length > 0 ?
+                <div className="notificationBubble"><div id="notificationAmount">{(notifications.notifications.length < 10) ? notifications.notifications.length : "9+"}</div></div> : null}
+            {showDropdown === true ? <NotificationDropDown clearParentNotifications={clearNotifications}/> : null}
         </div>
     )
 }

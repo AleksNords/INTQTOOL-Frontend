@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './notifications.css';
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router";
+//import {useNavigate} from "react-router";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FullSizeNotification from "./fullsizeNotification/FullsizeNotification";
 import {setUser} from "../../store/action/userAction";
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import axios from "axios";
 
 export default function Notifications() {
 
     const user = useSelector(state => state.userReducer.user);
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
     const [notifications, setNotifications] = useState(user.notifications);
@@ -25,13 +26,13 @@ export default function Notifications() {
                 user:temp
             }))
             setNotifications([])
-            /*axios({
+            axios({
                 method: "get",
                 url: process.env.REACT_APP_URL + "/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
-            })*/
+            })
         }
     }
 
@@ -43,13 +44,13 @@ export default function Notifications() {
         }))
         setNotifications(temp.notifications);
 
-        /*axios({
+        axios({
             method: "get",
             url: process.env.REACT_APP_URL + "/user/removenotification/"+notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
-        })*/
+        })
     }
 
     return (
