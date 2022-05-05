@@ -80,6 +80,14 @@ export default function GradingQuiz() {
         })
     }
 
+    function onMessageRecieved(data) {
+        console.log("This part not getting triggered!!!")
+        let tempAnswers = JSON.parse(data.content).map(question => question.map(ans => JSON.parse(ans)));
+        console.log(tempAnswers);
+        setAnswers(tempAnswers)
+        setLoading(false)
+    }
+
     //TODO: Fix currentAnswer not being set to the first not graded answer but the first overall answer.
 
     return (
@@ -90,7 +98,8 @@ export default function GradingQuiz() {
                     ? <Navigate to={{pathname: '/'}}/>
                     : null
             }
-            <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/quizanswers/"+id}} autoReconnect={true} setAnswers={(newAns)=>{setAnswers(newAns);setLoading(false)}}/>
+            <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/quizanswers/" + id}}
+                             autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>

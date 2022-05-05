@@ -4,7 +4,7 @@ import SockJsClient from 'react-stomp';
 export default function WebSocketClient({
                                             props,
                                             autoReconnect = true,
-                                            setAnswers
+                                            onMessageRecieved
                                         }) {
 
 
@@ -18,10 +18,7 @@ export default function WebSocketClient({
     };
 
     const onMessage = (data) => {
-        console.log("This part not getting triggered!!!")
-        let tempAnswers = JSON.parse(data.content).map(question => question.map(ans => JSON.parse(ans)));
-        console.log(tempAnswers);
-        setAnswers(tempAnswers)
+        onMessageRecieved(data)
     };
 
     const onDisconnect = () => {

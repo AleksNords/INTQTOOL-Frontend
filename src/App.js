@@ -13,6 +13,7 @@ import NewQuiz from "./pages/newQuiz/NewQuiz";
 import AdminTools from "./pages/adminTools/AdminTools";
 import GradingQuiz from "./pages/gradingQuiz/GradingQuiz";
 
+
 function App() {
     const isLogged = useSelector(state => state.isLoggedReducer);
 

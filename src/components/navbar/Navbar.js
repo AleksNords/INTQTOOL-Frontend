@@ -11,6 +11,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Divider from '@mui/material/Divider';
 import NotificationBell from './notificationBell/NotificationBell';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import WebSocketClient from "../websocketClient/WebSocketClient";
+import {setNotifications} from "../../store/action/notificationAction";
 
 export default function Navbar() {
     const navigate = useNavigate();
@@ -27,10 +29,16 @@ export default function Navbar() {
         dispatch(removeUser())
         navigate("/");
     }
+    function onMessageRecieved(data){
+        dispatch(setNotifications({
+            notifications:data
+        }))
+    }
 
     return (
         <div className="navbar">
             {isLogged.isLogged === true ? (<>
+                <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/notifications"}} autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
                 <div className="navLinks">
                     <span onClick={()=>navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
                     <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>
