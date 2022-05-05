@@ -1,17 +1,17 @@
 import './App.css';
-import React, {useEffect} from 'react';
+import React from 'react';
 import Navbar from "./components/navbar/Navbar";
 import Login from "./components/modulo/login/Login";
-import {Route,Routes} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import Home from "./components/home/Home";
+import {Route,Routes} from "react-router";
+import {useSelector} from "react-redux";
+import Home from "./pages/home/Home";
 import SignUp from "./components/modulo/signup/SignUp";
-import Quiz from "./components/quiz/Quiz";
-import Courses from "./components/courses/Courses";
+import Quiz from "./pages/quiz/Quiz";
+import Courses from "./pages/courses/Courses";
 import Notifications from "./components/notifications/Notifications";
-import NewQuiz from "./components/newQuiz/NewQuiz";
-import AdminTools from "./components/adminTools/AdminTools";
-import GradingQuiz from "./components/gradingQuiz/GradingQuiz";
+import NewQuiz from "./pages/newQuiz/NewQuiz";
+import AdminTools from "./pages/adminTools/AdminTools";
+import GradingQuiz from "./pages/gradingQuiz/GradingQuiz";
 import QuizFeedback from "./components/quizFeedback/QuizFeedback";
 
 function App() {

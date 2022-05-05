@@ -9,21 +9,20 @@ import FullSizeNotification from "./fullsizeNotification/FullsizeNotification";
 import {setUser} from "../../store/action/userAction";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
+import {setNotifications} from "../../store/action/notificationAction";
 
 export default function Notifications() {
 
-    const user = useSelector(state => state.userReducer.user);
+    const notifications = useSelector(state => state.notificationReducer);
     //const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
-    const [notifications, setNotifications] = useState(user.notifications);
 
     function clearNotifications() {
         if (notifications.length >= 1) {
-            let temp = user;
-            temp.notifications = [];
-            dispatch(setUser({
-                user:temp
+
+            dispatch(setNotifications({
+                notifications:[]
             }))
             setNotifications([])
             axios({
@@ -37,10 +36,10 @@ export default function Notifications() {
     }
 
     function deleteNotification(notificationID) {
-        let temp = user;
-        temp.notifications = temp.notifications.filter(notification => {notification = JSON.parse(notification); return notification.id !== notificationID});
-        dispatch(setUser({
-            user:temp
+        let temp = notifications;
+        temp.notifications = temp.notifications.filter(notification => {return notification.notificationID !== notificationID});
+        dispatch(setNotifications({
+            notifications:temp.notifications
         }))
         setNotifications(temp.notifications);
 
@@ -56,14 +55,14 @@ export default function Notifications() {
     return (
         <div className="notifications-page">
             <div className="notification-title-wrapper">
-                <h1 className="notifications-title">Notifications ({notifications.length})</h1>
+                <h1 className="notifications-title">Notifications ({notifications.notifications.length})</h1>
                 <Button onClick={clearNotifications} sx={{fontSize: 14}} className="clear-notification-button" variant="contained" startIcon={<DeleteIcon/>}>Clear</Button>
             </div>
             <Divider className="main-divider" color="#1C5BA5"/>
             <div className="notification-wrapper">
-                {(notifications.length >= 1) ? (notifications.map((notification)=> {
-                        notification = JSON.parse(notification);
-                        return (<FullSizeNotification key={notification.id} deleteNotificationFunction={deleteNotification} id={notification.id} message={notification.message} type={notification.type}/>)}))
+                {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification)=> {
+                        //notification = JSON.parse(notification);
+                        return (<FullSizeNotification key={notification.notificationID} deleteNotificationFunction={deleteNotification} id={notification.notificationID} message={notification.message} type={notification.type}/>)}))
                     : <div className="no-notifications-big">
                         <NotificationsIcon className="grey-bell" sx={{fontSize: 250}}/>
                         <span className="nothing-to-see">Nothing to see here</span>
