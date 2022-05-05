@@ -35,7 +35,6 @@ export default function QuizFeedback() {
                 let temp = response.data;
                 temp.answers = temp.answers.map((ans) => JSON.parse(ans));
                 setAnsweredQuiz(temp);
-                console.log(temp);
                 getQuiz(temp.quizId);
             }
         );
@@ -96,7 +95,7 @@ export default function QuizFeedback() {
                     <CircularProgress className={"loading"}/>
                 </div>
                 : <>
-                    {showResultsModal ? <QuizResultsModal/> : null}
+                    {showResultsModal ? <QuizResultsModal setCurrentQuestion={setCurrentQuestion} setShowResultsModal={setShowResultsModal} resultArray={answeredQuiz.answers}/> : null}
                 <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={showResultsModal} onClick={() => setShowResultsModal(false)}/>
                     <QuestionBanner currentQuestion={currentQuestion}
                                     quizLength={questions.length}
