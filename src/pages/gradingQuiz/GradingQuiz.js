@@ -27,19 +27,19 @@ export default function GradingQuiz() {
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL+"/quiz/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-            if (response.status === 200) {
-                let temp = response.data;
-                temp.quiz = JSON.parse(temp.quiz);
-                temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
-                setQuiz(temp);
-                getCourse(temp.courseId);
-                //getAnswers();
-            }
+                if (response.status === 200) {
+                    let temp = response.data;
+                    temp.quiz = JSON.parse(temp.quiz);
+                    temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
+                    setQuiz(temp);
+                    getCourse(temp.courseId);
+                    //getAnswers();
+                }
             }
         )
     }, []);
@@ -104,7 +104,7 @@ export default function GradingQuiz() {
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>
                 </div>
-            : null}
+                : null}
             <QuestionBanner currentQuestion={currentQuestion}
                             quizLength={quiz.quiz ? quiz.quiz.quizLength : undefined}
                             setCurrentQuestion={(e) => {
@@ -117,7 +117,7 @@ export default function GradingQuiz() {
                                 }
                             }}/>
             <div className={"grading-wrapper"}>
-                {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
+                {quiz.quiz && quiz.quiz.questions.length > 0 && quiz.quiz.questions[currentQuestion].type === 1 ?
                     <div className="auto-graded-question-filter">
                         <Snackbar sx={{color: "white"}}
                                   open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
@@ -142,7 +142,7 @@ export default function GradingQuiz() {
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
                             currentQuestion={currentQuestion}
-                            answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                            answers={quiz.quiz && quiz.quiz.questions.length > 0 && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
                             question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
             </div>
         </div>

@@ -31,8 +31,8 @@ export default function Quiz() {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-            let temp = response.data;
-            temp.quiz = JSON.parse(temp.quiz);
+                let temp = response.data;
+                temp.quiz = JSON.parse(temp.quiz);
                 setQuiz(temp);
                 console.log(temp);
             }
@@ -72,7 +72,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: process.env.REACT_APP_URL + "/user/saveanswer/"+id,
+            url: process.env.REACT_APP_URL + "/user/saveanswer/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -100,7 +100,7 @@ export default function Quiz() {
         console.log(quizAnswers);
         axios({
             method: "post",
-            url: process.env.REACT_APP_URL + "/user/submitanswer/"+id,
+            url: process.env.REACT_APP_URL + "/user/submitanswer/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -124,23 +124,28 @@ export default function Quiz() {
                             <QuizFrontPage title={quiz.quiz.title} description={quiz.quiz.description}
                                            quizLength={quiz.quiz.quizLength} startQuiz={setCurrentQuestion}/>
                         )
-                        :
-                        (
-                            <div className={"question-page-wrapper"}>
-                                <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.quiz.quizLength}
-                                                setCurrentQuestion={setCurrentQuestion}/>
-                                <Question currAns={questionAnswers[currentQuestion]}
-                                          question={JSON.parse(quiz.quiz.questions[currentQuestion])}
-                                          currentQuestion={currentQuestion} setAnswer={(ans) => {
-                                    let temp = questionAnswers;
-                                    temp[currentQuestion] = ans;
-                                    setQuestionAnswers(temp)
-                                }}/>
-                                <QuizNavigation quizLength={quiz.quiz.quizLength} setCurrentQuestion={setCurrentQuestion}
-                                                currentQuestion={currentQuestion} endQuiz={() => endQuiz()}
-                                                saveFunction={saveQuiz}/>
+                        : (quiz.quiz.questions.length <= 0) ?
+                            <div className={"quiz-no-questions-wrapper"}>
+                                <h1>This quiz has no questions</h1>
                             </div>
-                        )}
+                            :
+                            (
+                                <div className={"question-page-wrapper"}>
+                                    <QuestionBanner currentQuestion={currentQuestion} quizLength={quiz.quiz.quizLength}
+                                                    setCurrentQuestion={setCurrentQuestion}/>
+                                    <Question currAns={questionAnswers[currentQuestion]}
+                                              question={JSON.parse(quiz.quiz.questions[currentQuestion])}
+                                              currentQuestion={currentQuestion} setAnswer={(ans) => {
+                                        let temp = questionAnswers;
+                                        temp[currentQuestion] = ans;
+                                        setQuestionAnswers(temp)
+                                    }}/>
+                                    <QuizNavigation quizLength={quiz.quiz.quizLength}
+                                                    setCurrentQuestion={setCurrentQuestion}
+                                                    currentQuestion={currentQuestion} endQuiz={() => endQuiz()}
+                                                    saveFunction={saveQuiz}/>
+                                </div>
+                            )}
                 </div>) :
                 (<div className={"quiz-not-loaded"}>
 
