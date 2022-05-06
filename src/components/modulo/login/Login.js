@@ -8,6 +8,10 @@ import axios from "axios";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
+/**
+ * The login modulo for the application
+ * @returns a modulo used for user login
+ */
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -15,6 +19,9 @@ export default function Login() {
     const [password, setPassword] = React.useState("");
 
 
+    /**
+     * Sends the login request to the auth API
+     */
     function submitLogin() {
         let details = {
             'username': username,
@@ -44,6 +51,10 @@ export default function Login() {
         });
     }
 
+    /**
+     * Fetches the users info from the API
+     * @param token JWT token used to authenticate the user
+     */
     function getUserInfo(token) {
         axios({
             method: "get",
@@ -61,11 +72,17 @@ export default function Login() {
             });
     }
 
+    /**
+     * Displays an error prompt to the user
+     */
     function displayErrorPrompt() {
         let errorPrompt = document.getElementById("login-error-prompt");
         errorPrompt.style.display = "flex";
     }
 
+    /**
+     * Redirects the user to the sign up page
+     */
     function goToSignUp() {
         navigate("/signup");
     }

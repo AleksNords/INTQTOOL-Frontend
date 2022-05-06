@@ -8,6 +8,10 @@ import Question from "../../components/question/Question";
 import QuestionBanner from "../../components/questionBanner/QuestionBanner";
 import QuizNavigation from "../../components/quizNavigation/QuizNavigation";
 
+/**
+ * Page displaying a quiz for a student user
+ * @returns page representing a quiz
+ */
 export default function Quiz() {
     let {id} = useParams();
 
@@ -22,6 +26,9 @@ export default function Quiz() {
     });
     const [currentQuestion, setCurrentQuestion] = useState(-1);
 
+    /**
+     * Fetches the quiz along with the student answers if there are any
+     */
     useEffect(() => {
 
         axios({
@@ -34,7 +41,6 @@ export default function Quiz() {
                 let temp = response.data;
                 temp.quiz = JSON.parse(temp.quiz);
                 setQuiz(temp);
-                console.log(temp);
             }
         );
 
@@ -45,31 +51,16 @@ export default function Quiz() {
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
-        }).then(function (response) {
-
-                if (response.status === 200 && response.data !== "No answer" && response.data !== "Answers submitted") {
-
-                    let temp = response.data
-                    if (temp.answers !== undefined) {
-                        temp.answers = temp.answers.map((answer) => JSON.parse(answer));
-                        setQuestionAnswers(temp.answers);
-                    }
-                    setQuizAnswers(temp);
-                    console.log("quizanswer fetch temp", temp);
-
-                }
-                console.log("test", quizAnswers);
-
-            }
-        );
+        }).then((response) => saveQuizAnswers(response));
     }, []);
 
+    /**
+     * Saves the quiz answers to the backend
+     */
     function saveQuiz() {
         let temp = quizAnswers;
         temp.answers = questionAnswers;
         temp.courseId = quiz.courseId;
-
-        console.log(quizAnswers);
         axios({
             method: "post",
             url: process.env.REACT_APP_URL + "/user/saveanswer/" + id,
@@ -78,26 +69,32 @@ export default function Quiz() {
             },
             data: temp
 
-        }).then(function (response) {
-                if (response.status === 200 && response.data !== "No answer" && response.data !== "Answers submitted") {
-
-                    let temp = response.data
-                    if (temp.answers !== undefined) {
-                        temp.answers = temp.answers.map((answer) => JSON.parse(answer));
-                        setQuestionAnswers(temp.answers);
-                    }
-                    setQuizAnswers(temp);
-                }
-            }
-        );
+        }).then((response) => saveQuizAnswers(response));
     }
 
+    /**
+     * Save the answers to the quiz
+     * @param response from the request
+     */
+    function saveQuizAnswers(response) {
+        if (response.status === 200 && response.data !== "No answer" && response.data !== "Answers submitted") {
+
+            let temp = response.data
+            if (temp.answers !== undefined) {
+                temp.answers = temp.answers.map((answer) => JSON.parse(answer));
+                setQuestionAnswers(temp.answers);
+            }
+            setQuizAnswers(temp);
+        }
+    }
+
+    /**
+     * Ends the quiz and submits the answers. Redirects the user.
+     */
     function endQuiz() {
         let temp = quizAnswers;
         temp.answers = questionAnswers;
         temp.courseId = quiz.courseId;
-
-        console.log(quizAnswers);
         axios({
             method: "post",
             url: process.env.REACT_APP_URL + "/user/submitanswer/" + id,
@@ -106,16 +103,12 @@ export default function Quiz() {
             },
             data: temp
 
-        }).then(function (response) {
-                console.log(response.data);
-            }
-        );
+        });
         navigate("/");
     }
 
 
     return (
-
         <div className={"quiz-wrapper"}>
             {(quiz.quiz) ?
                 (<div className={"quiz-frontpage-wrapper"}>

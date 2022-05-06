@@ -10,6 +10,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from 'axios';
 import {setNotifications} from "../../../store/action/notificationAction";
 
+/**
+ * Notification drawer housing all the user notifications
+ * @param clearParentNotifications function used to clear the notifications
+ * @param setShowFunction function used to show and hide the drawer
+ * @returns drop down drawer containing all the users notifications
+ */
 export default function NotificationDropDown({clearParentNotifications, setShowFunction}) {
 
 

@@ -5,12 +5,22 @@ import axios from "axios";
 import {useSelector} from "react-redux";
 import Autocomplete from "@mui/material/Autocomplete";
 
+/**
+ * Modulo used to edit user details
+ * @param editableUser user that is to be edited in the current modulo
+ * @param setShowUserTool function used to show or hide the modulo
+ * @param userUpdater function used to update users in the backend and frontend
+ * @returns modulo for editing user details
+ */
 export default function UserEditToolModulo({editableUser, setShowUserTool, userUpdater}) {
 
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
     const [courseID, setCourseID] = useState("");
 
+    /**
+     * Gives the user the student role
+     */
     function giveRoleStudent() {
         axios({
             method: "get",
@@ -27,6 +37,9 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
         });
     }
 
+    /**
+     * Gives the user the teacher role
+     */
     function giveRoleTeacher() {
         axios({
             method: "get",
@@ -42,7 +55,9 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
         });
     }
 
-
+    /**
+     * Gives the user the administrator role
+     */
     function giveRoleAdministrator() {
         axios({
             method: "get",
@@ -58,6 +73,9 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
         });
     }
 
+    /**
+     * Adds the user to the selected course
+     */
     function addUserToCourse(){
         axios({
             method: "post",
@@ -77,12 +95,19 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
         });
     }
 
+    /**
+     * Function used to close the modulo if a click outside is registered.
+     * @param event click that sent the event
+     */
     const handleClickOutside = (event) => {
         if (event.target.className === "edit-user-tool-wrapper") {
             setShowUserTool(false);
         }
     };
 
+    /**
+     * Gets all available courses and forms them into an array that can be used with the AutoComplete component from the MUI library
+     */
     useEffect(() => {
         axios({
             method: "get",
@@ -100,7 +125,7 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
 
             }))});
 
-
+            //Adds eventlistener to the window to detect clicks that should close the modulo
             document.addEventListener('mousedown', handleClickOutside);
             return () => {
                 document.removeEventListener('mousedown', handleClickOutside);
@@ -115,11 +140,6 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
                     <h2>Name: {editableUser.lastName}, {editableUser.firstName}</h2>
                 </div>
                 <div className={"add-user-to-course-tool"}>
-                    {/*<TextField size={"small"}
-                               label={"Course"} className={"user-tools-search-field"}
-                               InputLabelProps={{style: {fontSize: 11, color: "black"}}}
-                               InputProps={{style: {fontSize: 11}}}/>*/}
-
                     <Autocomplete
                         size={"small"}
                         label={"Course"} className={"add-user-to-course-field"}

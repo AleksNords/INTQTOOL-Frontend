@@ -3,7 +3,7 @@ import './index.css';
 import App from './App';
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-import {applyMiddleware, compose, createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import {BrowserRouter} from 'react-router-dom';
 import reducer from "./store/reducer";
 import {getConfiguredCache} from "money-clip";
@@ -22,18 +22,27 @@ const loginStatusActionMap = {
     "SET_LOGGED": ["isLoggedReducer"]
 };
 
+/**
+ * Saves the user to the browser cache
+ */
 const persistUser = getPersistMiddleware({
     cacheFn: cache.set,
     logger: console.info,
     actionMap: userActionMap
 });
 
+/**
+ * Persists login status
+ */
 const persistLoginStatus = getPersistMiddleware({
     cacheFn: cache.set,
     logger: console.info,
     actionMap: loginStatusActionMap
 });
 
+/**
+ * Loads the user and login status from the browser cache on page render
+ */
 cache.getAll().then((data) => {
     const store = createStore(
         reducer,

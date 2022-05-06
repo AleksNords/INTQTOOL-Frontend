@@ -10,6 +10,10 @@ import {Alert, CircularProgress} from '@mui/material';
 import Snackbar from "@mui/material/Snackbar";
 import WebSocketClient from "../../components/websocketClient/WebSocketClient";
 
+/**
+ * Page used by teachers or administrators to grade a quiz
+ * @returns page used to grade a quiz
+ */
 export default function GradingQuiz() {
 
     const isLogged = useSelector(state => state.isLoggedReducer);
@@ -23,27 +27,33 @@ export default function GradingQuiz() {
 
     const [answers, setAnswers] = useState([])
 
+    /**
+     * Fetches the course and the answers submitted by students
+     */
     useEffect(() => {
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL + "/quiz/" + id,
+            url: process.env.REACT_APP_URL+"/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-                if (response.status === 200) {
-                    let temp = response.data;
-                    temp.quiz = JSON.parse(temp.quiz);
-                    temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
-                    setQuiz(temp);
-                    getCourse(temp.courseId);
-                    //getAnswers();
-                }
+            if (response.status === 200) {
+                let temp = response.data;
+                temp.quiz = JSON.parse(temp.quiz);
+                temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
+                setQuiz(temp);
+                getCourse(temp.courseId);
+            }
             }
         )
     }, []);
 
+    /**
+     * Fetches the course of the quiz
+     * @param thisCourseId
+     */
     function getCourse(thisCourseId) {
         axios({
             method: "get",
@@ -56,7 +66,12 @@ export default function GradingQuiz() {
         })
     }
 
-
+    /**
+     * Grades the provided answers
+     * @param answerIds of the answers
+     * @param grade given grade
+     * @param feedback
+     */
     function gradeAnswers(answerIds, grade, feedback) {
         if (grade === -1) return;
         axios({
@@ -80,10 +95,12 @@ export default function GradingQuiz() {
         })
     }
 
-    function onMessageRecieved(data) {
-        console.log("This part not getting triggered!!!")
+    /**
+     * Method called when a websocket message is received
+     * @param data from the websocket message
+     */
+    function onMessageReceived(data) {
         let tempAnswers = JSON.parse(data.content).map(question => question.map(ans => JSON.parse(ans)));
-        console.log(tempAnswers);
         setAnswers(tempAnswers)
         setLoading(false)
     }
@@ -99,12 +116,12 @@ export default function GradingQuiz() {
                     : null
             }
             <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/quizanswers/" + id}}
-                             autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
+                             autoReconnect={true} onMessageRecieved={onMessageReceived}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>
                 </div>
-                : null}
+            : null}
             <QuestionBanner currentQuestion={currentQuestion}
                             quizLength={quiz.quiz ? quiz.quiz.quizLength : undefined}
                             setCurrentQuestion={(e) => {

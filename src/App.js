@@ -14,6 +14,11 @@ import AdminTools from "./pages/adminTools/AdminTools";
 import GradingQuiz from "./pages/gradingQuiz/GradingQuiz";
 import QuizFeedback from "./components/quizFeedback/QuizFeedback";
 
+/**
+ * The main app component that holds the routing used for the application as well as a navigation bar.
+ * @returns main app component
+ */
+
 function App() {
     const isLogged = useSelector(state => state.isLoggedReducer);
 

@@ -1,10 +1,17 @@
 import React from 'react';
 import SockJsClient from 'react-stomp';
 
+/**
+ * Helper component used to provide websocket functionality
+ * @param props
+ * @param autoReconnect bool used to determine whether the client should auto reconnect when disconnected
+ * @param onMessageReceived function used when a message is received
+ * @returns client which provides websocket functionality
+ */
 export default function WebSocketClient({
                                             props,
                                             autoReconnect = true,
-                                            onMessageRecieved
+                                            onMessageReceived: onMessageReceived
                                         }) {
 
 
@@ -18,16 +25,8 @@ export default function WebSocketClient({
     };
 
     const onMessage = (data) => {
-        onMessageRecieved(data)
+        onMessageReceived(data)
     };
-
-    const onDisconnect = () => {
-        console.log("Disconnected");
-    }
-
-    const onConnectFailure = () => {
-        console.log("Connection failed");
-    }
 
     return (
         <SockJsClient
@@ -37,8 +36,6 @@ export default function WebSocketClient({
             subscribeHeaders={headers}
             onConnect={onConnect}
             onMessage={onMessage}
-            onDisconnect={onDisconnect}
-            onConnectFailure={onConnectFailure}
             autoReconnect={autoReconnect}
         />
     );

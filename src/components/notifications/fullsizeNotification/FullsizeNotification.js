@@ -8,8 +8,20 @@ import GradingIcon from "@mui/icons-material/Grading";
 import ErrorIcon from "@mui/icons-material/Error";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+/**
+ * Represents a larger notification meant to hold more information about the event
+ * @param id of the notification
+ * @param message of the notification
+ * @param type of the notification
+ * @param deleteNotificationFunction function used to delete a notification
+ * @returns element used to represent a notification with more details than the the regular notification component
+ */
 export default function FullSizeNotification({id, message, type, deleteNotificationFunction}) {
 
+    /**
+     * Renders an icon based on the notificaiton type
+     * @returns icon representing the notification type
+     */
     function renderIcon() {
         switch (type) {
             case "question:graded":

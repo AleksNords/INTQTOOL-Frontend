@@ -7,9 +7,20 @@ import IconButton from '@mui/material/IconButton';
 import GradingIcon from '@mui/icons-material/Grading';
 import ErrorIcon from '@mui/icons-material/Error';
 
-
+/**
+ * Represents a single notification used in the smaller drawer format
+ * @param id of the notification
+ * @param message provided in the notification
+ * @param type of the notification
+ * @param deleteNotificationFunction function used to delete the notification
+ * @returns single notification element
+ */
 export default function Notification({id,message,type,deleteNotificationFunction}) {
 
+    /**
+     * Renders an icon based on the notificaiton type
+     * @returns icon representing the notification type
+     */
     function renderIcon() {
         switch (type) {
             case "question:graded":
