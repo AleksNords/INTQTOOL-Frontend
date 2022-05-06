@@ -1,6 +1,14 @@
 import React from 'react';
 import './quizFrontPage.css';
 
+/**
+ * The frontpage of a quiz. Displays key information and introduces the student to the quiz
+ * @param title of the quiz
+ * @param description of the quiz
+ * @param quizLength
+ * @param startQuiz function used to start the quiz
+ * @returns page representing the introduction of a quiz
+ */
 export default function QuizFrontPage({title, description, quizLength, startQuiz}) {
     return (
         <div className={"quiz-frontpage"}>

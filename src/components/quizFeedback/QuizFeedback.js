@@ -13,6 +13,10 @@ import PercentIcon from '@mui/icons-material/Percent';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import Radio from "@mui/material/Radio";
 
+/**
+ * Page used to view feedback received on a quiz
+ * @returns page element that displays quiz feedback
+ */
 export default function QuizFeedback() {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -23,6 +27,7 @@ export default function QuizFeedback() {
     const [showResultsModal, setShowResultsModal] = useState(false);
     let {id} = useParams();
 
+    //collects quiz feedback data
     useEffect(() => {
 
         axios({
@@ -41,6 +46,10 @@ export default function QuizFeedback() {
 
     }, []);
 
+    /**
+     * Gets the quiz information to help the user understand what question has received what grading
+     * @param quizId
+     */
     function getQuiz(quizId) {
 
         axios({
@@ -59,6 +68,10 @@ export default function QuizFeedback() {
         );
     }
 
+    /**
+     * Chooses a span that displays the grading received on a question
+     * @returns span representing the feedback on a question
+     */
     function getGradingSpan() {
         let grading = answeredQuiz.answers[currentQuestion].grading;
         let gradingSpan;
@@ -80,7 +93,8 @@ export default function QuizFeedback() {
                         sx={{fontSize: 50, fontWeight: "900"}}/>Incorrect</span>;
                     break;
                 }
-
+            //We enable the fall through as we want this span if none of the above conditions apply,
+            //but the value is 0 if no grading is received, which means we need to check the status of the question
             default:
                 gradingSpan = <span className="feedback"><HourglassBottomIcon sx={{fontSize: 50, fontWeight: "900"}}/>Not graded</span>
                 break;

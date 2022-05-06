@@ -6,6 +6,10 @@ import UserEditToolModulo from "../modulo/userEditToolModulo/UserEditToolModulo"
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
+/**
+ * Page used to display and perform actions on the existing users
+ * @returns page of users and tools to perform actions on them
+ */
 export default function UserTools() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [users, setUsers] = useState([]);
@@ -18,6 +22,9 @@ export default function UserTools() {
         updateUsers();
     }, [])
 
+    /**
+     * Updates the users in the list
+     */
     function updateUsers() {
         axios({
             method: "get",
@@ -31,16 +38,23 @@ export default function UserTools() {
                 temp = temp.map((user) => JSON.parse(user))
 
                 setUsers(temp);
-                setFilteredUsers(temp)
+                setFilteredUsers(temp);
             }
         });
     }
 
+    /**
+     * Shows the user tool modal
+     * @param user that is to be edites
+     */
     function showUserOptions(user) {
         setShowUserTools(true);
         setEditableUser(user);
     }
 
+    /**
+     * Searches through all users
+     */
     function searchUsers() {
         let temp = users;
         if (searchWord.length >= 1) {

@@ -3,6 +3,14 @@ import './question.css';
 import {FormControlLabel, RadioGroup} from "@mui/material";
 import Radio from "@mui/material/Radio";
 
+/**
+ * A single question in a quiz being taken by a student
+ * @param question object representing the question
+ * @param currentQuestion index of the current question
+ * @param setAnswer function used to set the student answer
+ * @param currAns the answer provided by the student
+ * @returns element representing a single question in a quiz
+ */
 export default function Question({question, currentQuestion, setAnswer, currAns}) {
     let answer = {
         "answer": "",

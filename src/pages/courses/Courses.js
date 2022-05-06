@@ -4,6 +4,10 @@ import axios from "axios";
 import {useSelector} from "react-redux";
 import Course from "../../components/course/Course";
 
+/**
+ * Page displaying all the courses that the user is a part of
+ * @returns page with all the users courses
+ */
 function Courses() {
 
     const [courses, setCourses] = useState([]);
@@ -12,7 +16,9 @@ function Courses() {
     const user = useSelector(state => state.userReducer.user);
     const roles = user.roles;
 
-
+    /**
+     * Fetches the courses the user is a part of
+     */
     useEffect(() => {
         axios({
             method: "get",
@@ -25,6 +31,9 @@ function Courses() {
         })
     }, []);
 
+    /**
+     * Joins a course based on the provided join code
+     */
     function joinCourse(){
         axios({
             method:"get",

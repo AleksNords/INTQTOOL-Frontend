@@ -4,6 +4,10 @@ import AdminToolsNavigator from "../../components/adminToolsNavigator/AdminTools
 import CourseTools from "../../components/courseTools/CourseTools";
 import UserTools from "../../components/userTools/UserTools";
 
+/**
+ * Page representing the available admin tools
+ * @returns page displaying available admin tools
+ */
 export default function AdminTools() {
     const [currentTool, setCurrentTool] = useState(1);
 

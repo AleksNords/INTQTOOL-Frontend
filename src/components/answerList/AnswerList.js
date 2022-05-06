@@ -11,6 +11,14 @@ import AnswerCard from "../answerCard/AnswerCard";
 import Snackbar from "@mui/material/Snackbar";
 import {Alert} from "@mui/lab";
 
+/**
+ * List of answers that have been submitted by students for a single question
+ * @param answers the answers for the entire quiz
+ * @param setCurrentAnswerFunction function that sets the current answer in a parent element
+ * @param currentQuestion the current question that is chosen in a parent element
+ * @param gradeFunction function that grades an answer
+ * @returns component that lists all answers for a question
+ */
 export default function AnswerList({answers, setCurrentAnswerFunction, currentQuestion, gradeFunction}) {
 
     const [search, setSearch] = useState("");
@@ -23,7 +31,6 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
     const [grade, setGrade] = useState(-1);
 
     let ungradedAnswers = [];
-
     let gradedAnswers = [];
 
     for (let i = 0; i < answers.length; i++) {
@@ -43,6 +50,11 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         setShowAnswerGraded(false);
     };
 
+    /**
+     * Sets an answer as checked or unchecked. Checked answers may be batch graded
+     * @param answerId the id of the answer to be changed
+     * @param isChecked the new checked value for the answer
+     */
     function setChecked(answerId, isChecked) {
         if (isChecked) {
             let temp = checkedAnswers;
@@ -61,6 +73,9 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         }
     }
 
+    /**
+     * Batch grades the checked answers. Resets certain states like the toolbar feedback and the show boolean for the toolbar.
+     */
     function gradeMultipleQuestions() {
         if (grade === -1) return;
         let answerIds = [];
@@ -75,6 +90,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         setShowAnswerGraded(true);
     }
 
+    //Resets values that should be reset when a new question is selected
     useEffect(()=> {
         setCheckedAnswers([]);
         setShowToolbar(false);

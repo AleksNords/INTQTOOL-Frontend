@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import './notifications.css';
 import {useDispatch, useSelector} from "react-redux";
-//import {useNavigate} from "react-router";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,13 +10,20 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
 import {setNotifications} from "../../store/action/notificationAction";
 
+/**
+ * Notification page housing larger versions of the notifications found in the notification drawer
+ * @returns Page housing all the user notifications in a larger format than the notificaiton drawer
+ */
 export default function Notifications() {
 
-    const notifications = useSelector(state => state.notificationReducer);
+    const user = useSelector(state => state.userReducer.user);
     //const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
 
+    /**
+     * Clears the user notifications
+     */
     function clearNotifications() {
         if (notifications.length >= 1) {
 
@@ -35,6 +41,10 @@ export default function Notifications() {
         }
     }
 
+    /**
+     * Deletes a single user notification
+     * @param notificationID
+     */
     function deleteNotification(notificationID) {
         let temp = notifications;
         temp.notifications = temp.notifications.filter(notification => {return notification.notificationID !== notificationID});

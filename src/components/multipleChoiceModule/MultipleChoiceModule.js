@@ -7,11 +7,20 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 
+/**
+ * Module used to enter choices for a multiple choice question. Contains alternatives and their correctness
+ * @param addAlternative function used to add an alternative to the question
+ * @param alternatives the already existing alternatives
+ * @param deleteAlternative function used to delete an alternative from the question
+ * @param changeAlternative function used to change an alternative in the question
+ * @returns module used to edit, add and delete alternatives in a multiple choice question
+ */
 export default function MultipleChoiceModule({addAlternative, alternatives, deleteAlternative, changeAlternative}) {
 
     const alternativeLetters = ["A","B","C","D","E","F"];
     const alternativeDivs = [];
 
+    //Creates all the elements representing the alternatives and adds them to the alternativeDivs array
     for (let i = 0; i < alternatives.length; i++) {
         alternativeDivs.push(
             <div key={JSON.stringify(alternatives[i]) + i} >

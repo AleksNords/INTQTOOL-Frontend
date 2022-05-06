@@ -4,9 +4,19 @@ import {LinearProgress} from "@mui/material";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
 
+/**
+ * Card representing a quiz
+ * @param title of the quiz
+ * @param progression of the student on the quiz
+ * @param quizId
+ * @param status of the quiz
+ * @param userNavigateTo decides where the user is redirected upon clicking the card
+ * @param grading received on the quiz
+ * @returns card element used to represent a quiz
+ */
 function QuizCard({title, progression, quizId,status, userNavigateTo, grading}) {
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
     const user = useSelector(state => state.userReducer.user);
 
     return (
