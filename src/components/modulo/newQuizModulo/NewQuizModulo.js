@@ -4,8 +4,6 @@ import TextField from '@mui/material/TextField';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import {createTheme} from "@mui/material/styles";
-import {ThemeProvider} from "@mui/system";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Autocomplete from '@mui/material/Autocomplete';
 import Switch from '@mui/material/Switch';
@@ -15,6 +13,13 @@ import {useNavigate} from "react-router";
 import axios from 'axios';
 import {useSelector} from "react-redux";
 
+/**
+ * A modulo used to create a new quiz or edit the one currently being created
+ * @param setShowFunction function used to set whether the modulo should show or not
+ * @param setShowSavedQuiz function used to show an alert notifying the user that the quiz has been saved
+ * @param quizDetails the quiz details. Includes deadline, title, description and course
+ * @returns modulo that can be used to create or edit a quiz
+ */
 export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDetails}) {
 
     const ref = useRef(null);
@@ -26,15 +31,6 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     const [courseID, setCourseID] = useState(quizDetails ? quizDetails.courseId : "");
     const [description, setDescription] = useState(quizDetails ? quizDetails.deployedQuiz.description : "");
     const [courseOptions, setCourseOptions] = useState([]);
-
-    const newQuizTheme = createTheme({
-        typography: {
-            fontSize: 25,
-        },
-        divider: {
-            blue: "#000000",
-        }
-    });
 
     useEffect(() => {
         axios({
@@ -50,6 +46,9 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
         })
     }, []);
 
+    /**
+     * Saves the quiz details from the modulo and creates a new quiz
+     */
     function submitQuizDetails() {
         let updatedQuizDetails;
         if(quizDetails){
@@ -83,9 +82,12 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
                 navigate("/quizeditor/"+response.data)
             }
         })
-        //navigate("/quizeditor/"+newQuizId);
     }
 
+    /**
+     * Function used to close the modulo if a click outside is registered.
+     * @param event click that sent the event
+     */
     const handleClickOutside = (event) => {
         if (event.target.className === "new-quiz-modulo-wrapper") {
             if (typeof setShowSavedQuiz === "function") {
@@ -104,7 +106,6 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
 
     return (
         <div className="new-quiz-modulo-wrapper">
-            <ThemeProvider theme={newQuizTheme}>
             <div ref={ref} className="new-quiz-modulo">
                 <h1>New Quiz</h1>
                 <div className="editable-content-wrapper">
@@ -126,9 +127,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
                                     value={deadlineDate}
                                     onChange={(newValue) => {
                                         setDeadlineDate(newValue);
-                                        console.log(deadlineDate)
-                                    }}
-                                />
+                                    }}/>
                             </LocalizationProvider>
                             <FormControlLabel className="no-deadline" onClick={()=>setEnableDeadline(!enableDeadline)} control={<Switch className="switch-thumb"/>} label="No deadline" />
                             </div>
@@ -155,7 +154,6 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
                         </div>
                 </div>
             </div>
-            </ThemeProvider>
         </div>
     )
 }

@@ -6,6 +6,10 @@ import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import NewCourseModulo from "../modulo/newCourseModulo/NewCourseModulo";
 
+/**
+ * View of all courses, with a search bar and option to add a new course.
+ * @returns element displaying all courses, along with tools to manipulate them
+ */
 export default function CourseTools(){
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
@@ -17,6 +21,9 @@ export default function CourseTools(){
         updateCourses();
     }, [])
 
+    /**
+     * Updates the displayed courses by fetching the data from the API and setting the received data into state variables.
+     */
     function updateCourses() {
         axios({
             method: "get",
@@ -28,13 +35,15 @@ export default function CourseTools(){
             if (response.status === 200) {
                 let temp = response.data;
                 temp = temp.map((course) => JSON.parse(course))
-                console.log(temp);
                 setCourses(temp);
                 setFilteredCourses(temp)
             }
         });
     }
 
+    /**
+     * Searches for courses with the searchWord state variable
+     */
     function searchCourse(){
         let temp = courses;
         if (searchWord.length >= 1) {
@@ -46,6 +55,10 @@ export default function CourseTools(){
         }
     }
 
+    /**
+     * Creates a new course by sending it to the backend
+     * @param newCourse object representing the new course
+     */
     function submitNewCourse(newCourse){
         axios({
             method: "post",
@@ -58,7 +71,6 @@ export default function CourseTools(){
             if (response.status === 200) {
                 let temp = response.data;
                 temp = temp.map((course) => JSON.parse(course))
-                console.log(temp);
                 setCourses(temp);
                 setFilteredCourses(temp)
             }

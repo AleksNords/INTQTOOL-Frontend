@@ -7,6 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 
+/**
+ * Note: Hints are not yet supported in the application. Adding them does nothing.
+ * @param addHint function used to add a hint to the question
+ * @param hints all the hints for the question
+ * @param deleteHint function used to delete a hint from the question
+ * @param changeHint function to change a hint in the question
+ * @returns module that lets you add, delete and change hints for the current question
+ */
 export default function HintModule({addHint, hints, deleteHint, changeHint}) {
 
     const hintDivs = [];

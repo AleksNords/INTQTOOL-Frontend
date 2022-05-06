@@ -5,14 +5,20 @@ import NotificationDropDown from "../notificationDropdown/NotificationDropdown";
 import {useSelector, useDispatch} from "react-redux";
 import {setNotifications} from "../../../store/action/notificationAction";
 
+/**
+ * Bell icon with a notification count used to open the notification drawer
+ * @returns bell element used for notifications
+ */
 export default function Navbar() {
     const notifications = useSelector(state =>state.notificationReducer)
     const [showDropdown, setShowDropdown] = useState(false);
     const dispatch = useDispatch();
 
 
+    /**
+     * Deletes all notifications
+     */
     function clearNotifications() {
-
         dispatch(setNotifications({
             notifications:[]
         }))

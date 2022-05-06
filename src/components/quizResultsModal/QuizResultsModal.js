@@ -1,12 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import './quizresultsmodal.css';
-import {Box, Button, CircularProgress, Grid, Paper, Typography} from "@mui/material";
-import axios from "axios";
+import {Box, CircularProgress, Grid, Typography} from "@mui/material";
 
+/**
+ * Modal displaying the results on a quiz
+ * @param resultArray array representing the students results
+ * @param setCurrentQuestion function used to set the current question
+ * @param setShowResultsModal function used to show and hide the modal
+ * @returns modal displaying student results on a quiz
+ */
 export default function QuizResultsModal({resultArray, setCurrentQuestion, setShowResultsModal}) {
 
     const [result, setResult] = useState(0);
 
+    /**
+     * Calculates the percentage of correct answers and rounds the number
+     */
     useEffect(() => {
         let maxPoints = resultArray.length;
         let points = 0;
@@ -16,6 +25,11 @@ export default function QuizResultsModal({resultArray, setCurrentQuestion, setSh
         setResult(Math.round((100 * points) / maxPoints));
     }, []);
 
+    /**
+     * Determines a class for a provided question answer
+     * @param questionAns provided question answer
+     * @returns classname for the provided question representing the received grading
+     */
     function getQuestionGradeColor(questionAns) {
         let grading = questionAns.grading;
         let classString;
@@ -39,8 +53,12 @@ export default function QuizResultsModal({resultArray, setCurrentQuestion, setSh
         return classString;
     }
 
-    function handleQuestionClick(questionIndex) {
-        setCurrentQuestion((questionIndex.target.innerHTML) - 1);
+    /**
+     * Redirects the user to the clicked question
+     * @param event triggered by the click
+     */
+    function handleQuestionClick(event) {
+        setCurrentQuestion((event.target.innerHTML) - 1);
         setShowResultsModal(false);
     }
 

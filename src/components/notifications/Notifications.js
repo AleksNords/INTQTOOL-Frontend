@@ -10,14 +10,20 @@ import {setUser} from "../../store/action/userAction";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
 
+/**
+ * Notification page housing larger versions of the notifications found in the notification drawer
+ * @returns Page housing all the user notifications in a larger format than the notificaiton drawer
+ */
 export default function Notifications() {
 
     const user = useSelector(state => state.userReducer.user);
-    //const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
     const [notifications, setNotifications] = useState(user.notifications);
 
+    /**
+     * Clears the user notifications
+     */
     function clearNotifications() {
         if (notifications.length >= 1) {
             let temp = user;
@@ -36,6 +42,10 @@ export default function Notifications() {
         }
     }
 
+    /**
+     * Deletes a single user notification
+     * @param notificationID
+     */
     function deleteNotification(notificationID) {
         let temp = user;
         temp.notifications = temp.notifications.filter(notification => {notification = JSON.parse(notification); return notification.id !== notificationID});

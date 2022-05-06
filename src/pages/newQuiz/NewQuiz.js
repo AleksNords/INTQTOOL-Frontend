@@ -12,6 +12,10 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import {useSelector} from "react-redux";
 
+/**
+ * Page representing a new quiz in the making
+ * @returns page displaying a new quiz
+ */
 export default function NewQuiz() {
 
     const Alert = React.forwardRef(function Alert(props, ref) {
@@ -33,6 +37,9 @@ export default function NewQuiz() {
         hints: []
     }]);
 
+    /**
+     * Fetches the quiz details
+     */
     useEffect(() => {
         axios({
             method: 'get',
@@ -61,6 +68,9 @@ export default function NewQuiz() {
         setShowSavedQuiz(false);
     };
 
+    /**
+     * Submits the quiz to the backend
+     */
     function submitQuiz() {
         let temp = quiz;
         temp.deployedQuiz.questions = questions;
@@ -82,6 +92,9 @@ export default function NewQuiz() {
         })
     }
 
+    /**
+     * Adds a question to the quiz
+     */
     function addQuestion() {
         let temp = questions;
         temp.push({
@@ -95,24 +108,44 @@ export default function NewQuiz() {
         setQuestionAmnt(questionAmnt + 1);
     }
 
+    /**
+     * Changes the question text on a question
+     * @param index of the question
+     * @param newQuestionText
+     */
     function changeQuestionText(index, newQuestionText) {
         let temp = questions;
         temp[index].questionText = newQuestionText;
         setQuestions(temp);
     }
 
+    /**
+     * Changes the alternatives on a question
+     * @param index of the question
+     * @param newAlternatives
+     */
     function changeQuestionAlternatives(index, newAlternatives) {
         let temp = questions;
         temp[index].alternatives = newAlternatives;
         setQuestions(temp);
     }
 
+    /**
+     * Changes the hints on a question
+     * @param index of the question
+     * @param newHints
+     */
     function changeQuestionHints(index, newHints) {
         let temp = questions;
         temp[index].hints = newHints;
         setQuestions(temp);
     }
 
+    /**
+     * Sets whether a question is multiple choice
+     * @param index of the question
+     * @param newValue bool value representing whether the question should be multiple choice or not
+     */
     function setIsMultipleChoice(index, newValue) {
         let temp = questions;
         if (newValue) {
@@ -124,6 +157,10 @@ export default function NewQuiz() {
         setQuestions(temp);
     }
 
+    /**
+     * Deletes a question from the quiz
+     * @param index of the question
+     */
     function deleteQuestion(index) {
         if (questions.length > 1) {
             let temp = questions;

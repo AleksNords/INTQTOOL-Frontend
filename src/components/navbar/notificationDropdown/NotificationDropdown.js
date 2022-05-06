@@ -1,15 +1,21 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef} from "react";
 import './notificationdropdown.css';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Notification from './notification/Notification'
 import {useDispatch, useSelector} from "react-redux";
-import {setUser} from "../../../store/action/userAction";
 import {useNavigate} from "react-router";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from 'axios';
+import {setNotifications} from "../../../store/action/notificationAction";
 
+/**
+ * Notification drawer housing all the user notifications
+ * @param clearParentNotifications function used to clear the notifications
+ * @param setShowFunction function used to show and hide the drawer
+ * @returns drop down drawer containing all the users notifications
+ */
 export default function NotificationDropDown({clearParentNotifications, setShowFunction}) {
 
 

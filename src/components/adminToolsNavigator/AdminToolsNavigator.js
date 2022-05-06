@@ -1,8 +1,17 @@
 import React from 'react';
 import './adminToolsNavigator.css';
 
+/**
+ * The navigation component used in the admin tool page. Lets the user swap between user and course tools
+ * @param setCurrentTool function to set the current tool view in admin tool page
+ * @returns Navigation element to swap the view between user and course tools
+ */
 export default function AdminToolsNavigator({setCurrentTool}){
 
+    /**
+     * Toggles the classnames of the two elements to communicate which one is active to the user
+     * @param elem The clicked element
+     */
     function toggleActiveArchiveQuiz(elem){
         let activeQuizElem = document.getElementById("user-tools-headers");
         let archivedQuizElem = document.getElementById("course-tools-headers");

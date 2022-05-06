@@ -7,6 +7,10 @@ import {Button} from "@mui/material";
 import NewQuizModulo from "../../components/modulo/newQuizModulo/NewQuizModulo";
 import AddIcon from '@mui/icons-material/Add';
 
+/**
+ * Home page of the application
+ * @returns the home page
+ */
 export default function Home() {
 
     const [showNewQuizModulo, setShowNewQuizModulo] = React.useState(false);
@@ -16,33 +20,27 @@ export default function Home() {
     const [quizAnswers, setquizAnswers] =useState([]);
     const [showArchived, setShowArchived] = useState(false);
 
+    /**
+     * Fetches the quizzes that the user currently can interact with
+     */
     useEffect(()=>{
         axios({
             method:"get",
             url: process.env.REACT_APP_URL + "/user/quizzes",
             headers:{
-                "Authorization":"Bearer "+isLogged.jwtToken
+                "Authorization":"Bearer " + isLogged.jwtToken
             }
         }).then(function (response){
                 setQuizzes(response.data);
             }
         ).catch(function (response){
         });
-        axios({
-            url: process.env.REACT_APP_URL + "/user/archivedquizzes",
-            method:'get',
-            headers:{
-                "Authorization":"Bearer "+isLogged.jwtToken
-            }
-        }).then((response)=>{
-            if(response.status === 200){
-                let temp =response.data;
-                temp = temp.map((qa)=>JSON.parse(qa))
-                setquizAnswers(temp);
-            }
-        })
+        updateQuizAnswers()
     },[]);
 
+    /**
+     * Updates/fetches the quiz answers
+     */
     function updateQuizAnswers(){
         axios({
             url: process.env.REACT_APP_URL + "/user/archivedquizzes",
@@ -59,6 +57,10 @@ export default function Home() {
         })
     }
 
+    /**
+     * Toggles which quizzes to display between active and archived
+     * @param elem on click event
+     */
     function toggleActiveArchiveQuiz(elem){
         let activeQuizElem = document.getElementById("Active-quiz-headers");
         let archivedQuizElem = document.getElementById("Archived-quiz-headers");
@@ -76,10 +78,6 @@ export default function Home() {
 
     }
 
-
-
-
-
     return (
         <div className={"home"}>
             {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo setShowFunction={setShowNewQuizModulo}/><div className="shadow-filter"/></div> : null}
@@ -91,10 +89,7 @@ export default function Home() {
                         (user.user.roles.includes("ROLE_TEACHER")) || (user.user.roles.includes("ROLE_ADMIN")) ? (
                     <Button className="new-quiz" onClick={()=>setShowNewQuizModulo(true)} sx={{fontSize: 16}} variant={"contained"}  startIcon={<AddIcon/>}>New Quiz</Button>
                     ):null):null
-
-
                 }
-
             </div>
 
                 {quizzes.length >= 1 && !showArchived ?

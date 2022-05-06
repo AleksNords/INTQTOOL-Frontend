@@ -6,11 +6,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import PercentIcon from "@mui/icons-material/Percent";
 import SendIcon from '@mui/icons-material/Send';
 
+/**
+ * Element used to display an interface that lets you grade a single question
+ * @param question question object
+ * @param questionIndex index of the question in the quiz
+ * @param currentAnswer answer currently being graded
+ * @param gradeFunction function used to grade the current answer
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function GradingQuestion({question, questionIndex, currentAnswer, gradeFunction}) {
 
     const [feedback, setFeedback] = useState(currentAnswer ? currentAnswer.feedback : "");
     const [grade, setGrade] = useState(-1);
 
+    //When a new answer is selected, we display the feedback it has received, if it hasn't received any we reset the feedback field
     useEffect(()=> {
         setFeedback(currentAnswer && currentAnswer.feedback ? currentAnswer.feedback : "");
     },[currentAnswer])

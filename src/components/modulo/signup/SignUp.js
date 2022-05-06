@@ -4,6 +4,10 @@ import axios from "axios";
 import {Button, TextField} from "@mui/material";
 import {useNavigate} from "react-router";
 
+/**
+ * The sign up page for the application. Includes necessary user info fields
+ * @returns sign up page
+ */
 function SignUp() {
 
     const navigate = useNavigate();
@@ -17,6 +21,9 @@ function SignUp() {
     const [warning, setWarning] = React.useState(false);
     const [warningText, setWarningText] = React.useState("");
 
+    /**
+     * Validates all provided fields and submits the user to the backend
+     */
     function submitAccount() {
         if (username.length > 0) {
             if (email.length > 0) {
@@ -41,8 +48,8 @@ function SignUp() {
                                         navigate("/");
                                     }
 
-                                }).catch((error) => {
-                                    console.log(error.response);
+                                }).catch(() => {
+                                    //TODO: Handle error
                                 });
                             }
                         } else {
@@ -68,6 +75,10 @@ function SignUp() {
         }
     }
 
+    /**
+     * Validates the provided password
+     * @returns {boolean} value used to determine password validity
+     */
     function checkPasswordFormat() {
         let passwordIsValid = false;
         if (password.length < 8) {
@@ -111,7 +122,7 @@ function SignUp() {
                         {(warning === true) ? <div className={"sign-up-warning"}>
 
                             <p>Warning: {warningText}</p>
-                        </div>: <div></div>}
+                        </div>: <div/>}
 
                         <div className={"sign-up-item"}>
                             <TextField label={"First name"} className={"sign-up-form-field"}

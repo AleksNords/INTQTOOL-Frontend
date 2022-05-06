@@ -3,6 +3,12 @@ import './newCourseModulo.css';
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 
+/**
+ * Modulo used to create a new course
+ * @param setShowNewCourseModulo state function used to show the modulo
+ * @param submitNewCourse function used to send the course to the backennd
+ * @returns modulo used to create a new course
+ */
 export default function NewCourseModulo({setShowNewCourseModulo,submitNewCourse}){
 
     const [newCourse, setNewCourse] = useState({
@@ -10,6 +16,10 @@ export default function NewCourseModulo({setShowNewCourseModulo,submitNewCourse}
         description:""
     });
 
+    /**
+     * Function used to close the modulo if a click outside is registered.
+     * @param event click that sent the event
+     */
     const handleClickOutside = (event) => {
         if (event.target.className === "edit-course-tool-wrapper") {
             setShowNewCourseModulo(false);
