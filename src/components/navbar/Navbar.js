@@ -50,7 +50,7 @@ export default function Navbar() {
     return (
         <div className="navbar">
             {isLogged.isLogged === true ? (<>
-                <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/notifications"}} autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
+                <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/notifications"}} autoReconnect={true} onMessageReceived={onMessageRecieved}/>
                 <div className="navLinks">
                     <span onClick={()=>navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
                     <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>

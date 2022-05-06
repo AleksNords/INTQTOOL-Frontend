@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './notifications.css';
 import {useDispatch, useSelector} from "react-redux";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FullSizeNotification from "./fullsizeNotification/FullsizeNotification";
-import {setUser} from "../../store/action/userAction";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
 import {setNotifications} from "../../store/action/notificationAction";
@@ -16,8 +15,7 @@ import {setNotifications} from "../../store/action/notificationAction";
  */
 export default function Notifications() {
 
-    const user = useSelector(state => state.userReducer.user);
-    //const navigate = useNavigate();
+    const notifications = useSelector(state=>state.notificationReducer)
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
 
@@ -25,7 +23,7 @@ export default function Notifications() {
      * Clears the user notifications
      */
     function clearNotifications() {
-        if (notifications.length >= 1) {
+        if (notifications.notifications.length >= 1) {
 
             dispatch(setNotifications({
                 notifications:[]
