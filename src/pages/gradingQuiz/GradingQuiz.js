@@ -134,7 +134,7 @@ export default function GradingQuiz() {
                                 }
                             }}/>
             <div className={"grading-wrapper"}>
-                {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
+                {quiz.quiz && quiz.quiz.questions.length > 0 && quiz.quiz.questions[currentQuestion].type === 1 ?
                     <div className="auto-graded-question-filter">
                         <Snackbar sx={{color: "white"}}
                                   open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
@@ -159,7 +159,7 @@ export default function GradingQuiz() {
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
                             currentQuestion={currentQuestion}
-                            answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                            answers={quiz.quiz && quiz.quiz.questions.length > 0 && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
                             question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
             </div>
         </div>
