@@ -25,7 +25,7 @@ export default function MultipleChoiceModule({addAlternative, alternatives, dele
         alternativeDivs.push(
             <div key={JSON.stringify(alternatives[i]) + i} >
                 <FormControlLabel value={alternativeLetters[i]} control={
-                    <Checkbox key={JSON.stringify(alternatives[i]) + i}
+                    <Checkbox tabIndex={-1} key={JSON.stringify(alternatives[i]) + i}
                               defaultChecked={alternatives[i].correct}
                               onChange={(elem)=>{let temp = alternatives[i]; temp.correct = elem.target.checked; changeAlternative(temp)}}
                               sx={{color: "#F63E3E", width: 45, '&.Mui-checked': {color: "#42C767",},}}
@@ -35,7 +35,7 @@ export default function MultipleChoiceModule({addAlternative, alternatives, dele
                                                     defaultValue={alternatives[i].alternative}
                                                     onChange={(elem)=>{let temp = alternatives[i]; temp.alternative = elem.target.value; changeAlternative(temp)}}
                                                     className="question-choice-textfield" variant="outlined"/>}/>
-                <IconButton onClick={()=>deleteAlternative(i)}>
+                <IconButton tabIndex={-1} onClick={()=>deleteAlternative(i)}>
                     <CloseIcon sx={{fontSize: 30, color: "#000000"}}/>
                 </IconButton>
             </div>

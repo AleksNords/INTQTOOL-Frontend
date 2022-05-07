@@ -29,10 +29,10 @@
 }
 
 .start-quiz-button{
+    font-size: 1.5rem;
     border-radius: 5px;
     background-color: #1C5BA5;
     color: white;
-    font-family: "Trebuchet MS";
     width: 16.5rem;
     height: 3.7rem;
     border:0;

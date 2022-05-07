@@ -55,3 +55,7 @@
 .radio-button {
     width: 20%;
 }
+
+.radio-group label {
+    width: fit-content;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './question.css';
-import {FormControlLabel, RadioGroup} from "@mui/material";
+import {FormControlLabel, RadioGroup, TextField} from "@mui/material";
 import Radio from "@mui/material/Radio";
 
 /**
@@ -36,7 +36,7 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                                 question.alternatives.map((alternative) => {
                                     alternative = JSON.parse(alternative);
                                     return <FormControlLabel value={alternative.alternative}
-                                                             control={<Radio/>}
+                                                             control={<Radio size="large"/>}
                                                              label={alternative.alternative}/>;
                                 })
                             }
@@ -44,14 +44,19 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                     )
                     :
                     (question.type === 2) ? (
-                            <textarea
+                            <TextField
                                 className={"longanswer-textfield"}
-                                placeholder={"Ditt svar her..."} onChange={(elem) => {
+                                label={"Answer"}
+                                InputLabelProps={{style: {fontSize: 18}}}
+                                InputProps={{style: {fontSize: 18}}}
+                                multiline
+                                rows={10}
+                                onChange={(elem) => {
                                 answer.answer = elem.target.value;
                                 setAnswer(answer)
                             }}>
                                 {(currAns !== undefined) ? currAns.answer : null}
-                            </textarea>
+                            </TextField>
                         )
                         : null
             }

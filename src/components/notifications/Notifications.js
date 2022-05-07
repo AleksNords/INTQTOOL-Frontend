@@ -16,6 +16,7 @@ import {setNotifications} from "../../store/action/notificationAction";
  */
 export default function Notifications() {
 
+    const notifications = useSelector(state => state.notificationReducer);
     const user = useSelector(state => state.userReducer.user);
     //const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)

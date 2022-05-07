@@ -7,11 +7,12 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Autocomplete from '@mui/material/Autocomplete';
 import Switch from '@mui/material/Switch';
-import {Button} from "@mui/material";
+import {Button, createTheme} from "@mui/material";
 import ImageIcon from '@mui/icons-material/Image';
 import {useNavigate} from "react-router";
 import axios from 'axios';
 import {useSelector} from "react-redux";
+import {ThemeProvider} from "@emotion/react";
 
 /**
  * A modulo used to create a new quiz or edit the one currently being created
@@ -27,10 +28,21 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [deadlineDate, setDeadlineDate] = useState(quizDetails ? quizDetails.deadline : new Date().setHours(23,59));
     const [enableDeadline, setEnableDeadline] = useState(true);
-    const [title, setTitle] = useState(quizDetails ? quizDetails.deployedQuiz.title : "");
+    const [title, setTitle] = useState(quizDetails ? quizDetails.quiz.title : "");
     const [courseID, setCourseID] = useState(quizDetails ? quizDetails.courseId : "");
-    const [description, setDescription] = useState(quizDetails ? quizDetails.deployedQuiz.description : "");
+    const [description, setDescription] = useState(quizDetails ? quizDetails.quiz.description : "");
     const [courseOptions, setCourseOptions] = useState([]);
+
+    //this is needed to correct the small fontsize in the date time picker
+    const newQuizTheme = createTheme({
+        typography: {
+            fontSize: 25,
+        },
+        divider: {
+            blue: "#000000",
+        }
+    });
+
 
     useEffect(() => {
         axios({
@@ -54,15 +66,15 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
         if(quizDetails){
             let temp = quizDetails;
             temp.courseId = courseID;
-            temp.deployedQuiz.title = title;
-            temp.deployedQuiz.description = description;
+            temp.quiz.title = title;
+            temp.quiz.description = description;
             temp.deadline = deadlineDate;
-            delete temp.deployedQuiz.author;
-            delete temp.deployedQuiz.questions;
+            delete temp.quiz.author;
+            delete temp.quiz.questions;
             updatedQuizDetails = temp;
         }else{
             updatedQuizDetails = {
-                deployedQuiz: {
+                quiz: {
                     title: title,
                     description: description
                 },
@@ -106,6 +118,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
 
     return (
         <div className="new-quiz-modulo-wrapper">
+            <ThemeProvider theme={newQuizTheme}>
             <div ref={ref} className="new-quiz-modulo">
                 <h1>New Quiz</h1>
                 <div className="editable-content-wrapper">
@@ -119,6 +132,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
                             <div className="deadline">
                             <LocalizationProvider dateAdapter={AdapterDateFns}>
                                 <DateTimePicker
+                                    sx={{fontSize: 15}}
                                     ampm={false}
                                     disabled={!enableDeadline}
                                     className="deadline-picker"
@@ -154,6 +168,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
                         </div>
                 </div>
             </div>
+            </ThemeProvider>
         </div>
     )
 }

@@ -3,6 +3,8 @@ import './courses.css';
 import axios from "axios";
 import {useSelector} from "react-redux";
 import Course from "../../components/course/Course";
+import {TextField} from "@mui/material";
+import Button from "@mui/material/Button";
 
 /**
  * Page displaying all the courses that the user is a part of
@@ -49,8 +51,8 @@ function Courses() {
 
 
     return (<div className={"courses"}>
-        <div className={"course-title-wrapper"}><h1 className={"course-title"}>Your courses</h1> {roles.includes('ROLE_STUDENT' || roles.includes('ROLE_TEACHER')) ? <div className={"join-course-wrapper"}><input type={"text"} placeholder={"Course join code"} onChange={(elem)=>setJoinCode(elem.target.value)}
-        /><button onClick={joinCourse}>Join course</button></div> : null}</div>
+        <div className={"course-title-wrapper"}><h1 className={"course-title"}>Your courses</h1> {roles.includes('ROLE_STUDENT' || roles.includes('ROLE_TEACHER')) ? <div className={"join-course-wrapper"}><TextField className="join-code-textfield" InputLabelProps={{style: {fontSize: 14}}} InputProps={{style: {fontSize: 14}}} type={"text"} label={"Course join code"} onChange={(elem)=>setJoinCode(elem.target.value)}
+        /><Button className="join-course-button" variant="contained" onClick={joinCourse}>Join course</Button></div> : null}</div>
 
         {
             (courses.length >= 1) ? (

@@ -51,9 +51,9 @@ export default function NewQuiz() {
         }).then((response) => {
             if (response.status === 200) {
                 let temp = response.data;
-                temp.deployedQuiz = JSON.parse(temp.deployedQuiz);
-                if(temp.deployedQuiz.questions.length >=1){
-                    setQuestions(temp.deployedQuiz.questions.map((question)=>{
+                temp.quiz = JSON.parse(temp.quiz);
+                if(temp.quiz.questions.length >=1){
+                    setQuestions(temp.quiz.questions.map((question)=>{
                         let tempQuestion =JSON.parse(question);
                         tempQuestion.hints=[];
                         tempQuestion.alternatives = tempQuestion.alternatives.map((alternative)=>JSON.parse(alternative));
@@ -73,9 +73,9 @@ export default function NewQuiz() {
      */
     function submitQuiz() {
         let temp = quiz;
-        temp.deployedQuiz.questions = questions;
-        temp.deployedQuiz.quizLength = questions.length;
-        delete temp.deployedQuiz.author;
+        temp.quiz.questions = questions;
+        temp.quiz.quizLength = questions.length;
+        delete temp.quiz.author;
         setQuiz(temp);
         axios({
             method: 'post',
@@ -153,7 +153,6 @@ export default function NewQuiz() {
         } else {
             temp[index].type = 2;
         }
-
         setQuestions(temp);
     }
 
@@ -199,6 +198,7 @@ export default function NewQuiz() {
                              changeQuestionAlternatives={changeQuestionAlternatives}
                              changeQuestionHints={changeQuestionHints} question={questions[currentQuestion]}
                              questionIndex={currentQuestion} questionNumber={currentQuestion + 1}
+                             isMultipleChoice={questions[currentQuestion].type === 1}
                              setQuestion={(question) => {
                                  let temp = questions;
                                  temp[currentQuestion] = question;

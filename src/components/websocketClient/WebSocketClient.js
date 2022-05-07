@@ -11,7 +11,7 @@ import SockJsClient from 'react-stomp';
 export default function WebSocketClient({
                                             props,
                                             autoReconnect = true,
-                                            onMessageReceived: onMessageReceived
+                                            onMessageReceived
                                         }) {
 
 
@@ -25,7 +25,7 @@ export default function WebSocketClient({
     };
 
     const onMessage = (data) => {
-        onMessageReceived(data)
+        onMessageReceived(data);
     };
 
     return (

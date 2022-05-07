@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './newquestion.css';
 import TextField from "@mui/material/TextField";
 import {Button, FormControlLabel, Radio, RadioGroup} from "@mui/material";
@@ -23,6 +23,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
+    const [localIsMultipleChoice, setLocalIsMultipleChoice] = useState(question.type === 1);
 
     /**
      * Gives the question some empty alternatives if none are present
@@ -123,7 +124,15 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
      */
     function setMultipleChoice(index, newValue) {
         setIsMultipleChoice(index, newValue);
+        setLocalIsMultipleChoice(newValue);
+        console.log("index: " + index);
+        console.log(("value: " + newValue));
+        console.log(question.type);
     }
+
+    useEffect(() => {
+        setLocalIsMultipleChoice(question.type === 1);
+    }, [question]);
 
 
     return(
@@ -142,7 +151,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                                onChange={(elem) => changeQuestionText(questionIndex, elem.target.value)} multiline
                                rows={5} InputProps={{style: {fontSize: 20}}} className="question-textfield"
                                variant="outlined" label="Question"/>
-                    <RadioGroup key={"multipleChoice" + questionNumber}
+                    <RadioGroup className="radio-group" key={"multipleChoice" + questionNumber + question.type}
                                 defaultValue={question.type}>
                         <FormControlLabel value="2"
                                           control={<Radio onClick={() => setMultipleChoice(questionIndex, false)}
@@ -152,8 +161,8 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
                                           control={<Radio onClick={() => setMultipleChoice(questionIndex, true)}
                                                           className="question-type-radio" size={"large"}/>}
                                           label="Multiple choice"/>
-                        {question.type === 1 ?
-                            <MultipleChoiceModule key={questionNumber} changeAlternative={changeAlternative}
+                        {localIsMultipleChoice ?
+                            <MultipleChoiceModule changeAlternative={changeAlternative}
                                                   addAlternative={addAlternative} deleteAlternative={deleteAlternative}
                                                   alternatives={question.alternatives}/> : null}
                     </RadioGroup>

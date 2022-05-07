@@ -116,7 +116,7 @@ export default function GradingQuiz() {
                     : null
             }
             <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/quizanswers/" + id}}
-                             autoReconnect={true} onMessageRecieved={onMessageReceived}/>
+                             autoReconnect={true} onMessageReceived={onMessageReceived}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>

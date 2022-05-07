@@ -41,7 +41,7 @@ export default function Navbar() {
      * Updates notifications based on incoming data
      * @param data received from notification websocket
      */
-    function onMessageRecieved(data){
+    function onMessageReceived(data){
         dispatch(setNotifications({
             notifications:data
         }))
@@ -50,7 +50,7 @@ export default function Navbar() {
     return (
         <div className="navbar">
             {isLogged.isLogged === true ? (<>
-                <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/notifications"}} autoReconnect={true} onMessageRecieved={onMessageRecieved}/>
+                <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/notifications"}} autoReconnect={true} onMessageReceived={onMessageReceived}/>
                 <div className="navLinks">
                     <span onClick={()=>navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
                     <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>

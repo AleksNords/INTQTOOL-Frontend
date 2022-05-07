@@ -28,6 +28,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom:2px solid #00509e;
+    padding-bottom: 1rem;
 }
 
 .course-title{
@@ -38,6 +39,13 @@
     min-width:90%;
 }
 
-.join-course-wrapper{
+.join-course-button {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    align-self: center;
 
+}
+
+.join-course-wrapper {
+    display: flex;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import './quizFrontPage.css';
+import Button from "@mui/material/Button";
 
 /**
  * The frontpage of a quiz. Displays key information and introduces the student to the quiz
@@ -22,7 +23,7 @@ export default function QuizFrontPage({title, description, quizLength, startQuiz
                 </div>
             </div>
 
-            <button className={"start-quiz-button"} onClick={()=>startQuiz(0)}>Start quiz</button>
+            <Button variant={"contained"} className={"start-quiz-button"} onClick={()=>startQuiz(0)}>Start quiz</Button>
 
         </div>
 
