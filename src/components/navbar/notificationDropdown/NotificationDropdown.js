@@ -82,7 +82,7 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
             {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification)=> {
                 //notification = JSON.parse(notification);
 
-                return (<div><Notification key={"notificationDropdown-"+notification.notificationID} deleteNotificationFunction={deleteNotification} id={notification.notificationID} message={notification.message} type={notification.type}/><Divider color="#ffffff"/></div>)}))
+                return (<div><Notification key={"notificationDropdown-"+notification.notificationID} deleteNotificationFunction={deleteNotification} notification={notification} /><Divider color="#ffffff"/></div>)}))
                 : <div className="no-notifications">
                     <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
                     <span>Nothing to see here</span>

@@ -34,18 +34,18 @@ export default function GradingQuiz() {
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL+"/quiz/" + id,
+            url: process.env.REACT_APP_URL + "/quiz/" + id,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then(function (response) {
-            if (response.status === 200) {
-                let temp = response.data;
-                temp.quiz = JSON.parse(temp.quiz);
-                temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
-                setQuiz(temp);
-                getCourse(temp.courseId);
-            }
+                if (response.status === 200) {
+                    let temp = response.data;
+                    temp.quiz = JSON.parse(temp.quiz);
+                    temp.quiz.questions = temp.quiz.questions.map((question) => JSON.parse(question));
+                    setQuiz(temp);
+                    getCourse(temp.courseId);
+                }
             }
         )
     }, []);
@@ -100,8 +100,10 @@ export default function GradingQuiz() {
      * @param data from the websocket message
      */
     function onMessageReceived(data) {
-        let tempAnswers = JSON.parse(data.content).map(question => question.map(ans => JSON.parse(ans)));
-        setAnswers(tempAnswers)
+
+        let tempAnswers = data;
+        tempAnswers.content = JSON.parse(tempAnswers.content).map(question => question.map(ans => JSON.parse(ans)));
+        setAnswers(tempAnswers.content)
         setLoading(false)
     }
 
@@ -116,12 +118,12 @@ export default function GradingQuiz() {
                     : null
             }
             <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/quizanswers/" + id}}
-                             autoReconnect={true} onMessageRecieved={onMessageReceived}/>
+                             autoReconnect={true} onMessageReceived={onMessageReceived}/>
             {loading ?
                 <div className="loading-overlay">
                     <CircularProgress className={"loading"}/>
                 </div>
-            : null}
+                : null}
             <QuestionBanner currentQuestion={currentQuestion}
                             quizLength={quiz.quiz ? quiz.quiz.quizLength : undefined}
                             setCurrentQuestion={(e) => {
@@ -134,7 +136,7 @@ export default function GradingQuiz() {
                                 }
                             }}/>
             <div className={"grading-wrapper"}>
-                {quiz.quiz && quiz.quiz.questions.length > 0 && quiz.quiz.questions[currentQuestion].type === 1 ?
+                {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
                     <div className="auto-graded-question-filter">
                         <Snackbar sx={{color: "white"}}
                                   open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
@@ -159,7 +161,7 @@ export default function GradingQuiz() {
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
                             currentQuestion={currentQuestion}
-                            answers={quiz.quiz && quiz.quiz.questions.length > 0 && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                            answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
                             question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
             </div>
         </div>

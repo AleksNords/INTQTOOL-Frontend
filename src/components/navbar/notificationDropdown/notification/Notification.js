@@ -15,14 +15,14 @@ import ErrorIcon from '@mui/icons-material/Error';
  * @param deleteNotificationFunction function used to delete the notification
  * @returns single notification element
  */
-export default function Notification({id,message,type,deleteNotificationFunction}) {
+export default function Notification({notification,deleteNotificationFunction}) {
 
     /**
      * Renders an icon based on the notificaiton type
      * @returns icon representing the notification type
      */
     function renderIcon() {
-        switch (type) {
+        switch (notification.type) {
             case "question:graded":
                 return <CheckIcon sx={{fontSize: 50}} className="checkicon"/>;
             case "question:feedback":
@@ -38,12 +38,12 @@ export default function Notification({id,message,type,deleteNotificationFunction
         <div className="notification">
             {renderIcon()}
             <div className="text-wrapper">
-                <p className="title">{message}</p>
-                <p className="message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</p>
+                <p className="title">{notification.title}</p>
+                <p className="message">{notification.message}</p>
             </div>
             <div className="end-wrapper">
             <span className="notification-time">2m</span>
-                <IconButton onClick={()=>deleteNotificationFunction(id)} className="notification-delete-wrapper"><CancelIcon id="delete-icon" sx={{fontSize: 25}}/></IconButton>
+                <IconButton onClick={()=>deleteNotificationFunction(notification.notificationID)} className="notification-delete-wrapper"><CancelIcon id="delete-icon" sx={{fontSize: 25}}/></IconButton>
             </div>
         </div>
     )
