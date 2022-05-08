@@ -136,10 +136,10 @@ export default function GradingQuiz() {
                                 }
                             }}/>
             <div className={"grading-wrapper"}>
-                {quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1 ?
+                {quiz.quiz && (quiz.quiz.questions[currentQuestion].type === 1 || quiz.quiz.questions[currentQuestion].type === 3) ?
                     <div className="auto-graded-question-filter">
                         <Snackbar sx={{color: "white"}}
-                                  open={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 1}
+                                  open={quiz.quiz.questions[currentQuestion].type === 1 || quiz.quiz.questions[currentQuestion].type === 3}
                                   autoHideDuration={6000} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}>
                             <Alert severity="warning" sx={{
                                 width: "100%",
@@ -155,7 +155,7 @@ export default function GradingQuiz() {
                 <div className="feedback-wrapper">
                     <h1 className="course-quiz-title">{course.name} > {quiz.quiz ? quiz.quiz.title : undefined}</h1>
                     <GradingQuestion gradeFunction={gradeAnswers}
-                                     currentAnswer={answers[currentQuestion] && quiz.quiz && quiz.quiz.questions[currentQuestion].type !== 1 ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
+                                     currentAnswer={answers[currentQuestion] && quiz.quiz && (quiz.quiz.questions[currentQuestion].type !== 1 || quiz.quiz.questions[currentQuestion].type !== 3) ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
                                      questionIndex={currentQuestion + 1}
                                      question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
                 </div>

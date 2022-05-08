@@ -1,6 +1,6 @@
 import React from 'react';
 import './question.css';
-import {FormControlLabel, RadioGroup, TextField} from "@mui/material";
+import {Checkbox, FormControlLabel, FormGroup, RadioGroup, TextField} from "@mui/material";
 import Radio from "@mui/material/Radio";
 
 /**
@@ -12,6 +12,7 @@ import Radio from "@mui/material/Radio";
  * @returns element representing a single question in a quiz
  */
 export default function Question({question, currentQuestion, setAnswer, currAns}) {
+
     let answer = {
         "answer": "",
         "questionId": question.questionId,
@@ -22,43 +23,68 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
         answer = currAns;
     }
 
+    /**
+     * Determines the correct content for the question depending on the question type.
+     */
+    function getCenterContent() {
+
+        switch (question.type) {
+
+            case 1:
+
+                return <RadioGroup name={"question-" + question.questionId} onChange={(elem) => {
+                    answer.answer = elem.target.value;
+                    setAnswer(answer)
+                }} defaultValue={answer.answer}>
+                    {
+                        question.alternatives.map((alternative) => {
+                            alternative = JSON.parse(alternative);
+                            return <FormControlLabel value={alternative.alternativeID}
+                                                     control={<Radio size="large"/>}
+                                                     label={alternative.alternative}/>;
+                        })
+                    }
+                </RadioGroup>
+
+            case 2:
+
+                return <TextField
+                    className={"longanswer-textfield"}
+                    label={"Answer"}
+                    InputLabelProps={{style: {fontSize: 18}}}
+                    InputProps={{style: {fontSize: 18}}}
+                    multiline
+                    rows={10}
+                    onChange={(elem) => {
+                        answer.answer = elem.target.value;
+                        setAnswer(answer)
+                    }}>
+                    {(currAns !== undefined) ? currAns.answer : null}
+                </TextField>
+
+            case 3:
+                return <FormGroup name={"question-" + question.questionId} onChange={(elem) => {
+                    answer.answer = elem.target.value;
+                    console.log(elem.target.value)
+                    setAnswer(answer)
+                }} defaultValue={answer.answer}>
+                    {
+                        question.alternatives.map((alternative) => {
+                            alternative = JSON.parse(alternative);
+                            return <FormControlLabel value={alternative.alternativeID}
+                                                     control={<Checkbox size="large"/>}
+                                                     label={alternative.alternative}/>;
+                        })
+                    }
+                </FormGroup>
+        }
+    }
 
     return (
         <div className={"question-wrapper"} key={currentQuestion}>
             <h1 className={"question-text-header"}>{question.questionText}</h1>
             {
-                (question.type === 1 && question.alternatives !== undefined) ? (
-                        <RadioGroup name={"question-" + question.questionId} onChange={(elem) => {
-                            answer.answer = elem.target.value;
-                            setAnswer(answer)
-                        }} defaultValue={answer.answer}>
-                            {
-                                question.alternatives.map((alternative) => {
-                                    alternative = JSON.parse(alternative);
-                                    return <FormControlLabel value={alternative.alternative}
-                                                             control={<Radio size="large"/>}
-                                                             label={alternative.alternative}/>;
-                                })
-                            }
-                        </RadioGroup>
-                    )
-                    :
-                    (question.type === 2) ? (
-                            <TextField
-                                className={"longanswer-textfield"}
-                                label={"Answer"}
-                                InputLabelProps={{style: {fontSize: 18}}}
-                                InputProps={{style: {fontSize: 18}}}
-                                multiline
-                                rows={10}
-                                onChange={(elem) => {
-                                answer.answer = elem.target.value;
-                                setAnswer(answer)
-                            }}>
-                                {(currAns !== undefined) ? currAns.answer : null}
-                            </TextField>
-                        )
-                        : null
+                getCenterContent()
             }
         </div>)
 }

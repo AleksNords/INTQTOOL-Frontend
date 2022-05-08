@@ -73,6 +73,7 @@ export default function NewQuiz() {
      * Submits the quiz to the backend
      */
     function submitQuiz() {
+        convertMultipleCorrectAnswers();
         let temp = quiz;
         temp.quiz.questions = questions;
         temp.quiz.quizLength = questions.length;
@@ -88,9 +89,35 @@ export default function NewQuiz() {
         }).then((response) => {
             if (response.status === 201) {
                 navigate("/");
-                console.log(response);
             }
         })
+    }
+
+    /**
+     * Converts questions of type 1 (Multiple choice, 1 correct answer) to type 3 (Multiple choice,
+     * multiple correct answers) if they have multiple correct alternatives.
+     */
+    function convertMultipleCorrectAnswers() {
+        for (let i = 0; i < questions.length; i++) {
+            if (questions[i].type === 1 && getCorrectAlternativeAmount(questions[i]) > 1) {
+                questions[i].type = 3;
+            }
+        }
+    }
+
+    /**
+     * Checks how many alternatives are correct for a given question
+     * @param question
+     * @returns amount of alternatives that are correct
+     */
+    function getCorrectAlternativeAmount(question) {
+        let correctAltCount = 0;
+        for (let i = 0; i < question.alternatives.length; i++) {
+            if (question.alternatives[i].rightAlternative === true) {
+                correctAltCount++;
+            }
+        }
+        return correctAltCount;
     }
 
     /**

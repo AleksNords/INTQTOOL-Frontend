@@ -113,7 +113,6 @@ export default function Home() {
                     : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
 
                             {quizAnswers.map((quiz) => {
-                                console.log(quiz);
                                 return <QuizCard title={quiz.title} quizId={quiz.id}
                                                  grading={quiz.grading + "/" + quiz.quizLength}
                                                  status={quiz.status} userNavigateTo={"feedback"}/>

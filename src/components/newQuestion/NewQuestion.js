@@ -33,7 +33,7 @@ export default function NewQuestion({
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
-    const [localIsMultipleChoice, setLocalIsMultipleChoice] = useState(question.type === 1);
+    const [localIsMultipleChoice, setLocalIsMultipleChoice] = useState(question.type === 1 || question.type === 3);
 
     /**
      * Gives the question some empty alternatives if none are present
@@ -48,7 +48,6 @@ export default function NewQuestion({
             setQuestion(temp);
         }
     }
-
 
     /**
      * Adds an alternative to the question
@@ -135,13 +134,10 @@ export default function NewQuestion({
     function setMultipleChoice(index, newValue) {
         setIsMultipleChoice(index, newValue);
         setLocalIsMultipleChoice(newValue);
-        console.log("index: " + index);
-        console.log(("value: " + newValue));
-        console.log(question.type);
     }
 
     useEffect(() => {
-        setLocalIsMultipleChoice(question.type === 1);
+        setLocalIsMultipleChoice(question.type === 1 || question.type === 3);
     }, [question]);
 
 
