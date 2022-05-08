@@ -19,7 +19,17 @@ import CloseIcon from '@mui/icons-material/Close';
  * @param setIsMultipleChoice function used to set whether the question is multiple choice or not
  * @returns question element containing necessary values that represent the question
  */
-export default function NewQuestion({question, deleteQuestion, questionNumber, setQuestion, changeQuestionText, questionIndex, changeQuestionAlternatives, changeQuestionHints, setIsMultipleChoice}) {
+export default function NewQuestion({
+                                        question,
+                                        deleteQuestion,
+                                        questionNumber,
+                                        setQuestion,
+                                        changeQuestionText,
+                                        questionIndex,
+                                        changeQuestionAlternatives,
+                                        changeQuestionHints,
+                                        setIsMultipleChoice
+                                    }) {
 
     const [alternativeAmnt, setAlternativeAmnt] = useState(4);
     const [hintAmnt, setHintAmnt] = useState(0);
@@ -32,9 +42,9 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
         for (let i = 0; i < 4; i++) {
             let temp = question;
             temp.alternatives.push({
-                     alternativeText: "",
-                     correct: false
-                 })
+                alternativeText: "",
+                rightAlternative: false
+            })
             setQuestion(temp);
         }
     }
@@ -135,7 +145,7 @@ export default function NewQuestion({question, deleteQuestion, questionNumber, s
     }, [question]);
 
 
-    return(
+    return (
         <div key={"question" + questionIndex + question.questionText} className="new-question">
             <div className="top-content-wrapper">
                 <h1 className="question-number">
