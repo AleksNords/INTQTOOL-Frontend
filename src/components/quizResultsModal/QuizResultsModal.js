@@ -44,9 +44,12 @@ export default function QuizResultsModal({resultArray, setCurrentQuestion, setSh
                 break;
 
             case 1:
-                classString = "correct-grading";
-                break;
-
+                if (questionAns.status === "graded") {
+                    classString = "correct-grading";
+                    break;
+                }
+            //We enable the fall through as we want this span if none of the above conditions apply,
+            //but the value is 0 if no grading is received, which means we need to check the status of the question
             default:
                 classString = "ungraded-grading";
         }

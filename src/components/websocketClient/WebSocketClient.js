@@ -20,8 +20,6 @@ export default function WebSocketClient({
     };
 
     const onConnect = () => {
-        console.info("Connected at " + new Date());
-
     };
 
     const onMessage = (data) => {

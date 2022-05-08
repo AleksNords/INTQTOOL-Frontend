@@ -85,7 +85,7 @@ export default function NewQuiz() {
             },
             data: temp
         }).then((response) => {
-            if (response.status === 200) {
+            if (response.status === 201) {
                 navigate("/");
                 console.log(response);
             }
