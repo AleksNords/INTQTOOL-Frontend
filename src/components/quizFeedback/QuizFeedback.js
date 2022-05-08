@@ -40,7 +40,7 @@ export default function QuizFeedback() {
                 let temp = response.data;
                 temp.answers = temp.answers.map((ans) => JSON.parse(ans));
                 setAnsweredQuiz(temp);
-                getQuiz(temp.quizId);
+                getQuiz(temp.deployedQuizId);
             }
         );
 
