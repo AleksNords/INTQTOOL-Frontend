@@ -52,12 +52,13 @@ export default function NewQuiz() {
             if (response.status === 200) {
                 let temp = response.data;
                 temp.quiz = JSON.parse(temp.quiz);
-                if(temp.quiz.questions.length >=1){
-                    setQuestions(temp.quiz.questions.map((question)=>{
-                        let tempQuestion =JSON.parse(question);
-                        tempQuestion.hints=[];
-                        tempQuestion.alternatives = tempQuestion.alternatives.map((alternative)=>JSON.parse(alternative));
-                        return tempQuestion}))
+                if (temp.quiz.questions.length >= 1) {
+                    setQuestions(temp.quiz.questions.map((question) => {
+                        let tempQuestion = JSON.parse(question);
+                        tempQuestion.hints = [];
+                        tempQuestion.alternatives = tempQuestion.alternatives.map((alternative) => JSON.parse(alternative));
+                        return tempQuestion
+                    }))
                 }
                 setQuiz(temp);
             }
@@ -79,7 +80,7 @@ export default function NewQuiz() {
         setQuiz(temp);
         axios({
             method: 'post',
-            url: process.env.REACT_APP_URL + "/quiz/save/"+quiz.courseId,
+            url: process.env.REACT_APP_URL + "/quiz/save/" + quiz.courseId,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
@@ -187,9 +188,11 @@ export default function NewQuiz() {
                     Your quiz has been updated!
                 </Alert>
             </Snackbar>
-            {showNewQuizModulo ? <div className="new-quiz-wrapper"><NewQuizModulo quizDetails={quiz} setShowSavedQuiz={setShowSavedQuiz} setShowFunction={setShowNewQuizModulo}/>
-                <div className="shadow-filter"/>
-            </div> : null}
+            {showNewQuizModulo ?
+                <div className="new-quiz-wrapper"><NewQuizModulo quizDetails={quiz} setShowSavedQuiz={setShowSavedQuiz}
+                                                                 setShowFunction={setShowNewQuizModulo}/>
+                    <div className="shadow-filter"/>
+                </div> : null}
             <QuestionBanner addQuestion={addQuestion} currentQuestion={currentQuestion} quizLength={questions.length}
                             setCurrentQuestion={(e) => setCurrentQuestion(e)} isNewQuizBanner={true}/>
             {questions.length > 0 ?
