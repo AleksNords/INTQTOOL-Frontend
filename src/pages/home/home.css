@@ -15,9 +15,8 @@
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    scrollbar-width:0;
     -ms-overflow-style: none;
-
+    scrollbar-width: none;
 }
 
 .quizcard-container::-webkit-scrollbar{

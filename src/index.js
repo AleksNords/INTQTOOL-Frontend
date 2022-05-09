@@ -3,7 +3,7 @@ import './index.css';
 import App from './App';
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-import {applyMiddleware, createStore} from "redux";
+import {applyMiddleware, compose, createStore} from "redux";
 import {BrowserRouter} from 'react-router-dom';
 import reducer from "./store/reducer";
 import {getConfiguredCache} from "money-clip";
@@ -47,7 +47,7 @@ cache.getAll().then((data) => {
     const store = createStore(
         reducer,
         data,
-        composeWithDevTools(applyMiddleware(persistUser,persistLoginStatus)));
+        compose(applyMiddleware(persistUser,persistLoginStatus)));
 
 
     ReactDOM.render(
