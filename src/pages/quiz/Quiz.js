@@ -51,7 +51,9 @@ export default function Quiz() {
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
-        }).then((response) => saveQuizAnswers(response));
+        }).then((response) => {
+            saveQuizAnswers(response)
+        });
     }, []);
 
     /**
@@ -85,6 +87,7 @@ export default function Quiz() {
                 setQuestionAnswers(temp.answers);
             }
             setQuizAnswers(temp);
+            console.log(temp);
         }
     }
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './question.css';
 import {Checkbox, FormControlLabel, FormGroup, RadioGroup, TextField} from "@mui/material";
 import Radio from "@mui/material/Radio";
@@ -22,6 +22,12 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
     if (currAns !== undefined) {
         answer = currAns;
     }
+
+    useEffect(() => {
+        if (currAns !== undefined) {
+            setCheckedAnswersArray(currAns.answer.split(",").map(id=>parseInt(id)))
+        }
+    }, [])
 
     function setCheckedAnswers(newValue) {
         let tempCheckedAnswers = checkedAnswers;
@@ -84,12 +90,12 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
             case 3:
                 return <FormGroup name={"question-" + question.questionId} onChange={(elem) => {
                     setCheckedAnswers(elem.target.value);
-                }} defaultValue={answer.answer}>
+                }}>
                     {
                         question.alternatives.map((alternative) => {
                             alternative = JSON.parse(alternative);
                             return <FormControlLabel value={alternative.alternativeID}
-                                                     control={<Checkbox size="large"/>}
+                                                     control={<Checkbox defaultChecked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID):false} size="large"/>}
                                                      label={alternative.alternative}/>;
                         })
                     }
