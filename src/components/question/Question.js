@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './question.css';
 import {Checkbox, FormControlLabel, FormGroup, RadioGroup, TextField} from "@mui/material";
 import Radio from "@mui/material/Radio";
@@ -12,7 +12,7 @@ import Radio from "@mui/material/Radio";
  * @returns element representing a single question in a quiz
  */
 export default function Question({question, currentQuestion, setAnswer, currAns}) {
-
+    const [checkedAnswers, setCheckedAnswersArray] = useState([]);
     let answer = {
         "answer": "",
         "questionId": question.questionId,
@@ -21,6 +21,25 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
     }
     if (currAns !== undefined) {
         answer = currAns;
+    }
+
+    function setCheckedAnswers(newValue) {
+        let tempCheckedAnswers = checkedAnswers;
+        if (tempCheckedAnswers.includes(newValue)) {
+            let newValueIndex = tempCheckedAnswers.indexOf(newValue);
+            tempCheckedAnswers.splice(newValueIndex, 1);
+        } else {
+            tempCheckedAnswers.push(newValue);
+        }
+        setCheckedAnswersArray(tempCheckedAnswers);
+
+        let answerIdsString = "";
+        tempCheckedAnswers.forEach(ansId => {
+            answerIdsString = answerIdsString + ansId + ",";
+        })
+        answerIdsString = answerIdsString.slice(0, -1);
+        answer.answer = answerIdsString;
+        setAnswer(answer)
     }
 
     /**
@@ -64,9 +83,7 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
 
             case 3:
                 return <FormGroup name={"question-" + question.questionId} onChange={(elem) => {
-                    answer.answer = elem.target.value;
-                    console.log(elem.target.value)
-                    setAnswer(answer)
+                    setCheckedAnswers(elem.target.value);
                 }} defaultValue={answer.answer}>
                     {
                         question.alternatives.map((alternative) => {
