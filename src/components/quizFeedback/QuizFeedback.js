@@ -24,7 +24,7 @@ export default function QuizFeedback() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [answeredQuiz, setAnsweredQuiz] = useState({});
     const [questions, setQuestions] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
     const [showResultsModal, setShowResultsModal] = useState(false);
     let {id} = useParams();
 
@@ -42,7 +42,10 @@ export default function QuizFeedback() {
                 temp.answers = temp.answers.map((ans) => JSON.parse(ans));
                 setAnsweredQuiz(temp);
                 getQuiz(temp.deployedQuizId);
-                setCheckedAnswers(temp.answers[currentQuestion].answer.split(",").map(id=>parseInt(id)));
+                let tempAnswers = temp.answers;
+                tempAnswers = tempAnswers.map(ans => ans.answer.split(","))
+                tempAnswers = tempAnswers.map(arry => arry.map(ansId => parseInt(ansId)))
+                setCheckedAnswers(tempAnswers);
             }
         );
     }, []);
@@ -108,53 +111,67 @@ export default function QuizFeedback() {
         return gradingSpan;
     }
 
+
     /**
      * Determines the question content based on the question type.
      */
     function getQuestionContent() {
 
+
         switch (questions[currentQuestion].type) {
 
             case 1:
-                return <div className="feedback-choice-wrapper">
-                    <RadioGroup value={answeredQuiz.answers[currentQuestion].answer}>
+                return <div className="feedback-choice-wrapper"
+                            key={"multipleCorrectFormGroup-" + questions[currentQuestion].questionId}>
+                    <RadioGroup value={checkedAnswers ? checkedAnswers[currentQuestion][0] : null}>
                         {
                             questions[currentQuestion].alternatives.map((alternative) => {
                                 alternative = JSON.parse(alternative);
-                                return <FormControlLabel value={alternative.alternative}
-                                                         control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 30,},
-                                                             '&.Mui-checked': {
-                                                                 color: answeredQuiz.answers[currentQuestion].grading === 1 ? "#42C767" : "#F63E3E",
-                                                             }}}/>}
-                                                         label={alternative.alternative}/>;
+                                return <FormControlLabel
+                                    value={alternative.alternativeID}
+                                    control={<Radio
+                                        key={"checkBoxField-" + alternative.alternativeID + "-" + currentQuestion}
+                                        sx={{
+                                            '& .MuiSvgIcon-root': {fontSize: 30,},
+                                            '&.Mui-checked': {
+                                                color: answeredQuiz.answers[currentQuestion].grading === 1 ? "#42C767" : "#F63E3E",
+                                            }
+                                        }}/>}
+                                    label={alternative.alternative}/>;
                             })
                         }
                     </RadioGroup>
                 </div>
 
             case 2:
-                return <div className="feedback-textfield-wrapper">
-                        <TextField key={"answer" + id + currentQuestion}
-                                   value={answeredQuiz.answers[currentQuestion].answer} multiline rows={7}
-                                   label="Your answer" className="feedback-textfield"
-                                   InputLabelProps={{style: {fontSize: 24}}}
-                                   InputProps={{style: {fontSize: 24}, readOnly: true}}/>
-                        <TextField key={"feedback" + id + currentQuestion}
-                                   value={answeredQuiz.answers[currentQuestion].feedback} multiline rows={7}
-                                   label="Feedback" className="feedback-textfield"
-                                   InputLabelProps={{style: {fontSize: 24}}}
-                                   InputProps={{style: {fontSize: 24}, readOnly: true}}/>
-                    </div>
+                return <div className="feedback-textfield-wrapper"
+                            key={"multipleCorrectFormGroup-" + questions[currentQuestion].questionId}>
+                    <TextField key={"answer" + id + currentQuestion}
+                               value={answeredQuiz.answers[currentQuestion].answer} multiline rows={7}
+                               label="Your answer" className="feedback-textfield"
+                               InputLabelProps={{style: {fontSize: 24}}}
+                               InputProps={{style: {fontSize: 24}, readOnly: true}}/>
+                    <TextField key={"feedback" + id + currentQuestion}
+                               value={answeredQuiz.answers[currentQuestion].feedback} multiline rows={7}
+                               label="Feedback" className="feedback-textfield"
+                               InputLabelProps={{style: {fontSize: 24}}}
+                               InputProps={{style: {fontSize: 24}, readOnly: true}}/>
+                </div>
 
             case 3:
-                return <div className="feedback-choice-wrapper">
-                    <FormGroup value={answeredQuiz.answers[currentQuestion].answer}>
+                return <div className="feedback-choice-wrapper"
+                            key={"multipleCorrectFormGroup-" + questions[currentQuestion].questionId}>
+                    <FormGroup>
                         {
                             questions[currentQuestion].alternatives.map((alternative) => {
                                 alternative = JSON.parse(alternative);
-                                return <FormControlLabel value={alternative.alternative}
-                                                         control={<Checkbox checked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID) : false} sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
-                                                         label={alternative.alternative}/>;
+                                return <FormControlLabel
+                                    value={alternative.alternative}
+                                    control={<Checkbox
+                                        key={"checkBoxField-" + alternative.alternativeID + "-" + currentQuestion}
+                                        checked={checkedAnswers ? checkedAnswers[currentQuestion].includes(alternative.alternativeID) : false}
+                                        sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
+                                    label={alternative.alternative}/>;
                             })
                         }
                     </FormGroup>
@@ -169,19 +186,24 @@ export default function QuizFeedback() {
                     <CircularProgress className={"loading"}/>
                 </div>
                 : <>
-                    {showResultsModal ? <QuizResultsModal setCurrentQuestion={setCurrentQuestion} setShowResultsModal={setShowResultsModal} resultArray={answeredQuiz.answers}/> : null}
-                <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={showResultsModal} onClick={() => setShowResultsModal(false)}/>
+                    {showResultsModal ? <QuizResultsModal setCurrentQuestion={setCurrentQuestion}
+                                                          setShowResultsModal={setShowResultsModal}
+                                                          resultArray={answeredQuiz.answers}/> : null}
+                    <Backdrop sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}} open={showResultsModal}
+                              onClick={() => setShowResultsModal(false)}/>
                     <QuestionBanner currentQuestion={currentQuestion}
                                     quizLength={questions.length}
                                     setCurrentQuestion={setCurrentQuestion}/>
                     <h1 className="feedback-question-number">Question {currentQuestion + 1}</h1>
                     <h2 className="feedback-question-title">{questions[currentQuestion].questionText}</h2>
                     <div className="main-feedback-wrapper">
-                    {getQuestionContent()}
-                    {getGradingSpan()}
+                        {getQuestionContent()}
+                        {getGradingSpan()}
                     </div>
                     <QuizNavigation quizLength={questions.length} setCurrentQuestion={setCurrentQuestion}
-                                    currentQuestion={currentQuestion} endQuiz={() => {setShowResultsModal(true)}}
+                                    currentQuestion={currentQuestion} endQuiz={() => {
+                        setShowResultsModal(true)
+                    }}
                                     saveFunction={null}/>
                 </>
             }

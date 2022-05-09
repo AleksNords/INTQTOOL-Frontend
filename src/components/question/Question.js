@@ -60,7 +60,7 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                 return <RadioGroup name={"question-" + question.questionId} onChange={(elem) => {
                     answer.answer = elem.target.value;
                     setAnswer(answer)
-                }} defaultValue={answer.answer}>
+                }} defaultValue={answer.answerID}>
                     {
                         question.alternatives.map((alternative) => {
                             alternative = JSON.parse(alternative);

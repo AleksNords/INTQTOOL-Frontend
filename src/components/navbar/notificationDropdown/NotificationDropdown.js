@@ -71,6 +71,7 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
         };
     }, [ref]);
 
+
     //TODO: slide animation on removing notification
     return (
         <div ref={ref} className="notifications">
@@ -88,7 +89,7 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
                     <span>Nothing to see here</span>
                     <span id="no-notifications-subtext">Your notifications will appear here</span>
             </div>}
-            <p onClick={()=>navigate("/notifications")} className="all-notifications">See all</p>
+            <p onClick={()=>{setShowFunction(false);navigate("/notifications");}} className="all-notifications">See all</p>
         </div>
     )
 }
