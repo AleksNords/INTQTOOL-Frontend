@@ -9,13 +9,19 @@
     align-items: center;
 }
 
-.question-text-header{
-    margin:15vh 0;
-}
-
 .longanswer-textfield{
     border-radius: 0.5rem;
     height: 40vh;
     width:100%;
     resize: none;
+}
+
+.multiple-correct-answers {
+    font-size: 1.3rem;
+    color: #8F8F8F;
+    font-weight: 500;
+}
+
+.question-header-wrapper {
+    margin: 15vh 0 10vh 0;
 }

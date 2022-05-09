@@ -89,7 +89,7 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                         question.alternatives.map((alternative) => {
                             alternative = JSON.parse(alternative);
                             return <FormControlLabel value={alternative.alternativeID}
-                                                     control={<Checkbox size="large"/>}
+                                                     control={<Checkbox sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
                                                      label={alternative.alternative}/>;
                         })
                     }
@@ -99,7 +99,10 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
 
     return (
         <div className={"question-wrapper"} key={currentQuestion}>
-            <h1 className={"question-text-header"}>{question.questionText}</h1>
+            <div className="question-header-wrapper">
+                <h1>{question.questionText}</h1>
+                {question.type === 3 ? <span className="multiple-correct-answers">NOTE: This question has multiple correct answers. Wrong answers give negative credit.</span> : null}
+            </div>
             {
                 getCenterContent()
             }
