@@ -45,7 +45,6 @@ export default function QuizFeedback() {
                 setCheckedAnswers(temp.answers[currentQuestion].answer.split(",").map(id=>parseInt(id)));
             }
         );
-
     }, []);
 
     /**

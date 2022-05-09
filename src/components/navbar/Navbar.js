@@ -13,6 +13,7 @@ import NotificationBell from './notificationBell/NotificationBell';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import WebSocketClient from "../websocketClient/WebSocketClient";
 import {setNotifications} from "../../store/action/notificationAction";
+import {Tooltip} from "@mui/material";
 
 /**
  * Main navigation bar for the application. Houses numerous functions like navigation, user notifications and logout controls
@@ -77,7 +78,7 @@ export default function Navbar() {
                 <div className="personalLinks">
                     <div><NotificationBell/></div>
                     <span>{user.user.firstName}</span>
-                    <AccountCircleIcon sx={{fontSize: 45}} onClick={logout}/>
+                    <Tooltip title={<span className="logout-tooltip">Log out</span>}><AccountCircleIcon sx={{fontSize: 45}} onClick={logout}/></Tooltip>
                 </div></>) : <img className="ntnu-logo" alt={"NTNU logo"} src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
         </div>
     )
