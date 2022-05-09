@@ -32,6 +32,11 @@ export default function QuizResultsModal({resultArray, setCurrentQuestion, setSh
      */
     function getQuestionGradeColor(questionAns) {
         let grading = questionAns.grading;
+
+        if (grading > 0 && grading < 1) {
+            grading = 0.5;
+        }
+
         let classString;
         switch (grading) {
 

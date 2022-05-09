@@ -19,6 +19,7 @@ import Radio from "@mui/material/Radio";
  */
 export default function QuizFeedback() {
 
+    const [checkedAnswers, setCheckedAnswers] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [answeredQuiz, setAnsweredQuiz] = useState({});
@@ -41,6 +42,7 @@ export default function QuizFeedback() {
                 temp.answers = temp.answers.map((ans) => JSON.parse(ans));
                 setAnsweredQuiz(temp);
                 getQuiz(temp.deployedQuizId);
+                setCheckedAnswers(temp.answers[currentQuestion].answer.split(",").map(id=>parseInt(id)));
             }
         );
 
@@ -152,23 +154,13 @@ export default function QuizFeedback() {
                             questions[currentQuestion].alternatives.map((alternative) => {
                                 alternative = JSON.parse(alternative);
                                 return <FormControlLabel value={alternative.alternative}
-                                                         control={<Checkbox sx={{'& .MuiSvgIcon-root': {fontSize: 30,},
-                                                             '&.Mui-checked': {
-                                                                 color: getCheckboxColor(alternative),
-                                                             }}}/>}
+                                                         control={<Checkbox checked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID) : false} sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
                                                          label={alternative.alternative}/>;
                             })
                         }
                     </FormGroup>
                 </div>
         }
-    }
-
-    /**
-     * Determines color for a provided checkbox based on whether the answer is correct or false.
-     */
-    function getCheckboxColor(alternative) {
-        
     }
 
     return (
