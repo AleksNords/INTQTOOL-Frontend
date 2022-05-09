@@ -5,7 +5,7 @@ import QuizResultsModal from "../quizResultsModal/QuizResultsModal";
 import axios from "axios";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
-import {Backdrop, CircularProgress, FormControlLabel, RadioGroup, TextField} from "@mui/material";
+import {Backdrop, Checkbox, CircularProgress, FormControlLabel, FormGroup, RadioGroup, TextField} from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 import QuizNavigation from "../quizNavigation/QuizNavigation";
 import CloseIcon from '@mui/icons-material/Close';
@@ -74,6 +74,11 @@ export default function QuizFeedback() {
      */
     function getGradingSpan() {
         let grading = answeredQuiz.answers[currentQuestion].grading;
+
+        if (grading > 0 && grading < 1) {
+            grading = 0.5;
+        }
+
         let gradingSpan;
         switch (grading) {
 
@@ -102,6 +107,70 @@ export default function QuizFeedback() {
         return gradingSpan;
     }
 
+    /**
+     * Determines the question content based on the question type.
+     */
+    function getQuestionContent() {
+
+        switch (questions[currentQuestion].type) {
+
+            case 1:
+                return <div className="feedback-choice-wrapper">
+                    <RadioGroup value={answeredQuiz.answers[currentQuestion].answer}>
+                        {
+                            questions[currentQuestion].alternatives.map((alternative) => {
+                                alternative = JSON.parse(alternative);
+                                return <FormControlLabel value={alternative.alternative}
+                                                         control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 30,},
+                                                             '&.Mui-checked': {
+                                                                 color: answeredQuiz.answers[currentQuestion].grading === 1 ? "#42C767" : "#F63E3E",
+                                                             }}}/>}
+                                                         label={alternative.alternative}/>;
+                            })
+                        }
+                    </RadioGroup>
+                </div>
+
+            case 2:
+                return <div className="feedback-textfield-wrapper">
+                        <TextField key={"answer" + id + currentQuestion}
+                                   value={answeredQuiz.answers[currentQuestion].answer} multiline rows={7}
+                                   label="Your answer" className="feedback-textfield"
+                                   InputLabelProps={{style: {fontSize: 24}}}
+                                   InputProps={{style: {fontSize: 24}, readOnly: true}}/>
+                        <TextField key={"feedback" + id + currentQuestion}
+                                   value={answeredQuiz.answers[currentQuestion].feedback} multiline rows={7}
+                                   label="Feedback" className="feedback-textfield"
+                                   InputLabelProps={{style: {fontSize: 24}}}
+                                   InputProps={{style: {fontSize: 24}, readOnly: true}}/>
+                    </div>
+
+            case 3:
+                return <div className="feedback-choice-wrapper">
+                    <FormGroup value={answeredQuiz.answers[currentQuestion].answer}>
+                        {
+                            questions[currentQuestion].alternatives.map((alternative) => {
+                                alternative = JSON.parse(alternative);
+                                return <FormControlLabel value={alternative.alternative}
+                                                         control={<Checkbox sx={{'& .MuiSvgIcon-root': {fontSize: 30,},
+                                                             '&.Mui-checked': {
+                                                                 color: getCheckboxColor(alternative),
+                                                             }}}/>}
+                                                         label={alternative.alternative}/>;
+                            })
+                        }
+                    </FormGroup>
+                </div>
+        }
+    }
+
+    /**
+     * Determines color for a provided checkbox based on whether the answer is correct or false.
+     */
+    function getCheckboxColor(alternative) {
+        
+    }
+
     return (
         <div key={"quizanswer" + id} className="feedback-quiz">
             {loading ?
@@ -117,40 +186,7 @@ export default function QuizFeedback() {
                     <h1 className="feedback-question-number">Question {currentQuestion + 1}</h1>
                     <h2 className="feedback-question-title">{questions[currentQuestion].questionText}</h2>
                     <div className="main-feedback-wrapper">
-                    {
-                        questions[currentQuestion].type === 1 ?
-                            <div className="feedback-radio-wrapper">
-                                <RadioGroup value={answeredQuiz.answers[currentQuestion].answer}>
-                                    {
-                                        questions[currentQuestion].alternatives.map((alternative) => {
-                                            alternative = JSON.parse(alternative);
-                                            return <FormControlLabel value={alternative.alternative}
-                                                                     control={<Radio sx={{'& .MuiSvgIcon-root': {fontSize: 30,},
-                                                                         '&.Mui-checked': {
-                                                                             color: answeredQuiz.answers[currentQuestion].grading === 1 ? "#42C767" : "#F63E3E",
-                                                                         }}}/>}
-                                                                     label={alternative.alternative}/>;
-                                        })
-                                    }
-                                </RadioGroup>
-                            </div>
-                            :
-                            questions[currentQuestion].type === 2 ?
-                                <div className="feedback-textfield-wrapper">
-                                    <TextField key={"answer" + id + currentQuestion}
-                                               value={answeredQuiz.answers[currentQuestion].answer} multiline rows={7}
-                                               label="Your answer" className="feedback-textfield"
-                                               InputLabelProps={{style: {fontSize: 24}}}
-                                               InputProps={{style: {fontSize: 24}, readOnly: true}}/>
-                                    <TextField key={"feedback" + id + currentQuestion}
-                                               value={answeredQuiz.answers[currentQuestion].feedback} multiline rows={7}
-                                               label="Feedback" className="feedback-textfield"
-                                               InputLabelProps={{style: {fontSize: 24}}}
-                                               InputProps={{style: {fontSize: 24}, readOnly: true}}/>
-                                </div>
-                                :
-                                null
-                    }
+                    {getQuestionContent()}
                     {getGradingSpan()}
                     </div>
                     <QuizNavigation quizLength={questions.length} setCurrentQuestion={setCurrentQuestion}

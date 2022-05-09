@@ -25,7 +25,7 @@
     justify-content: space-between;
 }
 
-.feedback-radio-wrapper {
+.feedback-choice-wrapper {
     align-self: center;
     display:flex;
     width: 70%;
