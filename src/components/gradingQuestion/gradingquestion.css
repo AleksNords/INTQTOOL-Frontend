@@ -34,8 +34,7 @@
 
 .credit-radio-wrapper {
     display: flex;
-    align-self: end;
-    margin-right: 27%;
+    justify-content: center;
 }
 
 .submit-feedback-button {
