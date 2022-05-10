@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FullSizeNotification from "./fullsizeNotification/FullsizeNotification";
+import FullSizeNotification from "../../components/fullsizeNotification/FullsizeNotification";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from "axios";
 import {setNotifications} from "../../store/action/notificationAction";
@@ -16,7 +16,6 @@ import {setNotifications} from "../../store/action/notificationAction";
 export default function Notifications() {
 
     const notifications = useSelector(state => state.notificationReducer);
-    const user = useSelector(state => state.userReducer.user);
     //const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
@@ -72,7 +71,7 @@ export default function Notifications() {
             <div className="notification-wrapper">
                 {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification)=> {
                         //notification = JSON.parse(notification);
-                        return (<FullSizeNotification key={notification.notificationID} deleteNotificationFunction={deleteNotification} id={notification.notificationID} message={notification.message} type={notification.type}/>)}))
+                        return (<FullSizeNotification key={notification.notificationID} deleteNotificationFunction={deleteNotification} notification={notification}/>)}))
                     : <div className="no-notifications-big">
                         <NotificationsIcon className="grey-bell" sx={{fontSize: 250}}/>
                         <span className="nothing-to-see">Nothing to see here</span>

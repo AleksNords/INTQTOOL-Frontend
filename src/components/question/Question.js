@@ -12,7 +12,7 @@ import Radio from "@mui/material/Radio";
  * @returns element representing a single question in a quiz
  */
 export default function Question({question, currentQuestion, setAnswer, currAns}) {
-    const [checkedAnswers, setCheckedAnswersArray] = useState([]);
+ const [checkedAnswers,setCheckedAnswersArray] = useState([])
     let answer = {
         "answer": "",
         "questionId": question.questionId,
@@ -21,19 +21,24 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
     }
     if (currAns !== undefined) {
         answer = currAns;
+
     }
 
+    console.log("currAns",currAns)
+    console.log(checkedAnswers)
+
     useEffect(() => {
-        if (currAns !== undefined) {
+        if (currAns !== undefined && question.type !== 2) {
             setCheckedAnswersArray(currAns.answer.split(",").map(id=>parseInt(id)))
+            console.log(currAns)
         }
-    }, [])
+    }, [currAns])
 
     function setCheckedAnswers(newValue) {
         let tempCheckedAnswers = checkedAnswers;
         if (tempCheckedAnswers.includes(newValue)) {
             let newValueIndex = tempCheckedAnswers.indexOf(newValue);
-            tempCheckedAnswers.splice(newValueIndex, 1);
+            tempCheckedAnswers = tempCheckedAnswers.splice(newValueIndex, 1);
         } else {
             tempCheckedAnswers.push(newValue);
         }
@@ -57,10 +62,10 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
 
             case 1:
 
-                return <RadioGroup name={"question-" + question.questionId} onChange={(elem) => {
+                return <RadioGroup name={"question-" + question.questionId} key={"RadioGroup-"+question.questionId+checkedAnswers[0]} onChange={(elem) => {
                     answer.answer = elem.target.value;
                     setAnswer(answer)
-                }} defaultValue={answer.answerID}>
+                }} defaultValue={checkedAnswers[0]}>
                     {
                         question.alternatives.map((alternative) => {
                             alternative = JSON.parse(alternative);
@@ -76,25 +81,28 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                 return <TextField
                     className={"longanswer-textfield"}
                     label={"Answer"}
+                    key={"RadioGroup-"+question.questionId}
                     InputLabelProps={{style: {fontSize: 18}}}
                     InputProps={{style: {fontSize: 18}}}
                     multiline
                     rows={10}
+                    defaultValue={answer.answer}
                     onChange={(elem) => {
                         answer.answer = elem.target.value;
                         setAnswer(answer)
                     }}>
-                    {(currAns !== undefined) ? currAns.answer : null}
+
                 </TextField>
 
             case 3:
-                return <FormGroup name={"question-" + question.questionId} onChange={(elem) => {
+                return <FormGroup name={"question-" + question.questionId} key={"FormGroup-"+question.questionId+checkedAnswers[0]} onChange={(elem) => {
                     setCheckedAnswers(elem.target.value);
                 }}>
                     {
                         question.alternatives.map((alternative) => {
                             alternative = JSON.parse(alternative);
                             return <FormControlLabel value={alternative.alternativeID}
+                                                     defaultChecked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID) : false}
                                                      control={<Checkbox defaultChecked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID):false} sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
                                                      label={alternative.alternative}/>;
                         })

@@ -19,6 +19,7 @@ export default function Quiz() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [quiz, setQuiz] = useState({});
     const [questionAnswers, setQuestionAnswers] = useState([]);
+    const[checkedAnswers,setCheckedAnswers] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({
         "answers": [],
         "status": "in-progress",
@@ -52,6 +53,7 @@ export default function Quiz() {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
         }).then((response) => {
+
             saveQuizAnswers(response)
         });
     }, []);
@@ -71,7 +73,7 @@ export default function Quiz() {
             },
             data: temp
 
-        }).then((response) => saveQuizAnswers(response));
+        });
     }
 
     /**
@@ -87,7 +89,11 @@ export default function Quiz() {
                 setQuestionAnswers(temp.answers);
             }
             setQuizAnswers(temp);
-            console.log(temp);
+            let tempAnswers = temp.answers;
+            tempAnswers = tempAnswers.map(ans => ans.answer.split(","))
+            tempAnswers = tempAnswers.map(arry => arry.map(ansId => parseInt(ansId)))
+            setCheckedAnswers(tempAnswers);
+
         }
     }
 

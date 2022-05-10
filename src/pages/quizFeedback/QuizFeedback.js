@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import './quizfeedback.css';
-import QuestionBanner from "../questionBanner/QuestionBanner";
-import QuizResultsModal from "../quizResultsModal/QuizResultsModal";
+import QuestionBanner from "../../components/questionBanner/QuestionBanner";
+import QuizResultsModal from "../../components/quizResultsModal/QuizResultsModal";
 import axios from "axios";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
 import {Backdrop, Checkbox, CircularProgress, FormControlLabel, FormGroup, RadioGroup, TextField} from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
-import QuizNavigation from "../quizNavigation/QuizNavigation";
+import QuizNavigation from "../../components/quizNavigation/QuizNavigation";
 import CloseIcon from '@mui/icons-material/Close';
 import PercentIcon from '@mui/icons-material/Percent';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';

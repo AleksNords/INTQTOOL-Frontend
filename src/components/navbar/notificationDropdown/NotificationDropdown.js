@@ -23,18 +23,18 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
     const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer)
     const dispatch = useDispatch();
-    const notifications = useSelector(state =>state.notificationReducer)
+    const notifications = useSelector(state => state.notificationReducer)
 
 
     function clearNotifications() {
         if (notifications.notifications.length >= 1) {
             clearParentNotifications();
             dispatch(setNotifications({
-                notifications:[]
+                notifications: []
             }))
             axios({
                 method: "get",
-                url: process.env.REACT_APP_URL+"/user/clearnotifications",
+                url: process.env.REACT_APP_URL + "/user/clearnotifications",
                 headers: {
                     "Authorization": "Bearer " + isLogged.jwtToken
                 }
@@ -44,14 +44,16 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
 
     function deleteNotification(notificationID) {
         let temp = notifications;
-        temp.notifications = temp.notifications.filter(notification => {return notification.notificationID !== notificationID});
+        temp.notifications = temp.notifications.filter(notification => {
+            return notification.notificationID !== notificationID
+        });
         dispatch(setNotifications({
-            notifications:temp.notifications
+            notifications: temp.notifications
         }))
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL +"/user/removenotification/"+notificationID,
+            url: process.env.REACT_APP_URL + "/user/removenotification/" + notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -78,18 +80,29 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
             <div className="notification-header">
                 <span
                     className="amount-text">{(notifications.notifications.length === 0 || !notifications) ? "No notifications" : (notifications.notifications.length === 1) ? "1 Notification" : notifications.notifications.length + " notifications"}</span>
-                <Button sx={{fontSize: 14}} className="clear-button" variant="outlined" startIcon={<DeleteIcon />} onClick={clearNotifications}>Clear</Button></div>
+                <Button sx={{fontSize: 14}} className="clear-button" variant="outlined" startIcon={<DeleteIcon/>}
+                        onClick={clearNotifications}>Clear</Button></div>
             <Divider color="#ffffff"/>
-            {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification)=> {
-                //notification = JSON.parse(notification);
+            <div className={"notification-dropdown-list-wrapper"}>
+                {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification) => {
+                        //notification = JSON.parse(notification);
 
-                return (<div><Notification key={"notificationDropdown-"+notification.notificationID} deleteNotificationFunction={deleteNotification} notification={notification} /><Divider color="#ffffff"/></div>)}))
-                : <div className="no-notifications">
-                    <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
-                    <span>Nothing to see here</span>
-                    <span id="no-notifications-subtext">Your notifications will appear here</span>
-            </div>}
-            <p onClick={()=>{setShowFunction(false);navigate("/notifications");}} className="all-notifications">See all</p>
+                        return (<div><Notification key={"notificationDropdown-" + notification.notificationID}
+                                                   deleteNotificationFunction={deleteNotification}
+                                                   notification={notification}/><Divider color="#ffffff"/></div>)
+                    }))
+                    : <div className="no-notifications">
+                        <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
+                        <span>Nothing to see here</span>
+                        <span id="no-notifications-subtext">Your notifications will appear here</span>
+                    </div>}
+            </div>
+            <p onClick={() => {
+                setShowFunction(false);
+                navigate("/notifications");
+            }} className="all-notifications">See all</p>
+
+
         </div>
     )
 }

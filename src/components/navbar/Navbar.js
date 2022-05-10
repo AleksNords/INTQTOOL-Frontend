@@ -56,8 +56,8 @@ export default function Navbar() {
                     <span onClick={()=>navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
                     <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>
                     <span onClick={()=>navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}} />My Courses</span>
-                    <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>
-                    <span><SettingsIcon sx={{fontSize: 40}}/>Settings</span>
+                    {/*<Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>*/}
+                    {/*<span><SettingsIcon sx={{fontSize: 40}}/>Settings</span>*/}
                     {
                         (user.user.roles && user.user.roles.includes("ROLE_ADMIN")) ?
                             (

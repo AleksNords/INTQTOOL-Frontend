@@ -26,7 +26,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     const ref = useRef(null);
     const navigate = useNavigate();
     const isLogged = useSelector(state => state.isLoggedReducer);
-    const [deadlineDate, setDeadlineDate] = useState(quizDetails ? quizDetails.deadline : new Date().setHours(23,59));
+    const [deadlineDate, setDeadlineDate] = useState(quizDetails ? quizDetails.deadline : new Date().setHours(23, 59));
     const [enableDeadline, setEnableDeadline] = useState(true);
     const [title, setTitle] = useState(quizDetails ? quizDetails.quiz.title : "");
     const [courseID, setCourseID] = useState(quizDetails ? quizDetails.courseId : "");
@@ -63,7 +63,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
      */
     function submitQuizDetails() {
         let updatedQuizDetails;
-        if(quizDetails){
+        if (quizDetails) {
             let temp = quizDetails;
             temp.courseId = courseID;
             temp.quiz.title = title;
@@ -72,7 +72,7 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
             delete temp.quiz.author;
             delete temp.quiz.questions;
             updatedQuizDetails = temp;
-        }else{
+        } else {
             updatedQuizDetails = {
                 quiz: {
                     title: title,
@@ -91,7 +91,13 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
             data: updatedQuizDetails
         }).then((response) => {
             if (response.status === 200) {
-                navigate("/quizeditor/"+response.data)
+                if (quizDetails) {
+                    setShowFunction(false);
+                    setShowSavedQuiz(true);
+                } else {
+                    navigate("/quizeditor/" + response.data)
+                }
+
             }
         })
     }
@@ -119,31 +125,35 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
     return (
         <div className="new-quiz-modulo-wrapper">
             <ThemeProvider theme={newQuizTheme}>
-            <div ref={ref} className="new-quiz-modulo">
-                <h1>New Quiz</h1>
-                <div className="editable-content-wrapper">
+                <div ref={ref} className="new-quiz-modulo">
+                    <h1>New Quiz</h1>
+                    <div className="editable-content-wrapper">
                         <div className="textfield-wrapper">
-                            <TextField defaultValue={title} className="new-quiz-textfield" variant="outlined" label="Title" onChange={(elem)=>setTitle(elem.target.value)}/>
+                            <TextField defaultValue={title} className="new-quiz-textfield" variant="outlined"
+                                       label="Title" onChange={(elem) => setTitle(elem.target.value)}/>
                             <TextField defaultValue={description} multiline inputProps={{
                                 style: {
-                                    height: "21.5vh",
+                                    height: "23vh",
                                 },
-                            }} className="new-quiz-textfield textarea" variant="outlined" label="Description" onChange={(elem)=>setDescription(elem.target.value)}/>
+                            }} className="new-quiz-textfield textarea" variant="outlined" label="Description"
+                                       onChange={(elem) => setDescription(elem.target.value)}/>
                             <div className="deadline">
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DateTimePicker
-                                    sx={{fontSize: 15}}
-                                    ampm={false}
-                                    disabled={!enableDeadline}
-                                    className="deadline-picker"
-                                    renderInput={(props) => <TextField {...props} />}
-                                    label="Deadline"
-                                    value={deadlineDate}
-                                    onChange={(newValue) => {
-                                        setDeadlineDate(newValue);
-                                    }}/>
-                            </LocalizationProvider>
-                            <FormControlLabel className="no-deadline" onClick={()=>setEnableDeadline(!enableDeadline)} control={<Switch className="switch-thumb"/>} label="No deadline" />
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DateTimePicker
+                                        sx={{fontSize: 15}}
+                                        ampm={false}
+                                        disabled={!enableDeadline}
+                                        className="deadline-picker"
+                                        renderInput={(props) => <TextField {...props} />}
+                                        label="Deadline"
+                                        value={deadlineDate}
+                                        onChange={(newValue) => {
+                                            setDeadlineDate(newValue);
+                                        }}/>
+                                </LocalizationProvider>
+                                <FormControlLabel className="no-deadline"
+                                                  onClick={() => setEnableDeadline(!enableDeadline)}
+                                                  control={<Switch className="switch-thumb"/>} label="No deadline"/>
                             </div>
                         </div>
                         <div className="extras-wrapper">
@@ -156,18 +166,20 @@ export default function NewQuizModulo({setShowFunction, setShowSavedQuiz, quizDe
                                 onChange={(elem, newValue) => {
                                     if (newValue) {
                                         setCourseID(newValue.id);
-                                    }
-                                    else {
+                                    } else {
                                         setCourseID("");
-                                    }}}
+                                    }
+                                }}
                                 renderInput={(params) => <TextField {...params} label="Course"/>}/>
                             <div className="quiz-cover-image">
-                                <Button variant="contained" startIcon={<ImageIcon/>} component="label">Change<input type="file" hidden/></Button>
+                                <Button variant="contained" startIcon={<ImageIcon/>} component="label">Change<input
+                                    type="file" hidden/></Button>
                             </div>
-                            <Button sx={{fontSize: 17}} className="continue-button" variant="contained" onClick={()=>submitQuizDetails()}>Continue</Button>
+                            <Button sx={{fontSize: 17}} className="continue-button" variant="contained"
+                                    onClick={() => submitQuizDetails()}>Continue</Button>
                         </div>
+                    </div>
                 </div>
-            </div>
             </ThemeProvider>
         </div>
     )

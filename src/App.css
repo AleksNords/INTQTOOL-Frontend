@@ -19,3 +19,14 @@ body{
     min-width: 100vw;
     display: flex;
 }
+.display-help-button{
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
+.display-help-button svg{
+    padding: unset;
+}
+.user-guide-tooltip{
+    font-size: 2rem;
+}

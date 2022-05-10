@@ -16,14 +16,14 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
  * @param deleteNotificationFunction function used to delete a notification
  * @returns element used to represent a notification with more details than the the regular notification component
  */
-export default function FullSizeNotification({id, message, type, deleteNotificationFunction}) {
+export default function FullSizeNotification({notification,deleteNotificationFunction}) {
 
     /**
      * Renders an icon based on the notificaiton type
      * @returns icon representing the notification type
      */
     function renderIcon() {
-        switch (type) {
+        switch (notification.type) {
             case "question:graded":
                 return <CheckIcon sx={{fontSize: 120}} className="notification-icon"/>;
             case "question:feedback":
@@ -39,15 +39,12 @@ export default function FullSizeNotification({id, message, type, deleteNotificat
         <div className="full-notification">
             {renderIcon()}
             <div className="notification-text-wrapper">
-                <h1 className="notification-title">{message ? message : "An answer has been graded!"}</h1>
-                <span className="notification-message">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</span>
-                <span className="notification-detail"><span className="notification-qaf">Q: </span>Hva er applikasjonsutvikling?</span>
-                <span className="notification-detail"><span className="notification-qaf">A: </span>Ett kjedelig fag på skolen</span>
-                <span className="notification-detail"><span className="notification-qaf">Feedback: </span>None</span>
+                <h1 className="notification-title">{notification.title ? notification.title : "An answer has been graded!"}</h1>
+                <span className="notification-message">{notification.message}</span>
             </div>
             <div className="notification-top-wrapper">
                 <span>2m</span>
-                <CancelIcon onClick={() => deleteNotificationFunction(id)} sx={{fontSize: 40, cursor: "pointer"}}/>
+                <CancelIcon onClick={() => deleteNotificationFunction(notification.notificationID)} sx={{fontSize: 40, cursor: "pointer"}}/>
             </div>
             <p className={"go-to-question-link"}>Go to question <ArrowForwardIosIcon sx={{fontSize: 20}}/></p>
         </div>
