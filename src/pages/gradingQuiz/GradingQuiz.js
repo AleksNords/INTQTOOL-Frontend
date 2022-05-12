@@ -154,10 +154,13 @@ export default function GradingQuiz() {
                         </Snackbar></div> : null}
                 <div className="feedback-wrapper">
                     <h1 className="course-quiz-title">{course.name} > {quiz.quiz ? quiz.quiz.title : undefined}</h1>
-                    <GradingQuestion gradeFunction={gradeAnswers}
-                                     currentAnswer={answers[currentQuestion] && quiz.quiz && (quiz.quiz.questions[currentQuestion].type !== 1 || quiz.quiz.questions[currentQuestion].type !== 3) ? answers[currentQuestion].find((ans) => ans.id === currentAnswer) : undefined}
-                                     questionIndex={currentQuestion + 1}
-                                     question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
+                    {quiz.quiz ?
+                        <GradingQuestion
+                            answers={answers[currentQuestion]}
+                            questionIndex={currentQuestion + 1}
+                            question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
+                    : null}
+
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
                             currentQuestion={currentQuestion}

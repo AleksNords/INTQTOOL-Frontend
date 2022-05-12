@@ -27,41 +27,46 @@ function SignUp() {
     function submitAccount() {
         if (username.length > 0) {
             if (email.length > 0) {
-                if (email === emailConf) {
-                    if (firstName.length > 0) {
-                        if (lastName.length > 0) {
-                            if (checkPasswordFormat()) {
-                                setWarning(false);
-                                let newUser = {
-                                    "username": username,
-                                    "firstName": firstName,
-                                    "lastName": lastName,
-                                    "email": email,
-                                    "password": password
-                                }
-
-                                axios(process.env.REACT_APP_URL + "/user/add", {
-                                    method: "post",
-                                    data: newUser
-                                }).then(function (response) {
-                                    if (response.status === 201) {
-                                        navigate("/");
+                if (validateEmail(email)) {
+                    if (email === emailConf) {
+                        if (firstName.length > 0) {
+                            if (lastName.length > 0) {
+                                if (checkPasswordFormat()) {
+                                    setWarning(false);
+                                    let newUser = {
+                                        "username": username,
+                                        "firstName": firstName,
+                                        "lastName": lastName,
+                                        "email": email,
+                                        "password": password
                                     }
 
-                                }).catch(() => {
-                                    //TODO: Handle error
-                                });
+                                    axios(process.env.REACT_APP_URL + "/user/add", {
+                                        method: "post",
+                                        data: newUser
+                                    }).then(function (response) {
+                                        if (response.status === 201) {
+                                            navigate("/");
+                                        }
+
+                                    }).catch(() => {
+                                        //TODO: Handle error
+                                    });
+                                }
+                            } else {
+                                setWarningText("Last name is required");
+                                setWarning(true);
                             }
                         } else {
-                            setWarningText("Last name is required");
+                            setWarningText("First name is required");
                             setWarning(true);
                         }
                     } else {
-                        setWarningText("First name is required");
+                        setWarningText("Email does not match");
                         setWarning(true);
                     }
-                } else {
-                    setWarningText("Email does not match");
+                }else {
+                    setWarningText("Email is not right format");
                     setWarning(true);
                 }
             } else {
@@ -73,6 +78,10 @@ function SignUp() {
             setWarningText("Username is required");
             setWarning(true);
         }
+    }
+
+    function validateEmail(emailStr) {
+        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailStr);
     }
 
     /**
@@ -105,7 +114,6 @@ function SignUp() {
     }
 
 
-
     return (
         <div className={"position-wrapper"}>
             <div className={"sign-up-wrapper"}>
@@ -122,31 +130,31 @@ function SignUp() {
                         {(warning === true) ? <div className={"sign-up-warning"}>
 
                             <p>Warning: {warningText}</p>
-                        </div>: <div/>}
+                        </div> : <div/>}
 
                         <div className={"sign-up-item"}>
                             <TextField label={"First name"} className={"sign-up-form-field"}
-                                   onChange={elem => setFirstName(elem.target.value)}/>
+                                       onChange={elem => setFirstName(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-item"}>
                             <TextField label={"Last name"} className={"sign-up-form-field"}
-                                   onChange={elem => setLastName(elem.target.value)}/>
+                                       onChange={elem => setLastName(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-item"}>
                             <TextField label={"E-mail"} className={"sign-up-form-field"}
-                                   onChange={elem => setEmail(elem.target.value)}/>
+                                       onChange={elem => setEmail(elem.target.value)}/>
                         </div>
 
 
                         <div className={"sign-up-item"}>
                             <TextField label={"Confirm e-mail"} className={"sign-up-form-field"}
-                                   onChange={elem => setEmailConf(elem.target.value)}/>
+                                       onChange={elem => setEmailConf(elem.target.value)}/>
                         </div>
                         <div className={"sign-up-item"}>
                             <TextField label={"Password"} type={"password"} className={"sign-up-form-field"}
-                                   onChange={elem => setPassword(elem.target.value)}/>
+                                       onChange={elem => setPassword(elem.target.value)}/>
                         </div>
 
                         <div className={"sign-up-submit-wrapper"}>

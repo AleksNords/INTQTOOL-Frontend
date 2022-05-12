@@ -59,9 +59,11 @@ export default function UserTools() {
         let temp = users;
         if (searchWord.length >= 1) {
             temp = temp.filter((user) =>
-                user.username.includes(searchWord) ||
-                user.firstName.includes(searchWord) ||
-                user.lastName.includes(searchWord))
+                user.username.toLowerCase().includes(searchWord.toLowerCase()) ||
+                user.firstName.toLowerCase().includes(searchWord.toLowerCase()) ||
+                user.lastName.toLowerCase().includes(searchWord.toLowerCase()) ||
+                user.email.toLowerCase().includes(searchWord.toLowerCase()) ||
+                user.roles[0].includes(searchWord))
             setFilteredUsers(temp);
         } else {
             setFilteredUsers(users);
@@ -75,11 +77,12 @@ export default function UserTools() {
                 <TextField size={"small"}
                            defaultValue={searchWord}
                            onChange={(elem) => setSearchWord(elem.target.value)}
-                           label={(filteredUsers.length === 0) ?"No result":"Search"} className={"user-tools-search-field"}
+                           label={(filteredUsers.length === 0) ? "No result" : "Search"}
+                           className={"user-tools-search-field"}
                            InputLabelProps={{style: {fontSize: 11, color: "black"}}}
                            InputProps={{style: {fontSize: 11}}}
-                           onKeyUp={(event)=>{
-                               if(event.key === "Enter"){
+                           onKeyUp={(event) => {
+                               if (event.key === "Enter") {
                                    searchUsers();
                                }
                            }}

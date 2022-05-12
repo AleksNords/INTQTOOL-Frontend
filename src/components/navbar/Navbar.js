@@ -6,8 +6,7 @@ import {setLoginStatus} from "../../store/action/isLoggedAction";
 import {useNavigate} from "react-router";
 import HomeIcon from '@mui/icons-material/Home';
 import CreateIcon from '@mui/icons-material/Create';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import Divider from '@mui/material/Divider';
 import NotificationBell from './notificationBell/NotificationBell';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -78,7 +77,7 @@ export default function Navbar() {
                 <div className="personalLinks">
                     <div><NotificationBell/></div>
                     <span>{user.user.firstName}</span>
-                    <Tooltip title={<span className="logout-tooltip">Log out</span>}><AccountCircleIcon sx={{fontSize: 45}} onClick={logout}/></Tooltip>
+                    <Tooltip title={<span className="logout-tooltip">Log out</span>}><LogoutRoundedIcon sx={{fontSize: 45}} onClick={logout}/></Tooltip>
                 </div></>) : <img className="ntnu-logo" alt={"NTNU logo"} src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
         </div>
     )

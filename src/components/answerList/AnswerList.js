@@ -124,7 +124,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
                 { search === "" ?
                     (ungradedAnswers.concat(gradedAnswers))
                   :
-                    (ungradedAnswers.concat(gradedAnswers)).filter((ans) => ans.props.answer.answer.toLowerCase().includes(search.toLowerCase())).map((answer) => answer)
+                    (ungradedAnswers.concat(gradedAnswers)).filter((ans) => ans.props.answer.answer.toLowerCase().includes(search.toLowerCase()))
                 }
             </div>
                 <Slide direction="up" in={showToolBar} mountOnEnter unmountOnExit>

@@ -42,8 +42,14 @@ export default function Home() {
      * Updates/fetches the quiz answers
      */
     function updateQuizAnswers() {
+        let urlPath;
+        if(user.user.roles.includes("ROLE_ADMIN")||user.user.roles.includes("ROLE_TEACHER")){
+            urlPath = "/quiz/expiredquizzes"
+        }else{
+            urlPath = "/user/archivedquizzes"
+        }
         axios({
-            url: process.env.REACT_APP_URL + "/user/archivedquizzes",
+            url: process.env.REACT_APP_URL + urlPath,
             method: 'get',
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
@@ -112,10 +118,19 @@ export default function Home() {
                             quizzes</h1></div>)
                     : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
 
-                            {quizAnswers.map((quiz) => {
-                                return <QuizCard title={quiz.title} quizId={quiz.id}
-                                                 grading={quiz.grading + "/" + quiz.quizLength}
-                                                 status={quiz.status} userNavigateTo={"feedback"}/>
+                            {quizAnswers.map((item) => {
+                                if(user.user.roles.includes("ROLE_ADMIN")||user.user.roles.includes("ROLE_TEACHER")){
+                                    console.log(item);
+                                    let deployedQuiz = item;
+                                    let quiz = JSON.parse(deployedQuiz.quiz)
+                                    return <QuizCard quizLength={quiz.quizLength} title={quiz.title} quizId={deployedQuiz.id}
+                                                     progression={10} userNavigateTo={"quiz"}/>
+                                }else{
+                                    return <QuizCard title={item.title} quizId={item.id}
+                                                     grading={item.grading + "/" + item.quizLength}
+                                                     status={item.status} userNavigateTo={"feedback"}/>
+                                }
+
                             })}
                         </div>) :
                         (<div className={"no-quiz-container"}><h1 className={"no-quizzes-prompt"}>You have no active
