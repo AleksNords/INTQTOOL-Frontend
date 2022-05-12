@@ -23,25 +23,30 @@ export default function AnswerCard({answer, setCheckedFunction, setCurrentAnswer
      * Copies the feedback given to an answer to the user clipboard. Gives temporary feedback on the button
      */
     function handleCopyFeedback() {
-        navigator.clipboard.writeText(answer.feedback).then(()=> setButtonText("Copied!"));
+        navigator.clipboard.writeText(answer.feedback).then(() => setButtonText("Copied!"));
 
-        setTimeout(function() {
+        setTimeout(function () {
             setButtonText("Copy Feedback");
         }, 3000);
     }
 
     return (
-        <div key={"answerCard-"+answer.id} className={"answer-card " + (isGraded ? "is-graded" : undefined)}>
+        <div key={"answerCard-" + answer.id} className={"answer-card " + (isGraded ? "is-graded" : undefined)}>
             {!isGraded ?
                 <div className="answer-card-top-interactable-wrapper">
-                    <Checkbox key={answer.id} onChange={handleCheckboxChange} className="answer-select-checkbox" sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} size="large"/>
-                    <Button onClick={() => setCurrentAnswerFunction(answer.id)} className="select-answer-button" size="large" variant="contained" sx={{color: "white", fontSize: 12}}>Select</Button>
+                    <Checkbox key={answer.id} onChange={handleCheckboxChange} className="answer-select-checkbox"
+                              sx={{'& .MuiSvgIcon-root': {fontSize: 28}}} size="large"/>
+                    <Button onClick={() => setCurrentAnswerFunction(answer.id)} className="select-answer-button"
+                            size="large" variant="contained" sx={{color: "white", fontSize: 12}}>Select</Button>
                 </div>
                 : <div className="answer-card-top-interactable-wrapper">
-                <Button onClick={() => handleCopyFeedback()} startIcon={<ContentCopyIcon/>} className="copy-feedback-button" size="large" variant="contained" sx={{color: "white", fontSize: 12}}>{buttonText}</Button>
-                    <Button onClick={() => setCurrentAnswerFunction(answer.id)} className="select-answer-button" size="large" variant="contained" sx={{color: "white", fontSize: 12}}>Select</Button>
+                    <Button onClick={() => handleCopyFeedback()} startIcon={<ContentCopyIcon/>}
+                            className="copy-feedback-button" size="large" variant="contained"
+                            sx={{color: "white", fontSize: 12}}>{buttonText}</Button>
+                    <Button onClick={() => setCurrentAnswerFunction(answer.id)} className="select-answer-button"
+                            size="large" variant="contained" sx={{color: "white", fontSize: 12}}>Select</Button>
                 </div>
-                    }
+            }
             <p className="student-answer-text" onClick={() => setCurrentAnswerFunction(answer.id)}>{answer.answer}</p>
         </div>
     )

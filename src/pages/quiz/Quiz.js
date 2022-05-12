@@ -19,7 +19,7 @@ export default function Quiz() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [quiz, setQuiz] = useState({});
     const [questionAnswers, setQuestionAnswers] = useState([]);
-    const[checkedAnswers,setCheckedAnswers] = useState([]);
+    const [checkedAnswers, setCheckedAnswers] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState({
         "answers": [],
         "status": "in-progress",

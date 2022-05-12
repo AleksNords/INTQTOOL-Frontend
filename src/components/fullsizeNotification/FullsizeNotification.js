@@ -16,7 +16,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
  * @param deleteNotificationFunction function used to delete a notification
  * @returns element used to represent a notification with more details than the the regular notification component
  */
-export default function FullSizeNotification({notification,deleteNotificationFunction}) {
+export default function FullSizeNotification({notification, deleteNotificationFunction}) {
 
     /**
      * Renders an icon based on the notificaiton type
@@ -44,7 +44,8 @@ export default function FullSizeNotification({notification,deleteNotificationFun
             </div>
             <div className="notification-top-wrapper">
                 <span>2m</span>
-                <CancelIcon onClick={() => deleteNotificationFunction(notification.notificationID)} sx={{fontSize: 40, cursor: "pointer"}}/>
+                <CancelIcon onClick={() => deleteNotificationFunction(notification.notificationID)}
+                            sx={{fontSize: 40, cursor: "pointer"}}/>
             </div>
             <p className={"go-to-question-link"}>Go to question <ArrowForwardIosIcon sx={{fontSize: 20}}/></p>
         </div>

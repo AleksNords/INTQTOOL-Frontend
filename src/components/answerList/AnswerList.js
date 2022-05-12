@@ -41,8 +41,8 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
                                              setCheckedFunction={setChecked}/>);
         } else {
             gradedAnswers.push(<AnswerCard isGraded={true}
-                                             setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
-                                             setCheckedFunction={setChecked}/>);
+                                           setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
+                                           setCheckedFunction={setChecked}/>);
         }
     }
 
@@ -79,7 +79,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
     function gradeMultipleQuestions() {
         if (grade === -1) return;
         let answerIds = [];
-        for (let i = 0; i < checkedAnswers.length ; i++) {
+        for (let i = 0; i < checkedAnswers.length; i++) {
             answerIds.push(checkedAnswers[i].id);
         }
         setShowToolbar(false);
@@ -91,58 +91,94 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
     }
 
     //Resets values that should be reset when a new question is selected
-    useEffect(()=> {
+    useEffect(() => {
         setCheckedAnswers([]);
         setShowToolbar(false);
         setSearch("");
-    },[answers])
+    }, [answers])
 
     //TODO: add error message when trying to submit grading without choosing a grade
 
     return (
         <div className="answer-list">
-            <Snackbar sx={{color: "white"}} open={showAnswerGraded} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{width: "100%", color: "white", backgroundColor: "#40aa5a", fontSize: 15, ".css-ptiqhd-MuiSvgIcon-root": {fontSize: 20}, ".MuiSvgIcon-root": {color: "white"} }}>
+            <Snackbar sx={{color: "white"}} open={showAnswerGraded} autoHideDuration={6000}
+                      onClose={handleCloseSnackbar} anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{
+                    width: "100%",
+                    color: "white",
+                    backgroundColor: "#40aa5a",
+                    fontSize: 15,
+                    ".css-ptiqhd-MuiSvgIcon-root": {fontSize: 20},
+                    ".MuiSvgIcon-root": {color: "white"}
+                }}>
                     Selected answer(s) have been graded!
                 </Alert>
             </Snackbar>
             <div className="answer-list-header">
-                <h1 key={answers + answers.length} className="answer-list-title answer-list-header-item">Student answers ({answers.length > 0 ? answers.length : 0})</h1>
+                <h1 key={answers + answers.length} className="answer-list-title answer-list-header-item">Student answers
+                    ({answers.length > 0 ? answers.length : 0})</h1>
                 <TextField className="answer-list-header-item"
-                           key={answers + currentQuestion+1}
+                           key={answers + currentQuestion + 1}
                            label={<div><SearchIcon sx={{fontSize: 20}}/>Search</div>}
                            InputLabelProps={{style: {fontSize: 18}}} InputProps={{style: {fontSize: 18}}}
                            value={search}
-                           onChange={(elem) =>{setSearch(elem.target.value)}}/>
+                           onChange={(elem) => {
+                               setSearch(elem.target.value)
+                           }}/>
             </div>
             {
                 answers.length > 0 ?
-                <span className="selected-amount">{checkedAnswers.length} selected </span>
+                    <span className="selected-amount">{checkedAnswers.length} selected </span>
                     : null
             }
             <div className="answer-card-wrapper">
-                { search === "" ?
+                {search === "" ?
                     (ungradedAnswers.concat(gradedAnswers))
-                  :
+                    :
                     (ungradedAnswers.concat(gradedAnswers)).filter((ans) => ans.props.answer.answer.toLowerCase().includes(search.toLowerCase()))
                 }
             </div>
-                <Slide direction="up" in={showToolBar} mountOnEnter unmountOnExit>
-                    <div className="grading-toolbar">
-                        <Fade in={showToolbarFeedback}>
-                            <TextField focused={true} inputRef={input => input && input.focus()} multiline rows={3} defaultValue={toolbarFeedback} onChange={(e) => setToolbarFeedback(e.target.value)} className="toolbar-feedback-textfield"/>
-                        </Fade>
-                        <RadioGroup onChange={(e) => setGrade(e.target.value)} className="credit-radio-wrapper toolbar-radio-wrapper" row>
-                            <FormControlLabel label="" className="grading-button" value={1} control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}} className="grading-radio" icon={<CheckIcon sx={{fontSize: 40}}/>} checkedIcon={<CheckIcon sx={{fontSize: 40, color: "#42c767"}}/>} size={"large"}/>}/>
-                            <FormControlLabel label="" className="grading-button" value={0} control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}} className="grading-radio" icon={<CloseIcon sx={{fontSize: 40}}/>} checkedIcon={<CloseIcon sx={{fontSize: 40, color: "#f63e3e"}}/>} size={"large"}/>}/>
-                            <FormControlLabel label="" className="grading-button" value={0.5} control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}} className="grading-radio" icon={<PercentIcon sx={{fontSize: 40}}/>} checkedIcon={<PercentIcon sx={{fontSize: 40, color: "#f0c11b"}}/>} size={"large"}/>}/>
-                        </RadioGroup>
-                        <div className="toolbar-button-wrapper">
-                            <IconButton onClick={() => setshowToolbarFeedback(!showToolbarFeedback)} TouchRippleProps={{sx: {color: "#2f7ed9"}}}><CommentIcon sx={{fontSize: 40, color: "#2f7ed9"}}/></IconButton>
-                            <IconButton onClick={() => gradeMultipleQuestions()} TouchRippleProps={{sx: {color: "#42C767"}}}><SendIcon sx={{fontSize: 40, color: "#42C767"}}/></IconButton>
-                        </div>
+            <Slide direction="up" in={showToolBar} mountOnEnter unmountOnExit>
+                <div className="grading-toolbar">
+                    <Fade in={showToolbarFeedback}>
+                        <TextField focused={true} inputRef={input => input && input.focus()} multiline rows={3}
+                                   defaultValue={toolbarFeedback} onChange={(e) => setToolbarFeedback(e.target.value)}
+                                   className="toolbar-feedback-textfield"/>
+                    </Fade>
+                    <RadioGroup onChange={(e) => setGrade(e.target.value)}
+                                className="credit-radio-wrapper toolbar-radio-wrapper" row>
+                        <FormControlLabel label="" className="grading-button" value={1}
+                                          control={<Radio TouchRippleProps={{sx: {color: "#42c767"}}}
+                                                          className="grading-radio"
+                                                          icon={<CheckIcon sx={{fontSize: 40}}/>}
+                                                          checkedIcon={<CheckIcon
+                                                              sx={{fontSize: 40, color: "#42c767"}}/>}
+                                                          size={"large"}/>}/>
+                        <FormControlLabel label="" className="grading-button" value={0}
+                                          control={<Radio TouchRippleProps={{sx: {color: "#F63E3E"}}}
+                                                          className="grading-radio"
+                                                          icon={<CloseIcon sx={{fontSize: 40}}/>}
+                                                          checkedIcon={<CloseIcon
+                                                              sx={{fontSize: 40, color: "#f63e3e"}}/>}
+                                                          size={"large"}/>}/>
+                        <FormControlLabel label="" className="grading-button" value={0.5}
+                                          control={<Radio TouchRippleProps={{sx: {color: "#F0C11B"}}}
+                                                          className="grading-radio"
+                                                          icon={<PercentIcon sx={{fontSize: 40}}/>}
+                                                          checkedIcon={<PercentIcon
+                                                              sx={{fontSize: 40, color: "#f0c11b"}}/>}
+                                                          size={"large"}/>}/>
+                    </RadioGroup>
+                    <div className="toolbar-button-wrapper">
+                        <IconButton onClick={() => setshowToolbarFeedback(!showToolbarFeedback)}
+                                    TouchRippleProps={{sx: {color: "#2f7ed9"}}}><CommentIcon
+                            sx={{fontSize: 40, color: "#2f7ed9"}}/></IconButton>
+                        <IconButton onClick={() => gradeMultipleQuestions()}
+                                    TouchRippleProps={{sx: {color: "#42C767"}}}><SendIcon
+                            sx={{fontSize: 40, color: "#42C767"}}/></IconButton>
                     </div>
-                </Slide>
+                </div>
+            </Slide>
         </div>
     )
 }

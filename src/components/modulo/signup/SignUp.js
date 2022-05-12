@@ -65,7 +65,7 @@ function SignUp() {
                         setWarningText("Email does not match");
                         setWarning(true);
                     }
-                }else {
+                } else {
                     setWarningText("Email is not right format");
                     setWarning(true);
                 }

@@ -159,7 +159,7 @@ export default function GradingQuiz() {
                             answers={answers[currentQuestion]}
                             questionIndex={currentQuestion + 1}
                             question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
-                    : null}
+                        : null}
 
                 </div>
                 <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}

@@ -43,9 +43,9 @@ export default function Home() {
      */
     function updateQuizAnswers() {
         let urlPath;
-        if(user.user.roles.includes("ROLE_ADMIN")||user.user.roles.includes("ROLE_TEACHER")){
+        if (user.user.roles.includes("ROLE_ADMIN") || user.user.roles.includes("ROLE_TEACHER")) {
             urlPath = "/quiz/expiredquizzes"
-        }else{
+        } else {
             urlPath = "/user/archivedquizzes"
         }
         axios({
@@ -109,7 +109,7 @@ export default function Home() {
                     {quizzes.map((deployedquiz) => {
                         deployedquiz = JSON.parse(deployedquiz);
                         let quiz = JSON.parse(deployedquiz.quiz)
-                        return <QuizCard quizLength={quiz.quizLength}title={quiz.title} quizId={deployedquiz.id}
+                        return <QuizCard quizLength={quiz.quizLength} title={quiz.title} quizId={deployedquiz.id}
                                          progression={10} userNavigateTo={"quiz"}/>
                     })}
                 </div>)
@@ -119,13 +119,14 @@ export default function Home() {
                     : showArchived && quizAnswers.length >= 1 ? (<div className={"quizcard-container"}>
 
                             {quizAnswers.map((item) => {
-                                if(user.user.roles.includes("ROLE_ADMIN")||user.user.roles.includes("ROLE_TEACHER")){
+                                if (user.user.roles.includes("ROLE_ADMIN") || user.user.roles.includes("ROLE_TEACHER")) {
                                     console.log(item);
                                     let deployedQuiz = item;
                                     let quiz = JSON.parse(deployedQuiz.quiz)
-                                    return <QuizCard quizLength={quiz.quizLength} title={quiz.title} quizId={deployedQuiz.id}
+                                    return <QuizCard quizLength={quiz.quizLength} title={quiz.title}
+                                                     quizId={deployedQuiz.id}
                                                      progression={10} userNavigateTo={"quiz"}/>
-                                }else{
+                                } else {
                                     return <QuizCard title={item.title} quizId={item.id}
                                                      grading={item.grading + "/" + item.quizLength}
                                                      status={item.status} userNavigateTo={"feedback"}/>

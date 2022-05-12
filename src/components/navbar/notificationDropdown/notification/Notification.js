@@ -15,7 +15,7 @@ import ErrorIcon from '@mui/icons-material/Error';
  * @param deleteNotificationFunction function used to delete the notification
  * @returns single notification element
  */
-export default function Notification({notification,deleteNotificationFunction}) {
+export default function Notification({notification, deleteNotificationFunction}) {
 
     /**
      * Renders an icon based on the notificaiton type
@@ -42,8 +42,10 @@ export default function Notification({notification,deleteNotificationFunction}) 
                 <p className="message">{notification.message}</p>
             </div>
             <div className="end-wrapper">
-            <span className="notification-time">2m</span>
-                <IconButton onClick={()=>deleteNotificationFunction(notification.notificationID)} className="notification-delete-wrapper"><CancelIcon id="delete-icon" sx={{fontSize: 25}}/></IconButton>
+                <span className="notification-time">2m</span>
+                <IconButton onClick={() => deleteNotificationFunction(notification.notificationID)}
+                            className="notification-delete-wrapper"><CancelIcon id="delete-icon"
+                                                                                sx={{fontSize: 25}}/></IconButton>
             </div>
         </div>
     )

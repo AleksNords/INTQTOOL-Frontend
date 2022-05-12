@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
  * @param grading received on the quiz
  * @returns card element used to represent a quiz
  */
-function QuizCard({title, progression, quizId, status, userNavigateTo, grading,quizLength}) {
+function QuizCard({title, progression, quizId, status, userNavigateTo, grading, quizLength}) {
 
     const navigate = useNavigate();
     const user = useSelector(state => state.userReducer.user);
@@ -28,7 +28,8 @@ function QuizCard({title, progression, quizId, status, userNavigateTo, grading,q
                 <h2 className={"quizcard-title"}>{title}</h2>
 
                 {progression !== undefined ? (<span className={"quizcard-subtext-span"}><p
-                        className={"quizcard-question-amnt"}>{quizLength} Questions</p><p className={"quizcard-continue"}>{user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_TEACHER") ? "grade":"start"} →</p></span>)
+                        className={"quizcard-question-amnt"}>{quizLength} Questions</p><p
+                        className={"quizcard-continue"}>{user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_TEACHER") ? "grade" : "start"} →</p></span>)
                     : (status !== undefined) ? (<span className={"quizcard-subtext-span"}><h3
                         className={"quizcard-status"}>Status: {status} {status === "graded" && grading ? grading : null}</h3><p
                         className={"quizcard-continue"}>show →</p></span>) : null

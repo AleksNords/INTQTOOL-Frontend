@@ -76,15 +76,15 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
     /**
      * Adds the user to the selected course
      */
-    function addUserToCourse(){
+    function addUserToCourse() {
         axios({
             method: "post",
-            url: process.env.REACT_APP_URL + "/course/adduser/" +courseID,
+            url: process.env.REACT_APP_URL + "/course/adduser/" + courseID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
-            data:{
-                userId:editableUser.id
+            data: {
+                userId: editableUser.id
             }
 
         }).then((response) => {
@@ -123,50 +123,51 @@ export default function UserEditToolModulo({editableUser, setShowUserTool, userU
                     id: temp.id
                 })
 
-            }))});
+            }))
+        });
 
-            //Adds eventlistener to the window to detect clicks that should close the modulo
-            document.addEventListener('mousedown', handleClickOutside);
-            return () => {
-                document.removeEventListener('mousedown', handleClickOutside);
-            };
-        }, []);
+        //Adds eventlistener to the window to detect clicks that should close the modulo
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
 
-        return (
-            <div className={"user-edit-tool-modulo"}>
-                <div className={"user-edit-tool-info-wrapper"}>
-                    <h2>User: {editableUser.username}</h2>
-                    <h2>Name: {editableUser.lastName}, {editableUser.firstName}</h2>
-                </div>
-                <div className={"add-user-to-course-tool"}>
-                    <Autocomplete
-                        size={"small"}
-                        label={"Course"} className={"add-user-to-course-field"}
-                        options={courses}
-                        value={courses.id}
-                        onChange={(elem, newValue) => {
-                            if (newValue) {
-                                setCourseID(newValue.id);
-                            }
-                            else {
-                                setCourseID("");
-                            }
-                        }}
-                        renderInput={(params) => <TextField {...params} label="Course"/>}/>
-                    <Button onClick={addUserToCourse} className={"add-user-to-course-button"} sx={{fontSize: 10}} variant={"contained"}>Add user
-                        to course</Button>
-
-                </div>
-                <div className={"user-edit-tool-button-wrapper"}>
-                    <Button className={"user-admin-tool-action-button"} onClick={giveRoleStudent} sx={{fontSize: 10}}
-                            variant={"contained"}>Give role student</Button>
-                    <Button className={"user-admin-tool-action-button"} onClick={giveRoleTeacher} sx={{fontSize: 10}}
-                            variant={"contained"}>Give role teacher</Button>
-                    <Button className={"user-admin-tool-action-button"} onClick={giveRoleAdministrator}
-                            sx={{fontSize: 10}} variant={"contained"}>Give role administrator</Button>
-                </div>
+    return (
+        <div className={"user-edit-tool-modulo"}>
+            <div className={"user-edit-tool-info-wrapper"}>
+                <h2>User: {editableUser.username}</h2>
+                <h2>Name: {editableUser.lastName}, {editableUser.firstName}</h2>
+            </div>
+            <div className={"add-user-to-course-tool"}>
+                <Autocomplete
+                    size={"small"}
+                    label={"Course"} className={"add-user-to-course-field"}
+                    options={courses}
+                    value={courses.id}
+                    onChange={(elem, newValue) => {
+                        if (newValue) {
+                            setCourseID(newValue.id);
+                        } else {
+                            setCourseID("");
+                        }
+                    }}
+                    renderInput={(params) => <TextField {...params} label="Course"/>}/>
+                <Button onClick={addUserToCourse} className={"add-user-to-course-button"} sx={{fontSize: 10}}
+                        variant={"contained"}>Add user
+                    to course</Button>
 
             </div>
-        )
-    }
+            <div className={"user-edit-tool-button-wrapper"}>
+                <Button className={"user-admin-tool-action-button"} onClick={giveRoleStudent} sx={{fontSize: 10}}
+                        variant={"contained"}>Give role student</Button>
+                <Button className={"user-admin-tool-action-button"} onClick={giveRoleTeacher} sx={{fontSize: 10}}
+                        variant={"contained"}>Give role teacher</Button>
+                <Button className={"user-admin-tool-action-button"} onClick={giveRoleAdministrator}
+                        sx={{fontSize: 10}} variant={"contained"}>Give role administrator</Button>
+            </div>
+
+        </div>
+    )
+}

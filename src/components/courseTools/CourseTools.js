@@ -10,12 +10,12 @@ import NewCourseModulo from "../modulo/newCourseModulo/NewCourseModulo";
  * View of all courses, with a search bar and option to add a new course.
  * @returns element displaying all courses, along with tools to manipulate them
  */
-export default function CourseTools(){
+export default function CourseTools() {
     const isLogged = useSelector(state => state.isLoggedReducer);
     const [courses, setCourses] = useState([]);
     const [filteredCourses, setFilteredCourses] = useState([]);
     const [searchWord, setSearchWord] = useState("");
-    const [showNewCourseModulo,setShowNewCourseModulo] = useState(false)
+    const [showNewCourseModulo, setShowNewCourseModulo] = useState(false)
 
     useEffect(() => {
         updateCourses();
@@ -44,7 +44,7 @@ export default function CourseTools(){
     /**
      * Searches for courses with the searchWord state variable
      */
-    function searchCourse(){
+    function searchCourse() {
         let temp = courses;
         if (searchWord.length >= 1) {
             temp = temp.filter((course) =>
@@ -59,14 +59,14 @@ export default function CourseTools(){
      * Creates a new course by sending it to the backend
      * @param newCourse object representing the new course
      */
-    function submitNewCourse(newCourse){
+    function submitNewCourse(newCourse) {
         axios({
             method: "post",
             url: process.env.REACT_APP_URL + "/course/new",
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             },
-            data:newCourse
+            data: newCourse
         }).then((response) => {
             if (response.status === 200) {
                 let temp = response.data;
@@ -78,17 +78,18 @@ export default function CourseTools(){
     }
 
 
-    return(
+    return (
         <div className={"course-tools-wrapper"}>
             <div className={"course-tools-search-bar"}>
                 <TextField size={"small"}
                            defaultValue={searchWord}
                            onChange={(elem) => setSearchWord(elem.target.value)}
-                           label={(filteredCourses.length === 0) ?"No result":"Search"} className={"course-tools-search-field"}
+                           label={(filteredCourses.length === 0) ? "No result" : "Search"}
+                           className={"course-tools-search-field"}
                            InputLabelProps={{style: {fontSize: 11, color: "black"}}}
                            InputProps={{style: {fontSize: 11}}}
-                           onKeyUp={(event)=>{
-                               if(event.key === "Enter"){
+                           onKeyUp={(event) => {
+                               if (event.key === "Enter") {
                                    searchCourse();
                                }
                            }}
@@ -123,7 +124,8 @@ export default function CourseTools(){
                     })
                 }
             </table>
-            <Button onClick={()=>setShowNewCourseModulo(true)} className={"add-course-button"} variant={"contained"}>Add course</Button>
+            <Button onClick={() => setShowNewCourseModulo(true)} className={"add-course-button"} variant={"contained"}>Add
+                course</Button>
         </div>
     )
 }

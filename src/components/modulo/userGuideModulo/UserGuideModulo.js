@@ -1,7 +1,7 @@
 import "./userGuideModulo.css";
 import React, {useEffect} from 'react';
 
-export default function UserGuideModulo({setShowModulo}){
+export default function UserGuideModulo({setShowModulo}) {
 
     /**
      * Function used to close the modulo if a click outside is registered.
@@ -20,7 +20,7 @@ export default function UserGuideModulo({setShowModulo}){
         };
     }, []);
 
-    return(
+    return (
         <div className={"user-guide-modulo-filter"}>
             <div className={"user-guide-modulo-content"}>
                 <h1 className={"user-guide-temp-title"}>User guide to come</h1>

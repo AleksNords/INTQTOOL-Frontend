@@ -22,7 +22,8 @@ export default function QuizNavigation({currentQuestion, setCurrentQuestion, qui
      * @returns button element with provided properties
      */
     function createNavigationButton(text, clickHandler, icon) {
-        return <Button startIcon={icon} className="quiz-nav-button" onClick={clickHandler} variant="contained">{text}</Button>;
+        return <Button startIcon={icon} className="quiz-nav-button" onClick={clickHandler}
+                       variant="contained">{text}</Button>;
     }
 
     let previousButton;

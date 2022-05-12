@@ -99,8 +99,8 @@ export default function Login() {
                                onChange={elem => setUsername(elem.target.value)}
                                InputLabelProps={{style: {fontSize: 15, color: "black"}}}
                                InputProps={{style: {fontSize: 15}}}
-                               onKeyUp={(event)=>{
-                                   if(event.key === "Enter"){
+                               onKeyUp={(event) => {
+                                   if (event.key === "Enter") {
                                        submitLogin();
                                    }
                                }}/>
@@ -109,16 +109,19 @@ export default function Login() {
                                onChange={elem => setPassword(elem.target.value)}
                                InputLabelProps={{style: {fontSize: 15, color: "black"}}}
                                InputProps={{style: {fontSize: 15}}}
-                               onKeyUp={(event)=>{
-                                   if(event.key === "Enter"){
+                               onKeyUp={(event) => {
+                                   if (event.key === "Enter") {
                                        submitLogin();
                                    }
                                }}
                     />
                 </div>
                 <div className={"login-submit-wrapper"}>
-                    <Button sx={{fontSize: 15}} variant={"contained"} className={"login-form-submitButton"} onClick={submitLogin}>Login</Button>
-                    <p className={"sign-up-paragraph"}>Dont have an account? <span onClick={goToSignUp} className={"sign-up-link"}>Sign up here!</span></p>
+                    <Button sx={{fontSize: 15}} variant={"contained"} className={"login-form-submitButton"}
+                            onClick={submitLogin}>Login</Button>
+                    <p className={"sign-up-paragraph"}>Dont have an account? <span onClick={goToSignUp}
+                                                                                   className={"sign-up-link"}>Sign up here!</span>
+                    </p>
                 </div>
 
             </div>

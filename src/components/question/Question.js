@@ -12,7 +12,7 @@ import Radio from "@mui/material/Radio";
  * @returns element representing a single question in a quiz
  */
 export default function Question({question, currentQuestion, setAnswer, currAns}) {
- const [checkedAnswers,setCheckedAnswersArray] = useState([])
+    const [checkedAnswers, setCheckedAnswersArray] = useState([])
     let answer = {
         "answer": "",
         "questionId": question.questionId,
@@ -24,12 +24,12 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
 
     }
 
-    console.log("currAns",currAns)
+    console.log("currAns", currAns)
     console.log(checkedAnswers)
 
     useEffect(() => {
         if (currAns !== undefined && question.type !== 2) {
-            setCheckedAnswersArray(currAns.answer.split(",").map(id=>parseInt(id)))
+            setCheckedAnswersArray(currAns.answer.split(",").map(id => parseInt(id)))
             console.log(currAns)
         }
     }, [currAns])
@@ -62,7 +62,8 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
 
             case 1:
 
-                return <RadioGroup name={"question-" + question.questionId} key={"RadioGroup-"+question.questionId+checkedAnswers[0]} onChange={(elem) => {
+                return <RadioGroup name={"question-" + question.questionId}
+                                   key={"RadioGroup-" + question.questionId + checkedAnswers[0]} onChange={(elem) => {
                     answer.answer = elem.target.value;
                     setAnswer(answer)
                 }} defaultValue={checkedAnswers[0]}>
@@ -81,7 +82,7 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                 return <TextField
                     className={"longanswer-textfield"}
                     label={"Answer"}
-                    key={"RadioGroup-"+question.questionId}
+                    key={"RadioGroup-" + question.questionId}
                     InputLabelProps={{style: {fontSize: 18}}}
                     InputProps={{style: {fontSize: 18}}}
                     multiline
@@ -95,7 +96,8 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                 </TextField>
 
             case 3:
-                return <FormGroup name={"question-" + question.questionId} key={"FormGroup-"+question.questionId+checkedAnswers[0]} onChange={(elem) => {
+                return <FormGroup name={"question-" + question.questionId}
+                                  key={"FormGroup-" + question.questionId + checkedAnswers[0]} onChange={(elem) => {
                     setCheckedAnswers(elem.target.value);
                 }}>
                     {
@@ -103,7 +105,9 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
                             alternative = JSON.parse(alternative);
                             return <FormControlLabel value={alternative.alternativeID}
                                                      defaultChecked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID) : false}
-                                                     control={<Checkbox defaultChecked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID):false} sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
+                                                     control={<Checkbox
+                                                         defaultChecked={checkedAnswers ? checkedAnswers.includes(alternative.alternativeID) : false}
+                                                         sx={{'& .MuiSvgIcon-root': {fontSize: 30}}}/>}
                                                      label={alternative.alternative}/>;
                         })
                     }
@@ -115,7 +119,8 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
         <div className={"question-wrapper"} key={currentQuestion}>
             <div className="question-header-wrapper">
                 <h1>{question.questionText}</h1>
-                {question.type === 3 ? <span className="multiple-correct-answers">NOTE: This question has multiple correct answers. Wrong answers give negative credit.</span> : null}
+                {question.type === 3 ?
+                    <span className="multiple-correct-answers">NOTE: This question has multiple correct answers. Wrong answers give negative credit.</span> : null}
             </div>
             {
                 getCenterContent()

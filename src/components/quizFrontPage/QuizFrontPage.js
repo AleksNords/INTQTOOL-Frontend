@@ -14,7 +14,8 @@ export default function QuizFrontPage({title, description, quizLength, startQuiz
     return (
         <div className={"quiz-frontpage"}>
             <div className={"quiz-frontpage-top-content"}>
-                <img className={"quiz-frontpage-header-img"} alt={"Quiz title icon"} src={"/studier_IDI_GeirMogen.jpg"}/>
+                <img className={"quiz-frontpage-header-img"} alt={"Quiz title icon"}
+                     src={"/studier_IDI_GeirMogen.jpg"}/>
                 <div className={"quiz-frontpage-info-wrapper"}>
                     <h1 className={"quiz-frontpage-header"}>{title}</h1>
                     <h2>This quiz has {quizLength} Questions</h2>
@@ -23,7 +24,8 @@ export default function QuizFrontPage({title, description, quizLength, startQuiz
                 </div>
             </div>
 
-            <Button variant={"contained"} className={"start-quiz-button"} onClick={()=>startQuiz(0)}>Start quiz</Button>
+            <Button variant={"contained"} className={"start-quiz-button"} onClick={() => startQuiz(0)}>Start
+                quiz</Button>
 
         </div>
 

@@ -46,7 +46,7 @@ cache.getAll().then((data) => {
     const store = createStore(
         reducer,
         data,
-        compose(applyMiddleware(persistUser,persistLoginStatus)));
+        compose(applyMiddleware(persistUser, persistLoginStatus)));
 
 
     ReactDOM.render(

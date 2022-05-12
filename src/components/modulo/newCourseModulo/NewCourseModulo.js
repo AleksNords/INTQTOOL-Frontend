@@ -9,11 +9,11 @@ import Button from "@mui/material/Button";
  * @param submitNewCourse function used to send the course to the backennd
  * @returns modulo used to create a new course
  */
-export default function NewCourseModulo({setShowNewCourseModulo,submitNewCourse}){
+export default function NewCourseModulo({setShowNewCourseModulo, submitNewCourse}) {
 
     const [newCourse, setNewCourse] = useState({
-        name:"",
-        description:""
+        name: "",
+        description: ""
     });
 
     /**
@@ -25,39 +25,39 @@ export default function NewCourseModulo({setShowNewCourseModulo,submitNewCourse}
             setShowNewCourseModulo(false);
         }
     };
-    useEffect(()=>{
+    useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     })
 
-    return(
+    return (
         <div className={"new-course-modulo"}>
             <div className={"new-course-input-fields"}>
                 <TextField size={"small"} label={"Name"}
                            InputLabelProps={{style: {fontSize: 11, color: "black"}}}
                            InputProps={{style: {fontSize: 11}}}
-                           onChange={(elem)=>{
+                           onChange={(elem) => {
                                let temp = newCourse;
                                temp.name = elem.target.value;
                                setNewCourse(temp);
                            }}
                            inputProps={{
                                style: {
-                                   width:"15rem"
+                                   width: "15rem"
                                }
                            }}
-                           />
+                />
                 <TextField label={"Description"}
                            multiline
                            inputProps={{
                                style: {
                                    height: "7rem",
-                                   width:"20rem",
+                                   width: "20rem",
                                },
                            }}
-                           onChange={(elem)=>{
+                           onChange={(elem) => {
                                let temp = newCourse;
                                temp.description = elem.target.value;
                                setNewCourse(temp);
@@ -65,7 +65,10 @@ export default function NewCourseModulo({setShowNewCourseModulo,submitNewCourse}
                            InputLabelProps={{style: {fontSize: 11, color: "black"}}}
                            InputProps={{style: {fontSize: 11}}}/>
             </div>
-            <Button onClick={()=>{submitNewCourse(newCourse); setShowNewCourseModulo(false)}} variant={"contained"}>Create course</Button>
+            <Button onClick={() => {
+                submitNewCourse(newCourse);
+                setShowNewCourseModulo(false)
+            }} variant={"contained"}>Create course</Button>
         </div>
     )
 }

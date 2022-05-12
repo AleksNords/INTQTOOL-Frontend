@@ -41,26 +41,29 @@ export default function Navbar() {
      * Updates notifications based on incoming data
      * @param data received from notification websocket
      */
-    function onMessageReceived(data){
+    function onMessageReceived(data) {
         dispatch(setNotifications({
-            notifications:data
+            notifications: data
         }))
     }
 
     return (
         <div className="navbar">
             {isLogged.isLogged === true ? (<>
-                <WebSocketClient props={{jwtToken:isLogged.jwtToken,topic:"/topic/notifications"}} autoReconnect={true} onMessageReceived={onMessageReceived}/>
+                <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/notifications"}}
+                                 autoReconnect={true} onMessageReceived={onMessageReceived}/>
                 <div className="navLinks">
-                    <span onClick={()=>navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
-                    <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>
-                    <span onClick={()=>navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}} />My Courses</span>
+                    <span onClick={() => navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
+                    <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem
+                             className={"vertical-divider"}/>
+                    <span onClick={() => navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}}/>My Courses</span>
                     {/*<Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>*/}
                     {/*<span><SettingsIcon sx={{fontSize: 40}}/>Settings</span>*/}
                     {
                         (user.user.roles && user.user.roles.includes("ROLE_ADMIN")) ?
                             (
-                                <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>
+                                <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem
+                                         className={"vertical-divider"}/>
                             )
                             :
                             null
@@ -68,7 +71,8 @@ export default function Navbar() {
                     {
                         (user.user.roles && user.user.roles.includes("ROLE_ADMIN")) ?
                             (
-                                <span onClick={()=>navigate("/admintools")}><AdminPanelSettingsIcon sx={{fontSize: 40}}/>Admin tools</span>
+                                <span onClick={() => navigate("/admintools")}><AdminPanelSettingsIcon
+                                    sx={{fontSize: 40}}/>Admin tools</span>
                             )
                             :
                             null
@@ -77,8 +81,12 @@ export default function Navbar() {
                 <div className="personalLinks">
                     <div><NotificationBell/></div>
                     <span>{user.user.firstName}</span>
-                    <Tooltip title={<span className="logout-tooltip">Log out</span>}><LogoutRoundedIcon sx={{fontSize: 45}} onClick={logout}/></Tooltip>
-                </div></>) : <img className="ntnu-logo" alt={"NTNU logo"} src="./ntnu_logo_hvit.png" onClick={()=>{navigate("/");}}/>}
+                    <Tooltip title={<span className="logout-tooltip">Log out</span>}><LogoutRoundedIcon
+                        sx={{fontSize: 45}} onClick={logout}/></Tooltip>
+                </div>
+            </>) : <img className="ntnu-logo" alt={"NTNU logo"} src="./ntnu_logo_hvit.png" onClick={() => {
+                navigate("/");
+            }}/>}
         </div>
     )
 }

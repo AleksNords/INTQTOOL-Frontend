@@ -2,7 +2,7 @@ import './App.css';
 import React, {useState} from 'react';
 import Navbar from "./components/navbar/Navbar";
 import Login from "./components/modulo/login/Login";
-import {Route,Routes} from "react-router";
+import {Route, Routes} from "react-router";
 import {useSelector} from "react-redux";
 import Home from "./pages/home/Home";
 import SignUp from "./components/modulo/signup/SignUp";
@@ -25,13 +25,13 @@ import UserGuideModulo from "./components/modulo/userGuideModulo/UserGuideModulo
 
 export default function App() {
     const isLogged = useSelector(state => state.isLoggedReducer);
-    const [showUserGuide,setShowUserGuide] = useState(false);
+    const [showUserGuide, setShowUserGuide] = useState(false);
 
     return (
         <div className="App">
             <Navbar/>
             {
-                (showUserGuide===true) ?
+                (showUserGuide === true) ?
                     <UserGuideModulo setShowModulo={setShowUserGuide}/>
                     :
                     null
@@ -60,7 +60,10 @@ export default function App() {
 
 
             </div>
-            <div className={"display-help-button"}><Tooltip title={<span className={"user-guide-tooltip"}>User-Guide</span>} ><Fab onClick={()=>setShowUserGuide(!showUserGuide)} variant={"circular"} color={"primary"} size={"large"}><QuestionMarkRoundedIcon sx={{color: "white",fontSize:"4rem"}}/></Fab></Tooltip></div>
+            <div className={"display-help-button"}><Tooltip
+                title={<span className={"user-guide-tooltip"}>User-Guide</span>}><Fab
+                onClick={() => setShowUserGuide(!showUserGuide)} variant={"circular"} color={"primary"}
+                size={"large"}><QuestionMarkRoundedIcon sx={{color: "white", fontSize: "4rem"}}/></Fab></Tooltip></div>
         </div>
     );
 }

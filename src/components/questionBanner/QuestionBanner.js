@@ -11,34 +11,44 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
  * @param addQuestion function used to add a question
  * @returns banner element used for navigating quizzes
  */
-export default function QuestionBanner({quizLength,currentQuestion,setCurrentQuestion, isNewQuizBanner, addQuestion}){
+export default function QuestionBanner({
+                                           quizLength,
+                                           currentQuestion,
+                                           setCurrentQuestion,
+                                           isNewQuizBanner,
+                                           addQuestion
+                                       }) {
 
     let questionsDivs = [];
 
     //Adding all the questions to an array for navigation
-    for (let i=0;i<quizLength;i++){
-        if(i === currentQuestion){
+    for (let i = 0; i < quizLength; i++) {
+        if (i === currentQuestion) {
             questionsDivs.push(
-                <div key={"question" + i+1} className={"question-banner-item question-banner-current-item"}>
-                    <h1>{i+1}</h1>
+                <div key={"question" + i + 1} className={"question-banner-item question-banner-current-item"}>
+                    <h1>{i + 1}</h1>
                 </div>
             )
-        }else{
+        } else {
             questionsDivs.push(
-                <div key={"question" + i+1} className={"question-banner-item"} onClick={()=>{setCurrentQuestion(i)}}>
-                    <h1>{i+1}</h1>
+                <div key={"question" + i + 1} className={"question-banner-item"} onClick={() => {
+                    setCurrentQuestion(i)
+                }}>
+                    <h1>{i + 1}</h1>
                 </div>
             )
         }
     }
 
-    return(
+    return (
         <div className={"question-banner-container"}>
             {
-                questionsDivs.map((questionDiv)=>questionDiv)
+                questionsDivs.map((questionDiv) => questionDiv)
 
             }
-            {isNewQuizBanner ? <div onClick={()=> addQuestion()} className={"question-banner-plus-item"}><AddRoundedIcon className="plus-icon" sx={{fontSize: 50}}/></div> : null}
+            {isNewQuizBanner ?
+                <div onClick={() => addQuestion()} className={"question-banner-plus-item"}><AddRoundedIcon
+                    className="plus-icon" sx={{fontSize: 50}}/></div> : null}
         </div>
     )
 }

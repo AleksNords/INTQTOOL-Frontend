@@ -27,7 +27,7 @@ export default function Notifications() {
         if (notifications.notifications.length >= 1) {
 
             dispatch(setNotifications({
-                notifications:[]
+                notifications: []
             }))
             setNotifications([])
             axios({
@@ -46,15 +46,17 @@ export default function Notifications() {
      */
     function deleteNotification(notificationID) {
         let temp = notifications;
-        temp.notifications = temp.notifications.filter(notification => {return notification.notificationID !== notificationID});
+        temp.notifications = temp.notifications.filter(notification => {
+            return notification.notificationID !== notificationID
+        });
         dispatch(setNotifications({
-            notifications:temp.notifications
+            notifications: temp.notifications
         }))
         setNotifications(temp.notifications);
 
         axios({
             method: "get",
-            url: process.env.REACT_APP_URL + "/user/removenotification/"+notificationID,
+            url: process.env.REACT_APP_URL + "/user/removenotification/" + notificationID,
             headers: {
                 "Authorization": "Bearer " + isLogged.jwtToken
             }
@@ -65,13 +67,17 @@ export default function Notifications() {
         <div className="notifications-page">
             <div className="notification-title-wrapper">
                 <h1 className="notifications-title">Notifications ({notifications.notifications.length})</h1>
-                <Button onClick={clearNotifications} sx={{fontSize: 14}} className="clear-notification-button" variant="contained" startIcon={<DeleteIcon/>}>Clear</Button>
+                <Button onClick={clearNotifications} sx={{fontSize: 14}} className="clear-notification-button"
+                        variant="contained" startIcon={<DeleteIcon/>}>Clear</Button>
             </div>
             <Divider className="main-divider" color="#1C5BA5"/>
             <div className="notification-wrapper">
-                {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification)=> {
+                {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification) => {
                         //notification = JSON.parse(notification);
-                        return (<FullSizeNotification key={notification.notificationID} deleteNotificationFunction={deleteNotification} notification={notification}/>)}))
+                        return (<FullSizeNotification key={notification.notificationID}
+                                                      deleteNotificationFunction={deleteNotification}
+                                                      notification={notification}/>)
+                    }))
                     : <div className="no-notifications-big">
                         <NotificationsIcon className="grey-bell" sx={{fontSize: 250}}/>
                         <span className="nothing-to-see">Nothing to see here</span>
