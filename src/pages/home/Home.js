@@ -43,7 +43,7 @@ export default function Home() {
      */
     function updateQuizAnswers() {
         let urlPath;
-        if (user.user.roles.includes("ROLE_ADMIN") || user.user.roles.includes("ROLE_TEACHER")) {
+        if (user.user && user.user.roles && (user.user.roles.includes("ROLE_ADMIN") || user.user.roles.includes("ROLE_TEACHER"))) {
             urlPath = "/quiz/expiredquizzes"
         } else {
             urlPath = "/user/archivedquizzes"

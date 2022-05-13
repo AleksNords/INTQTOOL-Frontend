@@ -24,13 +24,10 @@ export default function Question({question, currentQuestion, setAnswer, currAns}
 
     }
 
-    console.log("currAns", currAns)
-    console.log(checkedAnswers)
-
     useEffect(() => {
         if (currAns !== undefined && question.type !== 2) {
             setCheckedAnswersArray(currAns.answer.split(",").map(id => parseInt(id)))
-            console.log(currAns)
+
         }
     }, [currAns])
 
