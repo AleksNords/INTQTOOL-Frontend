@@ -29,7 +29,7 @@ function QuizCard({title, progression, quizId, status, userNavigateTo, grading, 
 
                 {progression !== undefined ? (<span className={"quizcard-subtext-span"}><p
                         className={"quizcard-question-amnt"}>{quizLength} Questions</p><p
-                        className={"quizcard-continue"}>{user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_TEACHER") ? "grade" : "start"} →</p></span>)
+                        className={"quizcard-continue"}>{user.roles && (user.roles.includes("ROLE_ADMIN") || user.roles.includes("ROLE_TEACHER")) ? "grade" : "start"} →</p></span>)
                     : (status !== undefined) ? (<span className={"quizcard-subtext-span"}><h3
                         className={"quizcard-status"}>Status: {status} {status === "graded" && grading ? grading : null}</h3><p
                         className={"quizcard-continue"}>show →</p></span>) : null

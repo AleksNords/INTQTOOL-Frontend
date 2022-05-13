@@ -51,9 +51,12 @@ export default function NewQuiz() {
         }).then((response) => {
             if (response.status === 200) {
                 let temp = response.data;
+                console.log(response.data);
+
                 temp.quiz = JSON.parse(temp.quiz);
                 if (temp.quiz.questions.length >= 1) {
                     setQuestions(temp.quiz.questions.map((question) => {
+
                         let tempQuestion = JSON.parse(question);
                         tempQuestion.hints = [];
                         tempQuestion.alternatives = tempQuestion.alternatives.map((alternative) => JSON.parse(alternative));
@@ -75,8 +78,10 @@ export default function NewQuiz() {
     function submitQuiz() {
         convertMultipleCorrectAnswers();
         let temp = quiz;
-        temp.quiz.questions = questions;
-        temp.quiz.quizLength = questions.length;
+        if(questions){
+            temp.quiz.questions = questions;
+            temp.quiz.quizLength = questions.length;
+        }
         delete temp.quiz.author;
         setQuiz(temp);
         axios({

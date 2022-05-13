@@ -32,19 +32,21 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
 
     let ungradedAnswers = [];
     let gradedAnswers = [];
+    if(answers){
+        for (let i = 0; i < answers.length; i++) {
 
-    for (let i = 0; i < answers.length; i++) {
-
-        if (answers[i].status !== "graded") {
-            ungradedAnswers.push(<AnswerCard isGraded={false}
-                                             setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
-                                             setCheckedFunction={setChecked}/>);
-        } else {
-            gradedAnswers.push(<AnswerCard isGraded={true}
-                                           setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
-                                           setCheckedFunction={setChecked}/>);
+            if (answers[i].status !== "graded") {
+                ungradedAnswers.push(<AnswerCard isGraded={false}
+                                                 setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
+                                                 setCheckedFunction={setChecked}/>);
+            } else {
+                gradedAnswers.push(<AnswerCard isGraded={true}
+                                               setCurrentAnswerFunction={setCurrentAnswerFunction} answer={answers[i]}
+                                               setCheckedFunction={setChecked}/>);
+            }
         }
     }
+
 
     const handleCloseSnackbar = () => {
         setShowAnswerGraded(false);
@@ -116,7 +118,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
             </Snackbar>
             <div className="answer-list-header">
                 <h1 key={answers + answers.length} className="answer-list-title answer-list-header-item">Student answers
-                    ({answers.length > 0 ? answers.length : 0})</h1>
+                    ({answers && answers.length > 0 ? answers.length : 0})</h1>
                 <TextField className="answer-list-header-item"
                            key={answers + currentQuestion + 1}
                            label={<div><SearchIcon sx={{fontSize: 20}}/>Search</div>}
