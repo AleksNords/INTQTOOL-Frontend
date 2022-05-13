@@ -117,8 +117,8 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
                 </Alert>
             </Snackbar>
             <div className="answer-list-header">
-                <h1 key={answers + answers.length} className="answer-list-title answer-list-header-item">Student answers
-                    ({answers && answers.length > 0 ? answers.length : 0})</h1>
+                <h1 key={answers.length ? (answers + answers.length):null} className="answer-list-title answer-list-header-item">Student answers
+                    ({answers.length && answers.length > 0 ? answers.length : 0})</h1>
                 <TextField className="answer-list-header-item"
                            key={answers + currentQuestion + 1}
                            label={<div><SearchIcon sx={{fontSize: 20}}/>Search</div>}
@@ -129,7 +129,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
                            }}/>
             </div>
             {
-                answers.length > 0 ?
+                answers.length && answers.length > 0 ?
                     <span className="selected-amount">{checkedAnswers.length} selected </span>
                     : null
             }
