@@ -104,6 +104,7 @@ export default function GradingQuiz() {
         let tempAnswers = data;
         tempAnswers.content = JSON.parse(tempAnswers.content).map(question => question.map(ans => JSON.parse(ans)));
         setAnswers(tempAnswers.content)
+        console.log(tempAnswers.content)
         setLoading(false)
     }
 
@@ -162,10 +163,15 @@ export default function GradingQuiz() {
                         : null}
 
                 </div>
-                <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
-                            currentQuestion={currentQuestion}
-                            answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
-                            question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
+                {
+                    answers[currentQuestion] ? (
+                        <AnswerList gradeFunction={gradeAnswers} setCurrentAnswerFunction={setCurrentAnswer}
+                                    currentQuestion={currentQuestion}
+                                    answers={quiz.quiz && quiz.quiz.questions[currentQuestion].type === 2 ? answers[currentQuestion] : {}}
+                                    question={quiz.quiz ? quiz.quiz.questions[currentQuestion] : undefined}/>
+                    ): null
+                }
+
             </div>
         </div>
     )
