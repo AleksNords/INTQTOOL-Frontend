@@ -61,13 +61,12 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
         if (isChecked) {
             let temp = checkedAnswers;
             temp.push(answers.find((ans) => ans.id === answerId));
-            setCheckedAnswers(temp);
+            setCheckedAnswers([...temp]);
         } else {
             let temp = checkedAnswers;
             temp.splice(checkedAnswers.findIndex((ans) => ans.id === answerId), 1);
-            setCheckedAnswers(temp);
+            setCheckedAnswers([...temp]);
         }
-
         if (checkedAnswers.length > 0) {
             setShowToolbar(true);
         } else {
@@ -118,7 +117,7 @@ export default function AnswerList({answers, setCurrentAnswerFunction, currentQu
             </Snackbar>
             <div className="answer-list-header">
                 <h1 key={answers.length ? (answers + answers.length):null} className="answer-list-title answer-list-header-item">Student answers
-                    ({answers.length && answers.length > 0 ? answers.length : 0})</h1>
+                    ({answers.length && answers.length > 0 ? checkedAnswers.length : 0})</h1>
                 <TextField className="answer-list-header-item"
                            key={answers + currentQuestion + 1}
                            label={<div><SearchIcon sx={{fontSize: 20}}/>Search</div>}
