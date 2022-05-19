@@ -62,8 +62,9 @@ export default function App() {
             </div>
             <div className={"display-help-button"}><Tooltip
                 title={<span className={"user-guide-tooltip"}>User-Guide</span>}><Fab
+                aria-label={"User guide"}
                 onClick={() => setShowUserGuide(!showUserGuide)} variant={"circular"} color={"primary"}
-                size={"large"}><QuestionMarkRoundedIcon sx={{color: "white", fontSize: "4rem"}}/></Fab></Tooltip></div>
+                size={"large"}><QuestionMarkRoundedIcon aria-label={"User guide"} sx={{color: "white", fontSize: "4rem"}}/></Fab></Tooltip></div>
         </div>
     );
 }

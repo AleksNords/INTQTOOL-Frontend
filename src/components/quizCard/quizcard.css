@@ -26,6 +26,16 @@
 .quizcard-img-wrapper{
     height:15rem;
 }
+.quiz-card-edit-tooltip{
+    font-size: 2rem;
+
+}
+.quiz-card-edit-quiz-icon{
+    position: absolute;
+    left: 90%;
+    top: 5%;
+    z-index: 1;
+}
 
 .quizcard-info-wrapper{
     width:36rem;

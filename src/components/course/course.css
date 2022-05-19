@@ -17,5 +17,16 @@
 
 .course-info{
     margin:0 1rem;
+    font-size: 2rem;
+    width: 25rem;
+}
+
+.course-list-item-description{
+    font-size: 1.5rem;
+    max-width: 50rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
