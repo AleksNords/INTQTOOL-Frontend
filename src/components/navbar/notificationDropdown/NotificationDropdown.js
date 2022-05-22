@@ -9,14 +9,17 @@ import {useNavigate} from "react-router";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import axios from 'axios';
 import {setNotifications} from "../../../store/action/notificationAction";
+import {Collapse, Grow, Slide} from "@mui/material";
+import { TransitionGroup } from 'react-transition-group';
 
 /**
  * Notification drawer housing all the user notifications
  * @param clearParentNotifications function used to clear the notifications
  * @param setShowFunction function used to show and hide the drawer
+ * @param bellRef reference to bell element
  * @returns drop down drawer containing all the users notifications
  */
-export default function NotificationDropDown({clearParentNotifications, setShowFunction}) {
+export default function NotificationDropDown({clearParentNotifications, setShowFunction, bellRef}) {
 
 
     let ref = useRef();
@@ -61,13 +64,15 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
     }
 
     const handleClickOutside = (event) => {
-        if (ref.current && !ref.current.contains(event.target) && event.target.tagName !== "path") {
+        if (ref.current && !ref.current.contains(event.target) && !bellRef.current.contains(event.target)) {
             setShowFunction(false);
         }
     };
 
     useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', e => {
+            handleClickOutside(e);
+        });
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -76,33 +81,35 @@ export default function NotificationDropDown({clearParentNotifications, setShowF
 
     //TODO: slide animation on removing notification
     return (
-        <div ref={ref} className="notifications">
-            <div className="notification-header">
+        <Grow in={setShowFunction} style={{ transformOrigin: '100% 0 0' }}>
+            <div ref={ref} className="notifications">
+                <div className="notification-header">
                 <span
                     className="amount-text">{(notifications.notifications.length === 0 || !notifications) ? "No notifications" : (notifications.notifications.length === 1) ? "1 Notification" : notifications.notifications.length + " notifications"}</span>
-                <Button sx={{fontSize: 14}} className="clear-button" variant="outlined" startIcon={<DeleteIcon/>}
-                        onClick={clearNotifications}>Clear</Button></div>
-            <Divider color="#ffffff"/>
-            <div className={"notification-dropdown-list-wrapper"}>
-                {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification) => {
-                        //notification = JSON.parse(notification);
+                    <Button sx={{fontSize: 14}} className="clear-button" variant="outlined" startIcon={<DeleteIcon/>}
+                            onClick={clearNotifications}>Clear</Button></div>
+                <Divider color="#ffffff"/>
+                <div className={"notification-dropdown-list-wrapper"}>
+                    {(notifications.notifications.length >= 1) ? (notifications.notifications.map((notification) => {
+                            //notification = JSON.parse(notification);
 
-                        return (<div><Notification key={"notificationDropdown-" + notification.notificationID}
-                                                   deleteNotificationFunction={deleteNotification}
-                                                   notification={notification}/><Divider color="#ffffff"/></div>)
-                    }))
-                    : <div className="no-notifications">
-                        <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
-                        <span>Nothing to see here</span>
-                        <span id="no-notifications-subtext">Your notifications will appear here</span>
-                    </div>}
+                            return (<div><Notification key={"notificationDropdown-" + notification.notificationID}
+                                                              deleteNotificationFunction={deleteNotification}
+                                                              notification={notification}/><Divider color="#ffffff"/></div>)
+                        }))
+                        :
+                        <div className="no-notifications">
+                            <NotificationsIcon className="dark-bell" sx={{fontSize: 140}}/>
+                            <span>Nothing to see here</span>
+                            <span id="no-notifications-subtext">Your notifications will appear here</span>
+                        </div>}
+                </div>
+                <p onClick={() => {
+                    setShowFunction(false);
+                    navigate("/notifications");
+                }} className="all-notifications">See all</p>
             </div>
-            <p onClick={() => {
-                setShowFunction(false);
-                navigate("/notifications");
-            }} className="all-notifications">See all</p>
+        </Grow>
 
-
-        </div>
     )
 }

@@ -12,7 +12,8 @@ import NotificationBell from './notificationBell/NotificationBell';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import WebSocketClient from "../websocketClient/WebSocketClient";
 import {setNotifications} from "../../store/action/notificationAction";
-import {Tooltip} from "@mui/material";
+import {IconButton, Tooltip} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 /**
  * Main navigation bar for the application. Houses numerous functions like navigation, user notifications and logout controls
@@ -53,10 +54,10 @@ export default function Navbar() {
                 <WebSocketClient props={{jwtToken: isLogged.jwtToken, topic: "/topic/notifications"}}
                                  autoReconnect={true} onMessageReceived={onMessageReceived}/>
                 <div className="navLinks">
-                    <span onClick={() => navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
+                    <span className="navlink" onClick={() => navigate("/")}><HomeIcon sx={{fontSize: 40}}/>Home</span>
                     <Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem
                              className={"vertical-divider"}/>
-                    <span onClick={() => navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}}/>My Courses</span>
+                    <span className="navlink" onClick={() => navigate("/mycourses")}><CreateIcon sx={{fontSize: 40}}/>My Courses</span>
                     {/*<Divider sx={{backgroundColor: "#ffffff"}} orientation="vertical" flexItem className={"vertical-divider"}/>*/}
                     {/*<span><SettingsIcon sx={{fontSize: 40}}/>Settings</span>*/}
                     {
@@ -71,7 +72,7 @@ export default function Navbar() {
                     {
                         (user.user.roles && user.user.roles.includes("ROLE_ADMIN")) ?
                             (
-                                <span onClick={() => navigate("/admintools")}><AdminPanelSettingsIcon
+                                <span className="navlink" onClick={() => navigate("/admintools")}><AdminPanelSettingsIcon
                                     sx={{fontSize: 40}}/>Admin tools</span>
                             )
                             :
@@ -81,8 +82,11 @@ export default function Navbar() {
                 <div className="personalLinks">
                     <div><NotificationBell/></div>
                     <span>{user.user.firstName}</span>
-                    <Tooltip title={<span className="logout-tooltip">Log out</span>}><LogoutRoundedIcon
-                        sx={{fontSize: 45}} onClick={logout}/></Tooltip>
+                    <Tooltip title={<span className="logout-tooltip">Log out</span>}>
+                        <IconButton sx={{":hover": {backgroundColor: "unset"}}} aria-label="log out" onClick={logout}>
+                            <LogoutRoundedIcon sx={{fontSize: 45, color: "white"}}/>
+                        </IconButton>
+                        </Tooltip>
                 </div>
             </>) : <img className="ntnu-logo" alt={"NTNU logo"} src="./ntnu_logo_hvit.png" onClick={() => {
                 navigate("/");
